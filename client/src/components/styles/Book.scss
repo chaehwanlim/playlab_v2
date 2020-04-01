@@ -1,0 +1,69 @@
+@import './Colors.scss';
+
+.book {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  box-shadow: 0 8px 38px rgba(133, 133, 133, 0.3), 0 5px 12px rgba(133, 133, 133,0.22);
+  font-size: 1.7rem;
+  padding-right: 1rem;
+  padding-bottom: 1.5rem;
+  transition: 0.5s;
+  &:hover {
+    transform: scale(1.03);
+    transition: 0.5s;
+  }
+  
+  .bookCoverAlign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .bookCover {
+      width: 80%;
+      height: auto;
+      max-width: 15rem;
+      box-shadow: 0 8px 38px rgba(133, 133, 133, 0.3), 0 5px 12px rgba(133, 133, 133,0.22);
+      margin-top: -1.5rem;
+    }
+
+    .bookLikes {
+      font-size: 1.4rem;
+      color: white;
+      padding: 0rem 1rem 0rem 1rem;
+      margin-top: 1.2rem;
+      background: $bookGreen;
+    }
+
+  }
+
+  .bookTitle {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-top: 1rem;
+  }
+
+  .bookInfo {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: slategrey;
+    margin-top: 0.7rem;
+  }
+
+  .bookCategory {
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .bookDesc {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 1rem;
+    padding-left: 1rem;
+  }
+
+}

@@ -1,0 +1,49 @@
+@import './Colors.scss';
+
+.loginCard{
+  margin-top: 2rem;
+  font-size: 1.7rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  .subtitle {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 1.5rem 1.5rem;
+  }
+
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+  
+    .submitButton  {
+      background: transparent;
+      font-size: 2rem;
+      color: white;
+      margin-top: 3rem;
+      transition: 0.5s;
+      &:hover {
+        transform: scale(1.1);
+        transition: 0.5s;
+      }
+    }
+
+    #login {
+      background: $login;
+      box-shadow: $loginShadow;
+    }
+    #register {
+      background: $register;
+      box-shadow: $registerShadow;
+    }
+
+  }
+  
+
+}
+
+

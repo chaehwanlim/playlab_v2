@@ -1,0 +1,32 @@
+.background {
+  background: url('./background2.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .title {
+    color: white;
+    text-align: center;
+    position: relative;
+    top: 30rem;
+    font-size: 8rem;
+    font-family: Samsung;
+  }
+
+  .subtitle {
+    color: white;
+    position: relative;
+    top: 35rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+}

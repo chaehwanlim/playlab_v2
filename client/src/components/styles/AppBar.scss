@@ -1,0 +1,25 @@
+.appBar {
+  flex-grow: 1;
+
+  .appBarBackground {
+    background: transparent;
+    position: fixed;
+    box-shadow: none;
+    filter: brightness(95%);
+    -webkit-filter: brightness(95%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    .title {
+      flex-grow: 1;
+      position: flex;
+      font-family: Samsung;
+      font-size: 2rem;
+      font-weight: 900;
+
+      .link {
+        text-decoration: none;
+      }
+    }
+  }
+}
