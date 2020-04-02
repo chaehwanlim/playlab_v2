@@ -8,77 +8,78 @@ import Axios from 'axios';
 import './styles/Content.scss';
 import './styles/Login.scss';
 
+interface User {
+  userName: string;
+  userPassword: string;
+}
 
-export default function Login() {
-    const [login, setLogin] = useState({
+const Login: React.FC = () => {
+    const [login, setLogin] = useState<User>({
         userName: "",
         userPassword: "",
     })
-    const [register, setRegister] = useState({
+    const [register, setRegister] = useState<User>({
         userName: "",
         userPassword: "",
     });
 
-    const InputProps = { style: { fontSize: '2rem' } };
-    const InputLabelProps = { style: { fontSize: '1.7rem', color: 'primary' } }
-    const InputLabelProps2 = { style: { fontSize: '1.7rem', color: "secondary" } }
+    const InputProps: object = { style: { fontSize: '2rem' } };
+    const InputLabelProps: object = { style: { fontSize: '1.7rem', color: 'primary' } }
+    const InputLabelProps2: object = { style: { fontSize: '1.7rem', color: "secondary" } }
 
-    const handleLoginInput = (e) => {
-        e.preventDefault();
-        let nextState = login;
-        nextState[e.target.name] = e.target.value;
-        setLogin(nextState);
+    const handleLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+      let nextState = login;
+      nextState[e.target.name] = e.target.value;
+      setLogin(nextState);
     }
     const handleLoginSubmit = (e) => {
-        e.preventDefault();
-        loginProcess();
+      e.preventDefault();
+      loginProcess();
     }
     const loginProcess = () => {
-        Axios({
-            method: 'post',
-            url: '/api/login_process',
-            data: {
-                userName: login.userName,
-                userPassword: login.userPassword
-            }
-        })
-        .then((res) => {
-            alert('로그인을 성공했습니다!');
-            if (res.data.code === 200) {
-                console.log(res.data)
-                /* store.dispatch({ type: 'LOGINED', userName: login.userName }); */
-                sessionStorage.setItem('userName', login.userName);
-                sessionStorage.setItem('userID', res.data.userID);
-            }
-            window.location.assign('/MyPage');
-        })
-        .catch((err) => console.log(err));
+      Axios({
+        method: 'post',
+        url: '/api/login_process',
+        data: {
+          userName: login.userName,
+          userPassword: login.userPassword
+        }
+      })
+      .then((res) => {
+        alert('로그인을 성공했습니다!');
+        if (res.data.code === 200) {
+          /* store.dispatch({ type: 'LOGINED', userName: login.userName }); */
+          sessionStorage.setItem('userName', login.userName);
+          sessionStorage.setItem('userID', res.data.userID);
+        }
+        window.location.assign('/MyPage');
+      })
+      .catch((err) => console.log(err));
     }
 
     //////Register
-    const handleRegisterInput = (e) => {
-        e.preventDefault();
-        let nextState = register;
-        nextState[e.target.name] = e.target.value;
-        setRegister(nextState);
+    const handleRegisterInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+      let nextState = register;
+      nextState[e.target.name] = e.target.value;
+      setRegister(nextState);
     }
 
     const handleRegisterSubmit = (e) => {
-        e.preventDefault();
-        registerProcess();
+      e.preventDefault();
+      registerProcess();
     }
 
     const registerProcess = () => {
-        Axios({
-            method: 'post',
-            url: '/api/register',
-            data: {
-                userName: register.userName,
-                userPassword: register.userPassword
-            }
-        })
-        .then((res) => alert('회원가입을 축하드립니다!'))
-        .catch((err) => console.log(err));
+      Axios({
+        method: 'post',
+        url: '/api/register',
+        data: {
+          userName: register.userName,
+          userPassword: register.userPassword
+        }
+      })
+      .then((res) => alert('회원가입을 축하드립니다!'))
+      .catch((err) => console.log(err));
     }
 
     return (
@@ -151,3 +152,5 @@ export default function Login() {
 
     )
 }
+
+export default Login;

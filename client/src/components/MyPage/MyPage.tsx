@@ -15,24 +15,40 @@ import Footer from '../footer';
 import '../styles/Content.scss';
 import '../styles/MyPage.scss';
 
+interface Content {
+  component: JSX.Element;
+  subtitle: JSX.Element;
+}
 
-export default function MyPage() {
-  const musicContent = {
+interface UserInfo {
+  userID: number;
+  userName: string;
+  description: string;
+  userPassword: string;
+}
+
+const MyPage: React.FC = () => {
+  const musicContent: Content = {
     component: <MyMusic />, 
     subtitle: <div className="myPageSubtitle" id="myPageMusicSub">내가 추가한 음악 관리하기</div>
   };
-  const movieContent = {
+  const movieContent: Content = {
     component: <MyMovie />,
     subtitle: <div className="myPageSubtitle" id="myPageMovieSub">내가 추가한 영화 관리하기</div>
   };
-  const bookContent = {
+  const bookContent: Content = {
     component: <MyBook />, 
     subtitle: <div className="myPageSubtitle" id="myPageBookSub">내가 추가한 책 관리하기</div>
   };
 
-  const [user, setUser] = useState('');
-  const [userInfo, setUserInfo] = useState({});
-  const [content, setContent] = useState(movieContent);
+  const [user, setUser] = useState<string>('');
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    userID: 0,
+    userName: '',
+    description: '',
+    userPassword: ''
+  });
+  const [content, setContent] = useState<Content>(movieContent);
 
   useEffect(() => {
     if(sessionStorage.userName){
@@ -46,22 +62,21 @@ export default function MyPage() {
         userName: sessionStorage.userName
       }
     })
-    .then(res => setUserInfo(res.data[0]))
-    .catch(err => console.log(err));
+    .then((res) => setUserInfo(res.data[0]))
+    .catch((err) => console.log(err));
   }, []);
 
   const handleLogout = () => {
     sessionStorage.removeItem('userName');
     sessionStorage.removeItem('userID');
-    setUser('');
     Axios({
       method:'get',
       url: '/api/logout',
       data: {'logout' : true}
     })
-    .then(alert('로그아웃 했습니다.'))
-    .then(setUser(''))
-    .catch(err => console.log(err));
+    .then(() => alert('로그아웃 했습니다.'))
+    .then(() => setUser(''))
+    .catch((err) => console.log(err));
   }
   
   const myPage = () => {
@@ -116,3 +131,5 @@ export default function MyPage() {
     </div>
   )
 }
+
+export default MyPage;

@@ -8,20 +8,21 @@ import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
+import '../Work.tsx';
 
 
-export default function Mybook(props) {
-  const [myBook, setMyBook] = useState([]);
+const MyMovie: React.FC = () => {
+  const [myMovie, setMyMovie] = useState<Array<Movie>>([]);
 
   const getDB = () => {
     Axios({
       method: 'post',
-      url: '/api/myPage/book',
+      url: '/api/myPage/movie',
       data: {
         userName: sessionStorage.userName
       }
     })
-    .then(res => setMyBook(res.data))
+    .then(res => setMyMovie(res.data))
     .catch(err => console.log(err));
   }
 
@@ -29,20 +30,20 @@ export default function Mybook(props) {
     getDB();
   }, []);
 
-  const handleDeletion = (id) => {
-    console.log(id);
+  const handleDeletion = (id: number) => {
     const urlWithID = `/api/myPage/delete/${id}`;
+
     Axios({
       method: 'DELETE',
       url: urlWithID,
     })
-    .then(res => {
+    .then((res) => {
       if(res.status === 200){
         alert('정상적으로 삭제되었습니다');
         getDB();
       }
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
   }
 
   return (
@@ -50,19 +51,20 @@ export default function Mybook(props) {
       <TableContainer className="tableContainer">
       <Table stickyHeader aria-label="sticky table">
         <TableBody>
-        {myBook ? myBook.map((datum, index) => {
+        {myMovie ? myMovie.map((datum, index) => {
         return (
           <TableRow>
             <TableCell className="tableData">
-                <span className="title">{datum.title}</span><br></br>{datum.author}
+                <span className="title">{datum.title}</span><br></br>{datum.director}
+                <br></br>{datum.actor}
             </TableCell>
             <TableCell className="tableData" style={{minWidth:"12rem"}}>
-              {datum.categoryName} 책
+              {datum.categoryName} 영화
             </TableCell>
             <TableCell className="tableData" style={{maxWidth:"5rem"}}>
               <div className="btnAlign">
                 <Button color="secondary" className="deletion"
-                onClick={() => {handleDeletion(datum.bookID)}}>
+                onClick={() => {handleDeletion(datum.movieID)}}>
                 삭제</Button>
               </div>
             </TableCell>
@@ -73,6 +75,7 @@ export default function Mybook(props) {
       </Table>
       </TableContainer>
     </div>
-    
   )
 }
+
+export default MyMovie;

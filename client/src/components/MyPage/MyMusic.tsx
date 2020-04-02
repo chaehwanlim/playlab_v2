@@ -8,20 +8,21 @@ import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
+import '../Work.tsx';
 
 
-export default function MyMovie(props) {
-  const [myMovie, setMyMovie] = useState([]);
+const MyMusic: React.FC = () => {
+  const [myMusic, setMyMusic] = useState<Array<Music>>([]);
 
   const getDB = () => {
     Axios({
       method: 'post',
-      url: '/api/myPage/movie',
+      url: '/api/myPage/music',
       data: {
         userName: sessionStorage.userName
       }
     })
-    .then(res => setMyMovie(res.data))
+    .then(res => setMyMusic(res.data))
     .catch(err => console.log(err));
   }
 
@@ -29,9 +30,9 @@ export default function MyMovie(props) {
     getDB();
   }, []);
 
-  const handleDeletion = (id) => {
-    console.log(id);
+  const handleDeletion = (id: number) => {
     const urlWithID = `/api/myPage/delete/${id}`;
+
     Axios({
       method: 'DELETE',
       url: urlWithID,
@@ -50,20 +51,19 @@ export default function MyMovie(props) {
       <TableContainer className="tableContainer">
       <Table stickyHeader aria-label="sticky table">
         <TableBody>
-        {myMovie ? myMovie.map((datum, index) => {
+        {myMusic ? myMusic.map((datum, index) => {
         return (
           <TableRow>
             <TableCell className="tableData">
-                <span className="title">{datum.title}</span><br></br>{datum.director}
-                <br></br>{datum.actor}
+                <span className="title">{datum.title}</span><br></br>{datum.artist}
             </TableCell>
             <TableCell className="tableData" style={{minWidth:"12rem"}}>
-              {datum.categoryName} 영화
+              {datum.categoryName} 음악
             </TableCell>
             <TableCell className="tableData" style={{maxWidth:"5rem"}}>
               <div className="btnAlign">
                 <Button color="secondary" className="deletion"
-                onClick={() => {handleDeletion(datum.movieID)}}>
+                onClick={() => {handleDeletion(datum.musicID)}}>
                 삭제</Button>
               </div>
             </TableCell>
@@ -77,3 +77,5 @@ export default function MyMovie(props) {
     
   )
 }
+
+export default MyMusic;

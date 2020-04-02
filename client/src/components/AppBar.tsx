@@ -11,13 +11,18 @@ import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
 import './styles/AppBar.scss';
 
+interface AppBarText {
+  color: string;
+  textShadow: string | null;
+}
+
 const _AppBar: React.FC = () => {
-  const HomeColor: object = {color : 'white'};
-  const ContentColor: object = {
+  const HomeColor: AppBarText = {color : 'white', textShadow: ''};
+  const ContentColor: AppBarText = {
     color : 'black', 
     textShadow: '-1px 0 #F2F1F6, 0 1px #F2F1F6, 1px 0 #F2F1F6, 0 -1px #F2F1F6'
   };
-  const [color, setColor] = useState((window.location.pathname === "/") ? HomeColor : ContentColor);
+  const [color, setColor] = useState<AppBarText>((window.location.pathname === "/") ? HomeColor : ContentColor);
 
   return (
     <div className="appBar">
@@ -25,7 +30,7 @@ const _AppBar: React.FC = () => {
         <Container maxWidth="lg">
           <Toolbar style={{padding: '0rem'}}>
             <Typography className="title">
-              <Link to="/" className="link" onClick={() => {setColor({color : 'white'})}}
+              <Link to="/" className="link" onClick={() => {setColor(HomeColor)}}
                 style={color}>
                 PlayLab
               </Link>

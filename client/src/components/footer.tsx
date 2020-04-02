@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function footer() {
+const footer: React.FC = () => {
   return (
     <footer style={{backgroundColor: 'whitesmoke', color: 'grey', fontSize: '1.4rem', fontWeight: '500', textAlign: 'center', marginTop: '4rem'}}>
         <p>Copyright © 2020 PlayLab</p>
@@ -9,3 +9,5 @@ export default function footer() {
     </footer>
   )
 }
+
+export default footer;

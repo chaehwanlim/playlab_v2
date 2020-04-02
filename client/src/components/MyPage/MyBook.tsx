@@ -8,20 +8,20 @@ import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
+import '../Work.tsx';
 
-
-export default function MyMusic(props) {
-  const [myMusic, setMyMusic] = useState([]);
+const MyBook: React.FC = () => {
+  const [myBook, setMyBook] = useState<Array<Book>>([]);
 
   const getDB = () => {
     Axios({
       method: 'post',
-      url: '/api/myPage/music',
+      url: '/api/myPage/book',
       data: {
         userName: sessionStorage.userName
       }
     })
-    .then(res => setMyMusic(res.data))
+    .then(res => setMyBook(res.data))
     .catch(err => console.log(err));
   }
 
@@ -29,9 +29,9 @@ export default function MyMusic(props) {
     getDB();
   }, []);
 
-  const handleDeletion = (id) => {
-    console.log(id);
+  const handleDeletion = (id: number) => {
     const urlWithID = `/api/myPage/delete/${id}`;
+
     Axios({
       method: 'DELETE',
       url: urlWithID,
@@ -50,19 +50,19 @@ export default function MyMusic(props) {
       <TableContainer className="tableContainer">
       <Table stickyHeader aria-label="sticky table">
         <TableBody>
-        {myMusic ? myMusic.map((datum, index) => {
+        {myBook ? myBook.map((datum, index) => {
         return (
           <TableRow>
             <TableCell className="tableData">
-                <span className="title">{datum.title}</span><br></br>{datum.artist}
+                <span className="title">{datum.title}</span><br></br>{datum.author}
             </TableCell>
             <TableCell className="tableData" style={{minWidth:"12rem"}}>
-              {datum.categoryName} 음악
+              {datum.categoryName} 책
             </TableCell>
             <TableCell className="tableData" style={{maxWidth:"5rem"}}>
               <div className="btnAlign">
                 <Button color="secondary" className="deletion"
-                onClick={() => {handleDeletion(datum.musicID)}}>
+                onClick={() => {handleDeletion(datum.bookID)}}>
                 삭제</Button>
               </div>
             </TableCell>
@@ -76,3 +76,5 @@ export default function MyMusic(props) {
     
   )
 }
+
+export default MyBook;
