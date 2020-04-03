@@ -5,20 +5,21 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
 import Grid from '@material-ui/core/Grid';
 import '../styles/Book.scss';
+import '../DBInterfaces.tsx';
 
 
-export default function Book() {
-    const [bookDB, setBookDB] = useState([]);
-    const [searchKeyword, setSearchKeyword] = useState("");
+const Book: React.FC = () => {
+    const [bookDB, setBookDB] = useState<Array<BookInDB>>([]);
+    const [searchKeyword, setSearchKeyword] = useState<string>("");
 
-    useEffect(function fetchBookDB() {
+    useEffect(() => {
         fetch('/api/bookDB')
         .then(res => res.json())
         .then(res => setBookDB(res))
         .catch(err => console.log(err));
     }, []);
 
-    const handleValueChange = (e) => {
+    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchKeyword(e.target.value);
     }
 
@@ -26,15 +27,15 @@ export default function Book() {
         e.preventDefault();
     }
 
-    const filterData = (data) => {
-        data = data.filter((datum) => {
+    const filterData = (data: Array<BookInDB>) => {
+        data = data.filter((datum: BookInDB) => {
             return (
                 (datum.title.indexOf(searchKeyword) > -1) ||
                 (datum.author.indexOf(searchKeyword) > -1) ||
                 (datum.userName.indexOf(searchKeyword) > -1)
             );
         });
-        return data.map(datum => {
+        return data.map((datum: BookInDB) => {
             return (
                 <Grid item xs={12}>
                     <div className="book">
@@ -68,7 +69,7 @@ export default function Book() {
         });
     }
 
-    const removeTags = (str) => {
+    const removeTags = (str: string) => {
         str = str.replace(/<b>/g, "");
         return str.replace(/<\/b>/g, "");
     }
@@ -96,3 +97,5 @@ export default function Book() {
         </div>
     )
 }
+
+export default Book;

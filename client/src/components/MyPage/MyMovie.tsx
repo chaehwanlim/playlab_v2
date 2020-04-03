@@ -8,11 +8,11 @@ import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
-import '../Work.tsx';
+import '../DBInterfaces.tsx';
 
 
 const MyMovie: React.FC = () => {
-  const [myMovie, setMyMovie] = useState<Array<Movie>>([]);
+  const [myMovie, setMyMovie] = useState<Array<MyMovie>>([]);
 
   const getDB = () => {
     Axios({

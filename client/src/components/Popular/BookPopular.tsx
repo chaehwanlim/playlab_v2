@@ -8,12 +8,13 @@ import ThumbUp from '@material-ui/icons/ThumbUp';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Book.scss';
+import '../DBInterfaces.tsx';
 
 
-export default function BookPopular() {
-  const [bookDB, setBookDB] = useState([]);
-  const [category, setCategory] = useState([]);
-  const [selectedCat, setSelectedCat] = useState("");
+const BookPopular: React.FC = () => {
+  const [bookDB, setBookDB] = useState<Array<PopularBook>>([]);
+  const [category, setCategory] = useState<Array<Category>>([]);
+  const [selectedCat, setSelectedCat] = useState<string>("");
 
   useEffect(() => {
     fetch('/api/bookPopular')
@@ -26,18 +27,18 @@ export default function BookPopular() {
       .catch(err => console.log(err))
   }, []);
 
-  const removeBTags = (str) => {
+  const removeBTags = (str: string) => {
     str = str.replace(/<b>/g, "");
     return str.replace(/<\/b>/g, "");
   }
 
-  const filterData = (data) => {
-    data = data.filter((datum) => {
+  const filterData = (data: Array<PopularBook>) => {
+    data = data.filter((datum: PopularBook) => {
       return (
         (datum.categoryName.indexOf(selectedCat) > -1)
       );
     });
-    return data.map((datum, index) => {
+    return data.map((datum: PopularBook, index: number) => {
       return (
         <Grid item xs={12}>
           <div className="book">
@@ -77,11 +78,10 @@ export default function BookPopular() {
 
   const handleCategory = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     setSelectedCat(e.target.value);
   }
 
-  const handleLikes = (id) => {
+  const handleLikes = (id: number) => {
     const urlWithID = `/api/popular/like/increment/${id}`;
     Axios({
       method: 'put',
@@ -108,10 +108,10 @@ export default function BookPopular() {
           value={selectedCat}
           onChange={handleCategory}
           name="category"
-          style={{fontSize: '1.7rem', fontWeight: '500', color: '#1ABF80'}}>
+          style={{fontSize: '1.7rem', fontWeight: 500, color: '#1ABF80'}}>
           {category ? category.map(cat => {
             return (
-              <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: '500'}}>
+              <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>
                 {cat.categoryName}</MenuItem>
             )
           }) : "error occured"}
@@ -124,3 +124,5 @@ export default function BookPopular() {
     </div>
   )
 }
+
+export default BookPopular;

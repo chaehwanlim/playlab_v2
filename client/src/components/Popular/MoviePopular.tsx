@@ -8,11 +8,12 @@ import ThumbUp from '@material-ui/icons/ThumbUp';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Movie.scss';
+import '../DBInterfaces.tsx';
 
 
-export default function MoviePopular() {
-  const [movieDB, setMovieDB] = useState([]);
-  const [category, setCategory] = useState([]);
+const MoviePopular: React.FC = () => {
+  const [movieDB, setMovieDB] = useState<Array<PopularMovie>>([]);
+  const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState("");
 
   useEffect(() => {
@@ -26,13 +27,13 @@ export default function MoviePopular() {
       .catch(err => console.log(err))
   }, []);
 
-  const filterData = (data) => {
-    data = data.filter((datum) => {
+  const filterData = (data: Array<PopularMovie>) => {
+    data = data.filter((datum: PopularMovie) => {
       return (
         (datum.categoryName.indexOf(selectedCat) > -1)
       );
     });
-    return data.map((datum, index) => {
+    return data.map((datum: PopularMovie, index: number) => {
       return (
         <Grid item xs={12} md={6}>
             <div className="movie">
@@ -73,7 +74,7 @@ export default function MoviePopular() {
     setSelectedCat(e.target.value);
   }
 
-  const handleLikes = (id) => {
+  const handleLikes = (id: number) => {
     const urlWithID = `/api/popular/like/increment/${id}`;
     Axios({
       method: 'put',
@@ -100,10 +101,10 @@ export default function MoviePopular() {
             value={selectedCat}
             onChange={handleCategory}
             name="category"
-            style={{fontSize: '1.7rem', fontWeight: '500', color: '#FF4444'}}>
+            style={{fontSize: '1.7rem', fontWeight: 500, color: '#FF4444'}}>
             {category ? category.map(cat => {
               return (
-                <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: '500'}}>
+                <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>
                   {cat.categoryName}</MenuItem>
               )
             }) : "error occured"}
@@ -118,3 +119,5 @@ export default function MoviePopular() {
     </div>
   )
 }
+
+export default MoviePopular;

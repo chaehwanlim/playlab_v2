@@ -9,22 +9,26 @@ import BookPopular from './BookPopular';
 import Footer from '../footer';
 import '../styles/Content.scss';
 
+interface Content {
+  title: string;
+  component: JSX.Element;
+}
 
-export default function Popular() {
-    const musicContent = {
+const Popular: React.FC = () => {
+    const musicContent: Content = {
         title: "음악 인기 차트",
         component: <MusicPopular />
     };
-    const movieContent = {
+    const movieContent: Content = {
         title: "영화 인기 차트",
         component: <MoviePopular />
     };
-    const bookContent = {
+    const bookContent: Content = {
         title: "책 인기 차트",
         component: <BookPopular />
     };
 
-    const [content, setContent] = useState(movieContent);
+    const [content, setContent] = useState<Content>(movieContent);
 
     const handleMusic = (e) => {
         e.preventDefault();
@@ -70,3 +74,5 @@ export default function Popular() {
         </div>
     )
 }
+
+export default Popular;

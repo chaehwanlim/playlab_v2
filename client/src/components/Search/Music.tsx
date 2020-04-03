@@ -11,11 +11,12 @@ import TableRow from '@material-ui/core/TableRow';
 import '../styles/media.css';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
+import '../DBInterfaces.tsx';
 
 
-export default function MusicTable() {
-    const [musicDB, setMusicDB] = useState([]);
-    const [searchKeyword, setSearchKeyword] = useState("");
+const Music: React.FC = () => {
+    const [musicDB, setMusicDB] = useState<Array<MusicInDB>>([]);
+    const [searchKeyword, setSearchKeyword] = useState<string>("");
 
     useEffect(() => {
         fetch('/api/musicDB')
@@ -24,7 +25,7 @@ export default function MusicTable() {
             .catch(err => console.log(err))
     }, []);
 
-    const handleValueChange = (e) => {
+    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchKeyword(e.target.value);
     }
 
@@ -32,15 +33,15 @@ export default function MusicTable() {
         e.preventDefault();
     }
 
-    const filterData = (data) => {
-        data = data.filter((datum) => {
+    const filterData = (data: Array<MusicInDB>) => {
+        data = data.filter((datum: MusicInDB) => {
             return (
                 (datum.title.indexOf(searchKeyword) > -1) || 
                 (datum.artist.indexOf(searchKeyword) > -1) ||
                 (datum.userName.indexOf(searchKeyword) > -1)
             );
         });
-        return data.map(datum => {
+        return data.map((datum: MusicInDB) => {
             return (
                 <TableRow>
                     <TableCell className="tableData">
@@ -96,3 +97,5 @@ export default function MusicTable() {
         </div>
     )
 }
+
+export default Music;

@@ -8,10 +8,10 @@ import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
-import '../Work.tsx';
+import '../DBInterfaces.tsx';
 
 const MyBook: React.FC = () => {
-  const [myBook, setMyBook] = useState<Array<Book>>([]);
+  const [myBook, setMyBook] = useState<Array<MyBook>>([]);
 
   const getDB = () => {
     Axios({

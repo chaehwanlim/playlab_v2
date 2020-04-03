@@ -13,12 +13,13 @@ import ThumbUp from '@material-ui/icons/ThumbUp';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
+import '../DBInterfaces.tsx';
 
 
 export default function MusicPopular() {
-  const [musicDB, setMusicDB] = useState([]);
-  const [category, setCategory] = useState([]);
-  const [selectedCat, setSelectedCat] = useState("");
+  const [musicDB, setMusicDB] = useState<Array<PopularMusic>>([]);
+  const [category, setCategory] = useState<Array<Category>>([]);
+  const [selectedCat, setSelectedCat] = useState<string>("");
 
   useEffect(() => {
     fetch('/api/musicPopular')
@@ -36,7 +37,7 @@ export default function MusicPopular() {
     setSelectedCat(e.target.value);
   }
 
-  const handleLikes = (id) => {
+  const handleLikes = (id: number) => {
     const urlWithID = `/api/popular/like/increment/${id}`;
     Axios({
       method: 'put',
@@ -54,13 +55,13 @@ export default function MusicPopular() {
     .catch(err => console.log(err));
   }
 
-  const filterData = (data) => {
-    data = data.filter((datum) => {
+  const filterData = (data: Array<PopularMusic>) => {
+    data = data.filter((datum: PopularMusic) => {
       return (
         (datum.categoryName.indexOf(selectedCat) > -1)
       );
     });
-    return data.map((datum, index) => {
+    return data.map((datum: PopularMusic, index: number) => {
       return (
         <TableRow>
           <TableCell className="tableData" component="th" scope="row" id="ranking">{index + 1}</TableCell>
@@ -91,10 +92,10 @@ export default function MusicPopular() {
               value={selectedCat}
               onChange={handleCategory}
               name="category"
-              style={{fontSize: '1.7rem', fontWeight: '500', color: '#018DFF'}}>
+              style={{fontSize: '1.7rem', fontWeight: 500, color: '#018DFF'}}>
               {category ? category.map(cat => {
                 return (
-                  <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: '500'}}>
+                  <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>
                     {cat.categoryName}</MenuItem>
                 )
               }) : "error occured"}

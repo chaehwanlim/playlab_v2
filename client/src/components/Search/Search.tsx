@@ -3,43 +3,48 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import MusicAdd from './MusicAdd';
-import MovieAdd from './MovieAdd';
-import BookAdd from './BookAdd';
+import Music from './Music';
+import Movie from './Movie';
+import Book from './Book';
 import Footer from '../footer';
 import '../styles/Content.scss';
 
+interface Content {
+  title: string;
+  component: JSX.Element;
+  subtitle: string;
+}
 
-export default function PlaylistAdd() {
-    const musicContent = {
-        title: "내가 들은 음악 추가하기",
-        component: <MusicAdd />,
-        subtitle: "직접 음악 정보를 입력하여 추가하세요."
+const Search: React.FC = () => {
+    const musicContent: Content = {
+        title: "음악 검색하기",
+        component: <Music />,
+        subtitle: "음악의 제목, 아티스트, 등록한 유저 이름으로 검색하세요."
     };
-    const movieContent = {
-        title: "내가 감상한 영화 추가하기",
-        component: <MovieAdd />,
-        subtitle: "네이버 영화에서 검색하여 추가하세요."
+    const movieContent: Content = {
+        title: "영화 검색하기",
+        component: <Movie />,
+        subtitle: "영화의 제목, 출연 배우, 등록한 유저 이름으로 검색하세요."
     };
-    const bookContent = {
-        title: "내가 읽은 책 추가하기",
-        component: <BookAdd />,
-        subtitle: "네이버 책에서 검색하여 추가하세요."
+    const bookContent: Content = {
+        title: "책 검색하기",
+        component: <Book />,
+        subtitle: "책의 제목, 작가, 등록한 유저 이름으로 검색하세요."
     };
 
-    const [content, setContent] = useState(movieContent);
+    const [content, setContent] = useState<Content>(movieContent);
 
     const handleMusic = (e) => {
         e.preventDefault();
-        setContent(musicContent);
+        setContent(musicContent)
     }
     const handleMovie = (e) => {
         e.preventDefault();
-        setContent(movieContent);
+        setContent(movieContent)
     }
     const handleBook = (e) => {
         e.preventDefault();
-        setContent(bookContent);
+        setContent(bookContent)
     }
 
     return (
@@ -65,11 +70,13 @@ export default function PlaylistAdd() {
                 </Grid>
             </Grid>
         </Container>
-        <Divider className="divider" />
+        <Divider className="divider"/>
         <Container maxWidth="lg">
             {content.component}
         </Container>
-            <Footer />
+        <Footer />
         </div>
     )
 }
+
+export default Search;

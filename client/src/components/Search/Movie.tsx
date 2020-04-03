@@ -6,11 +6,12 @@ import SearchIcon from '@material-ui/icons/SearchRounded';
 import Grid from '@material-ui/core/Grid';
 import '../styles/Content.scss';
 import '../styles/Movie.scss';
+import '../DBInterfaces.tsx';
 
 
-export default function Movie() {
-    const [movieDB, setMovieDB] = useState([]);
-    const [searchKeyword, setSearchKeyword] = useState("");
+const Movie: React.FC = () => {
+    const [movieDB, setMovieDB] = useState<Array<MovieInDB>>([]);
+    const [searchKeyword, setSearchKeyword] = useState<string>("");
 
     useEffect(() => {
         fetch('/api/movieDB')
@@ -19,7 +20,7 @@ export default function Movie() {
             .catch(err => console.log(err))
     }, []);
 
-    const handleValueChange = (e) => {
+    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchKeyword(e.target.value);
     }
 
@@ -27,15 +28,15 @@ export default function Movie() {
         e.preventDefault();
     }
 
-    const filterData = (data) => {
-        data = data.filter((datum) => {
+    const filterData = (data: Array<MovieInDB>) => {
+        data = data.filter((datum: MovieInDB) => {
             return (
                 (datum.title.indexOf(searchKeyword) > -1) ||
                 (datum.actor.indexOf(searchKeyword) > -1) ||
                 (datum.userName.indexOf(searchKeyword) > -1)
             );
         });
-        return data.map(datum => {
+        return data.map((datum: MovieInDB) => {
             return (
                 <Grid item xs={12} md={6}>
                     <div className="movie">
@@ -91,3 +92,4 @@ export default function Movie() {
     )
 }
 
+export default Movie;

@@ -8,11 +8,11 @@ import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
-import '../Work.tsx';
+import '../DBInterfaces.tsx';
 
 
 const MyMusic: React.FC = () => {
-  const [myMusic, setMyMusic] = useState<Array<Music>>([]);
+  const [myMusic, setMyMusic] = useState<Array<MyMusic>>([]);
 
   const getDB = () => {
     Axios({

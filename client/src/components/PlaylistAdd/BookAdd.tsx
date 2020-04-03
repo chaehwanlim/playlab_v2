@@ -12,22 +12,22 @@ import Fab from '@material-ui/core/Fab';
 import Axios from 'axios';
 import '../styles/Add.scss';
 import '../styles/Book.scss';
-import '../Work.tsx';
+import '../DBInterfaces.tsx';
 
 
 const BookAdd: React.FC = () => {
   const [search, setSearch] = useState<string>("");
   const [isSearched, setIsSearched] = useState<boolean>(false);
-  const [searchResult, setSearchResult] = useState<Array<Book>>([]);
-  const [selectedBook, setSelectedBook] = useState({
+  const [searchResult, setSearchResult] = useState([]);
+  const [selectedBook, setSelectedBook] = useState<WorkSelection>({
     index: -1,
     title: ''
   });
-  const [form, setForm] = useState<Book>({
+  const [form, setForm] = useState<BookForm>({
     title: "",
     author: "",
-    category: 100,
-    transmedia: 10000,
+    categoryID: 100,
+    transmediaID: 10000,
     imageURL: "",
     description: "",
   });
@@ -45,8 +45,7 @@ const BookAdd: React.FC = () => {
       .catch(err => console.log(err))
   }, []);
 
-  const handleValueChange = (e) => {
-    e.preventDefault();
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   }
 
@@ -69,14 +68,14 @@ const BookAdd: React.FC = () => {
     e.preventDefault();
     setForm({
       ...form,
-      category : e.target.value
+      categoryID : e.target.value
     });
   }
   const handleTransmedia = (e) => {
     e.preventDefault();
     setForm({
       ...form,
-      transmedia : e.target.value
+      transmediaID : e.target.value
     });
   }
 
@@ -110,18 +109,18 @@ const BookAdd: React.FC = () => {
       data: {
         title: form.title,
         author: form.author,
-        adderID : sessionStorage.getItem('userID'),
-        categoryID: form.category,
-        transmediaID: form.transmedia,
-        imageURL: form.image,
+        adderID: sessionStorage.getItem('userID'),
+        categoryID: form.categoryID,
+        transmediaID: form.transmediaID,
+        imageURL: form.imageURL,
         description: form.description,
       }
     })
-    .then((res) => alert('책을 정상적으로 추가했습니다!'))
+    .then(() => alert('책을 정상적으로 추가했습니다!'))
     .catch((err) => console.log(err));
   }
 
-  const removeBTags = (str) => {
+  const removeBTags = (str: string) => {
     str = str.replace(/<b>/g, "");
     return str.replace(/<\/b>/g, "");
   }
@@ -155,7 +154,7 @@ const BookAdd: React.FC = () => {
 
       <Grid container spacing={4}>
         {searchResult ?
-          searchResult.map((book, index) => {
+          searchResult.map((book, index: number) => {
             return (
             <Grid item xs={12}>
               <div className="book" key={index} onClick={() => handleBookSelect(index, removeBTags(book.title))}>
@@ -192,7 +191,7 @@ const BookAdd: React.FC = () => {
           <div className="guide"><br/>이 책은 &nbsp;
           <Select labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={form.category}
+            value={form.categoryID}
             onChange={handleCategory}
             name="category"
             style={{fontSize: '1.7rem', fontWeight: 500 }}>
@@ -208,7 +207,7 @@ const BookAdd: React.FC = () => {
           <div className="guide">트랜스미디어</div>
           <Select labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={form.transmedia}
+            value={form.transmediaID}
             onChange={handleTransmedia}
             name="transmedia"
             style={{fontSize: '1.7rem', fontWeight: 500}}>
@@ -227,3 +226,5 @@ const BookAdd: React.FC = () => {
     </Card>
   )
 }
+
+export default BookAdd;
