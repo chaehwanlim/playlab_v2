@@ -78,7 +78,7 @@ const Login: React.FC = () => {
           userPassword: register.userPassword
         }
       })
-      .then((res) => alert('회원가입을 축하드립니다!'))
+      .then(() => alert('회원가입을 축하드립니다!'))
       .catch((err) => console.log(err));
     }
 

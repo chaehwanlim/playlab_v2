@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server src/index.tsx --output dist/bundle.js --mode development --open --hot",
-    "build": "webpack --mode production"
+    "client": "webpack-dev-server src/index.tsx --output dist/bundle.js --mode development --open --hot",
+    "client_build": "webpack --mode production --optimize-minimize"
   },
   "license": "MIT",
   "dependencies": {
@@ -24,7 +24,9 @@
     "react-router-dom": "^5.1.2",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.42.1",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {

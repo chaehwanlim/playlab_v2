@@ -1,25 +1,28 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const port = process.env.PORT || 8080;
+//웹팩 파일 크기 확인
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const port = process.env.PORT || 3000;
 
 module.exports = {
   entry: "./src/index.tsx", //웹팩이 빌드할 루트 파일
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "build")
   },
   mode: "development",
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: "/node_modules",
-        use: "babel-loader"
+        test: /\.js$/,
+        exclude: "/node_modules/",
+        use: "babel-loader",
       },
       {
         test: /\.tsx?$/,
-        exclude: "/node_modules",
+        exclude: "/node_modules/",
         use: {
           loader: 'ts-loader'
         }
@@ -59,7 +62,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',                // 생성한 템플릿 파일
       filename: './index.html'
-    })
+    }),
+
+    new BundleAnalyzerPlugin()
   ],
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
