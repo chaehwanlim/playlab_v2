@@ -1,5 +1,4 @@
 <h1>PlayLab</h1>
-# Playlab_V2
 > A new version of Playlab with TypeScript, Webpack, Babel.
 
 > 영화나 음악, 책을 접하고 느낀 내 감정을 다른 사람과 공유할 수 있는 웹 서비스입니다. <br/>
@@ -19,18 +18,19 @@
 
 <h2> 개발 </h2>
 
-* Front-end : HTML, SCSS, JS(ES6), React.js(SPA), Material-UI framework, React-router-dom
-* Back-end : Node.js(Express), RestAPI
+* Front-end : HTML, SCSS, TS, React.js(SPA), Material-UI framework, React-router-dom
+* Back-end : JS, Node.js(Express), RestAPI
 * DB : MySQL(AWS RDS)
 * Infra : AWS EC2, nginx, pm2, Git
-
-<h2> 상태 </h2>
-
-* 기능 테스트 완료(정상 작동)
-* 추후 작품에 대한 리뷰나 댓글 기능을 추가할 계획
-* 추후 음악 리뷰 ui 개선 계획
 
 <h2> 공개 테스트 계정 </h2>
 
 * 아이디 | michael
 * 패스워드 | qwer1234
+
+<h2> 상태 </h2>
+
+* 기능 테스트 완료(정상 작동)
+* 추후 음악 리뷰 ui 개선 계획
+
+
