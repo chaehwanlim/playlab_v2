@@ -74,5 +74,12 @@ module.exports = {
     index: "index.html",
     port: port,
     open: true,
+
+    proxy: {
+      '/api/':  {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      }
+    }
   }
 }
