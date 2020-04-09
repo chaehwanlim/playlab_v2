@@ -5,6 +5,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/SearchRounded';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Book.scss';
@@ -15,6 +18,7 @@ const BookPopular: React.FC = () => {
   const [bookDB, setBookDB] = useState<Array<PopularBook>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState<string>("");
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   useEffect(() => {
     fetch('/api/bookPopular')
@@ -35,9 +39,18 @@ const BookPopular: React.FC = () => {
   const filterData = (data: Array<PopularBook>) => {
     data = data.filter((datum: PopularBook) => {
       return (
+        (datum.title.indexOf(searchKeyword) > -1) ||
+        (datum.author.indexOf(searchKeyword) > -1) ||
+        (datum.userName.indexOf(searchKeyword) > -1)
+      );
+    });
+
+    data = data.filter((datum: PopularBook) => {
+      return (
         (datum.categoryName.indexOf(selectedCat) > -1)
       );
     });
+
     return data.map((datum: PopularBook, index: number) => {
       return (
         <Grid item xs={12}>
@@ -76,6 +89,14 @@ const BookPopular: React.FC = () => {
     });
   }
 
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value);
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault();
+  }
+
   const handleCategory = (e) => {
     e.preventDefault();
     setSelectedCat(e.target.value);
@@ -101,7 +122,7 @@ const BookPopular: React.FC = () => {
 
   return (
     <div>
-      <Card className="filter">
+      <Card className="filter" elevation={3} square={true}>
         <div className="category" id="book">
         <Select labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -118,6 +139,21 @@ const BookPopular: React.FC = () => {
         </Select>
       &nbsp; 책의 인기 차트</div>
       </Card>
+      <form noValidate autoComplete="off" className="form" onSubmit={handleClick}>
+        <Card component="form" className="searchBar" elevation={3} square={true}>
+          <InputBase
+            className="input"
+            placeholder="검색할 내용을 입력하세요"
+            inputProps={{ 'aria-label': 'searchKeyword' }}
+            value={searchKeyword}
+            onChange={handleValueChange}
+          />
+          <IconButton type="submit" className="iconButton" aria-label="searchKeyword">
+            <SearchIcon />
+          </IconButton>
+        </Card>
+      </form>
+      <br /><br />
       <Grid container spacing={4}>
         {bookDB ? filterData(bookDB) : <div>error ocurred</div>}
       </Grid>

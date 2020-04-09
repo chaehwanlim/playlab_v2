@@ -26,49 +26,6 @@ app.use(bodyParser.json());
 //request.body에 대한 url encoding을 확장할 수 있도록 true option 설정
 app.use(bodyParser.urlencoded({extended: true}));
 
-//query의 결과를 musicDB path에 전송
-app.get('/api/musicDB', (req, res) => {
-    dbConnection.query(
-        "SELECT title, artist, genre, c.categoryName, u.userName, t.transmediaName \
-        FROM music AS m \
-        LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
-        LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
-        LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
-        WHERE m.isDeleted = 0;",
-        (err, rows, fields) => {
-            res.send(rows);
-        }
-    )
-});
-
-app.get('/api/movieDB', (req, res) => {
-    dbConnection.query(
-        "SELECT title, director, genre, c.categoryName, u.userName, t.transmediaName, m.imageURL, m.actor, m.year, m.userRating \
-        FROM movie AS m \
-        LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
-        LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
-        LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
-        WHERE m.isDeleted = 0;",
-        (err, rows, fields) => {
-            res.send(rows);
-        }
-    )
-});
-
-app.get('/api/bookDB', (req, res) => {
-    dbConnection.query(
-        "SELECT title, author, genre, c.categoryName, u.userName, t.transmediaName, b.imageURL, b.description \
-        FROM book AS b \
-        LEFT OUTER JOIN category AS c ON (c.categoryID = b.categoryID) \
-        LEFT OUTER JOIN users AS u ON (u.userID = b.adderID) \
-        LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = b.transmediaID) \
-        WHERE b.isDeleted = 0;",
-        (err, rows, fields) => {
-            res.send(rows);
-        }
-    )
-});
-
 app.get('/api/categoryDB', (req, res) => {
     dbConnection.query(
         "SELECT * FROM category;",
@@ -160,7 +117,6 @@ app.post('/api/musicAdd', (req, res) => {
                 console.log(err)
             else {
                 res.send(results);
-                console.log('music add query succeed');
             }
         }
     );
@@ -184,7 +140,6 @@ app.post('/api/movieAdd', (req, res) => {
                 console.log(err)
             else {
                 res.send(results);
-                console.log('movie add query succeed');
             }
         }
     );
@@ -206,7 +161,6 @@ app.post('/api/bookAdd', (req, res) => {
                 console.log(err)
             else {
                 res.send(results);
-                console.log('book add query succeed');
             }
         }
     );
@@ -227,7 +181,6 @@ app.get('/api/musicPopular', (req, res) => {
                 console.log(err)
             else {
                 res.send(results);
-                console.log('music popular query succeed');
             }
         }
     );
@@ -246,7 +199,6 @@ app.get('/api/moviePopular', (req, res) => {
                 console.log(err)
             else {
                 res.send(results);
-                console.log('movie popular query succeed');
             }
         }
     );
@@ -265,7 +217,6 @@ app.get('/api/bookPopular', (req, res) => {
                 console.log(err)
             else {
                 res.send(results);
-                console.log('book popular query succeed');
             }
         }
     );

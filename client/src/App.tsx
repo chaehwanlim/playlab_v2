@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppBar from "./components/AppBar";
 import Home from "./components/Home";
-import Search from "./components/Search/Search";
 import Popular from "./components/Popular/Popular";
 import PlaylistAdd from "./components/PlaylistAdd/PlaylistAdd";
+import Transmedia from './components/Transmedia/Transmedia';
 import MyPage from "./components/MyPage/MyPage";
 import Login from "./components/Login";
 
@@ -13,9 +13,9 @@ const App: React.FC = () => {
     <Router>
       <AppBar />
       <Route exact path="/" component={Home} />
-      <Route path="/Search" component={Search} />
       <Route path="/Popular" component={Popular} />
       <Route path="/PlaylistAdd" component={PlaylistAdd} />
+      <Route path="/Transmedia" component={Transmedia} />
       <Route path="/MyPage" component={MyPage} />
       <Route path="/Login" component={Login} />
     </Router>

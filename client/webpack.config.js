@@ -7,8 +7,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const port = process.env.PORT || 3000;
 
 module.exports = {
-  entry: "./src/index.tsx", //웹팩이 빌드할 루트 파일
-  output: {
+  //웹팩의 빌드 대상 파일
+  entry: "./src/index.tsx", 
+
+  //웹팩의 빌드 결과 파일 속성
+  output: { 
     filename: "bundle.js",
     path: path.resolve(__dirname, "build")
   },
@@ -23,9 +26,14 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: "/node_modules/",
-        use: {
-          loader: 'ts-loader'
-        }
+        loader: [
+          {
+            loader: 'ts-loader',
+            options: {
+              experimentalWatchApi: true, //변경된 파일만 재컴파일
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,
@@ -58,6 +66,8 @@ module.exports = {
       },
     ]
   },
+
+  //웹팩 빌드 결과물에 추가 기능 부여
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',                // 생성한 템플릿 파일
@@ -66,6 +76,8 @@ module.exports = {
 
     new BundleAnalyzerPlugin()
   ],
+
+  //웹팩 빌드 시 파일을 어떻게 해석하는지 정의하는 속성
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
   },

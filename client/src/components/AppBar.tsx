@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/AddRounded';
 import StarIcon from '@material-ui/icons/StarRounded';
-import SearchIcon from '@material-ui/icons/SearchRounded';
+import ViewCarousel from '@material-ui/icons/ViewCarousel';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
@@ -35,15 +35,15 @@ const _AppBar: React.FC = () => {
                 PlayLab
               </Link>
             </Typography>
-            
-            <Link to="/Search" onClick={() => {setColor(ContentColor)}}>
-              <IconButton style={color}><SearchIcon style={{fontSize: '2.2rem'}}/></IconButton>
-            </Link>
+
             <Link to="/Popular" onClick={() => {setColor(ContentColor)}}>
               <IconButton style={color}><StarIcon style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
             <Link to="/PlaylistAdd" onClick={() => {setColor(ContentColor)}}>
               <IconButton style={color}><AddIcon style={{fontSize: '2.2rem'}}/></IconButton>
+            </Link>
+            <Link to="/Transmedia" onClick={() => {setColor(ContentColor)}}>
+              <IconButton style={color}><ViewCarousel style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
             <Link to="/MyPage" onClick={() => {setColor(ContentColor)}}>
               <IconButton style={color}><AccountCircle style={{fontSize: '2.2rem'}}/></IconButton>

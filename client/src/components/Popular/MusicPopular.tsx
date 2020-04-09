@@ -10,6 +10,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/SearchRounded';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Table.scss';
@@ -20,6 +23,7 @@ export default function MusicPopular() {
   const [musicDB, setMusicDB] = useState<Array<PopularMusic>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState<string>("");
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   useEffect(() => {
     fetch('/api/musicPopular')
@@ -32,30 +36,15 @@ export default function MusicPopular() {
       .catch(err => console.log(err))
   }, []);
 
-  const handleCategory = (e) => {
-    e.preventDefault();
-    setSelectedCat(e.target.value);
-  }
-
-  const handleLikes = (id: number) => {
-    const urlWithID = `/api/popular/like/increment/${id}`;
-    Axios({
-      method: 'put',
-      url: urlWithID,
-    })
-    .then(res => {
-      if(res.status === 200){
-        alert('성공적으로 추천했습니다!');
-        fetch('/api/musicPopular')
-          .then(res => res.json())
-          .then(res => setMusicDB(res))
-          .catch(err => console.log(err))
-      }
-    })
-    .catch(err => console.log(err));
-  }
-
   const filterData = (data: Array<PopularMusic>) => {
+    data = data.filter((datum: PopularMusic) => {
+      return (
+        (datum.title.indexOf(searchKeyword) > -1) ||
+        (datum.artist.indexOf(searchKeyword) > -1) ||
+        (datum.userName.indexOf(searchKeyword) > -1)
+      );
+    });
+
     data = data.filter((datum: PopularMusic) => {
       return (
         (datum.categoryName.indexOf(selectedCat) > -1)
@@ -83,9 +72,40 @@ export default function MusicPopular() {
     });
   }
 
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value);
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault();
+  }
+
+  const handleCategory = (e) => {
+    e.preventDefault();
+    setSelectedCat(e.target.value);
+  }
+
+  const handleLikes = (id: number) => {
+    const urlWithID = `/api/popular/like/increment/${id}`;
+    Axios({
+      method: 'put',
+      url: urlWithID,
+    })
+    .then(res => {
+      if(res.status === 200){
+        alert('성공적으로 추천했습니다!');
+        fetch('/api/musicPopular')
+          .then(res => res.json())
+          .then(res => setMusicDB(res))
+          .catch(err => console.log(err))
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
   return (
     <div>
-      <Card className="filter">
+      <Card className="filter" elevation={3} square={true}>
         <div className="category" id="music">
         <Select labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -102,6 +122,20 @@ export default function MusicPopular() {
         </Select>
       &nbsp; 음악의 인기 차트</div>
       </Card>
+      <form noValidate autoComplete="off" className="form" onSubmit={handleClick}>
+        <Card component="form" className="searchBar" elevation={3} square={true}>
+          <InputBase
+            className="input"
+            placeholder="검색할 내용을 입력하세요"
+            inputProps={{ 'aria-label': 'searchKeyword' }}
+            value={searchKeyword}
+            onChange={handleValueChange}
+          />
+          <IconButton type="submit" className="iconButton" aria-label="searchKeyword">
+            <SearchIcon />
+          </IconButton>
+        </Card>
+      </form>
       <Paper className="table">
         <TableContainer className="tableContainer">
           <Table stickyHeader aria-label="sticky table">
