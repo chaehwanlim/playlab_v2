@@ -9,22 +9,21 @@ import ViewCarousel from '@material-ui/icons/ViewCarousel';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
+import { AppBarStyle } from '../modules/AppBarStyle';
 import './styles/AppBar.scss';
 
-interface AppBarText {
-  color: string;
-  textShadow: string | null;
+type AppBarProps = {
+  style: AppBarStyle; 
+  toWhite: () => void;
+  toBlack: () => void;
 }
 
-const _AppBar: React.FC = () => {
-  const HomeColor: AppBarText = {color : 'white', textShadow: ''};
-  const ContentColor: AppBarText = {
-    color : 'black', 
-    textShadow: '-1px 0 #F2F1F6, 0 1px #F2F1F6, 1px 0 #F2F1F6, 0 -1px #F2F1F6'
-  };
-  const [color, setColor] = useState<AppBarText>((window.location.pathname === "/") ? HomeColor : ContentColor);
+const _AppBar = ({
+  style, toWhite, toBlack
+}: AppBarProps) => 
+{
 
-  return (
+  /* return (
     <div className="appBar">
       <AppBar position="static" className="appBarBackground">
         <Container maxWidth="lg">
@@ -47,6 +46,36 @@ const _AppBar: React.FC = () => {
             </Link>
             <Link to="/MyPage" onClick={() => {setColor(ContentColor)}}>
               <IconButton style={color}><AccountCircle style={{fontSize: '2.2rem'}}/></IconButton>
+            </Link>
+
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </div> 
+  ); */
+  return (
+    <div className="appBar">
+      <AppBar position="static" className="appBarBackground">
+        <Container maxWidth="lg">
+          <Toolbar style={{padding: '0rem'}}>
+            <Typography className="title">
+              <Link to="/" className="link" onClick={toWhite}
+                style={style}>
+                PlayLab
+              </Link>
+            </Typography>
+
+            <Link to="/Popular" onClick={toBlack}>
+              <IconButton style={style}><StarIcon style={{fontSize: '2.2rem'}}/></IconButton>
+            </Link>
+            <Link to="/PlaylistAdd" onClick={toBlack}>
+              <IconButton style={style}><AddIcon style={{fontSize: '2.2rem'}}/></IconButton>
+            </Link>
+            <Link to="/Transmedia" onClick={toWhite}>
+              <IconButton style={style}><ViewCarousel style={{fontSize: '2.2rem'}}/></IconButton>
+            </Link>
+            <Link to="/MyPage" onClick={toBlack}>
+              <IconButton style={style}><AccountCircle style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
 
           </Toolbar>
