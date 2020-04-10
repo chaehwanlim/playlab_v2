@@ -46,7 +46,7 @@ const Login: React.FC = () => {
         }
       })
       .then((res) => {
-        alert('로그인을 성공했습니다!');
+        alert(res.data.alert);
         if (res.data.code === 200) {
           /* store.dispatch({ type: 'LOGINED', userName: login.userName }); */
           sessionStorage.setItem('userName', login.userName);

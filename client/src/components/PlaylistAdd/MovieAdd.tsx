@@ -208,20 +208,24 @@ const MovieAdd: React.FC = () => {
             </Select>
           &nbsp;영화입니다.</div><br />
 
-          <div className="guide">트랜스미디어</div>
-          <Select labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={form.transmediaID}
-            onChange={handleTransmedia}
-            name="transmedia"
-            style={{fontSize: '1.7rem', fontWeight: 500}}>
-            {transmedia ? transmedia.map(trans => {
-              return (
-                <MenuItem value={trans.transmediaID} style={{fontSize: '1.7rem', fontWeight: 500}}>
-                  {trans.transmediaName}</MenuItem>
-              )
-            }) : "error occured"}
-          </Select>
+          <div className="guide">트랜스미디어 : &nbsp;
+            <Select labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={form.transmediaID}
+              onChange={handleTransmedia}
+              name="transmedia"
+              style={{fontSize: '1.7rem', fontWeight: 500}}>
+                <MenuItem value={10000} style={{fontSize: '1.7rem', fontWeight: 500}}>
+                  없음
+                </MenuItem>
+              {transmedia ? transmedia.map(trans => {
+                return (
+                  <MenuItem value={trans.transmediaID} style={{fontSize: '1.7rem', fontWeight: 500}}>
+                    {trans.transmediaName}</MenuItem>
+                )
+              }) : "error occured"}
+            </Select>
+          </div>
 
           <Fab variant="extended" className="submitBtn" id="movie" type="submit">추가하기</Fab>
         </form>

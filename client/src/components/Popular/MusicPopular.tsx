@@ -22,7 +22,7 @@ import '../DBInterfaces.tsx';
 export default function MusicPopular() {
   const [musicDB, setMusicDB] = useState<Array<PopularMusic>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
-  const [selectedCat, setSelectedCat] = useState<string>("");
+  const [selectedCat, setSelectedCat] = useState<string>("모든");
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   useEffect(() => {
@@ -45,9 +45,14 @@ export default function MusicPopular() {
       );
     });
 
+    let _selectedCat: string = selectedCat;
+    if (_selectedCat === "모든") {
+      _selectedCat = ""
+    }
+
     data = data.filter((datum: PopularMusic) => {
       return (
-        (datum.categoryName.indexOf(selectedCat) > -1)
+        (datum.categoryName.indexOf(_selectedCat) > -1)
       );
     });
     return data.map((datum: PopularMusic, index: number) => {
@@ -108,17 +113,20 @@ export default function MusicPopular() {
       <Card className="filter" elevation={3} square={true}>
         <div className="category" id="music">
         <Select labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedCat}
-              onChange={handleCategory}
-              name="category"
-              style={{fontSize: '1.7rem', fontWeight: 500, color: '#018DFF'}}>
-              {category ? category.map(cat => {
-                return (
-                  <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>
-                    {cat.categoryName}</MenuItem>
-                )
-              }) : "error occured"}
+          id="demo-simple-select"
+          value={selectedCat}
+          onChange={handleCategory}
+          name="category"
+          style={{fontSize: '1.7rem', fontWeight: 500, color: '#018DFF'}}>
+            <MenuItem value={"모든"} style={{fontSize: '1.7rem', fontWeight: 500}}>
+            모든
+            </MenuItem>
+          {category ? category.map(cat => {
+            return (
+              <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>
+                {cat.categoryName}</MenuItem>
+            )
+          }) : "error occured"}
         </Select>
       &nbsp; 음악의 인기 차트</div>
       </Card>

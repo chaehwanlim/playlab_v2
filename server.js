@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/api/categoryDB', (req, res) => {
     dbConnection.query(
-        "SELECT * FROM category;",
+        "SELECT * FROM category WHERE categoryID > 100;",
         (err, rows, fields) => {
             res.send(rows);
         }
@@ -37,7 +37,7 @@ app.get('/api/categoryDB', (req, res) => {
 
 app.get('/api/transmediaDB', (req, res) => {
     dbConnection.query(
-        "SELECT * FROM transmedia;",
+        "SELECT * FROM transmedia WHERE transmediaID > 10000;",
         (err, rows, fields) => {
             res.send(rows);
         }
@@ -294,14 +294,14 @@ app.post('/api/login_process', (req, res) => {
                         req.session.userName = results[0].userName;
                         req.session.userID = results[0].userID;
                         req.session.save(() => {
-                            res.send({"code" : 200, "success": "로그인을 성공했습니다!", "userID" : req.session.userID});
+                            res.send({"code" : 200, "alert": "로그인을 성공했습니다!", "userID" : req.session.userID});
                             
                         });
                     } else {
-                        res.send({"code": 204, "success" : "비밀번호가 올바르지 않습니다."});
+                        res.send({"code": 204, "alert" : "비밀번호가 올바르지 않습니다."});
                     }
                 } else {
-                    res.send({"code": 204, "success" : "존재하지 않는 아이디입니다."});
+                    res.send({"code": 204, "alert" : "존재하지 않는 아이디입니다."});
                 }
             }
         }

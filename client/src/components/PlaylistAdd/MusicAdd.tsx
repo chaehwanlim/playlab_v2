@@ -129,13 +129,16 @@ const MusicAdd: React.FC = () => {
                 </Select>
                 &nbsp;음악입니다.</div><br />
 
-                <div className="guide">트랜스미디어</div>
+                <div className="guide">트랜스미디어 : &nbsp;
                 <Select labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={form.transmediaID}
                     onChange={handleTransmedia}
                     name="transmedia"
-                    style={{fontSize: '1.7rem'}}>
+                    style={{fontSize: '1.7rem', fontWeight: 500}}>
+                    <MenuItem value={10000} style={{fontSize: '1.7rem', fontWeight: 500}}>
+                    없음
+                    </MenuItem>
                     {transmedia ? transmedia.map(trans => {
                         return (
                             <MenuItem value={trans.transmediaID} style={{fontSize: '1.7rem', fontWeight: 500}}>
@@ -143,6 +146,7 @@ const MusicAdd: React.FC = () => {
                         )
                     }) : "error occured"}
                 </Select>
+                </div>
 
                 <Fab variant="extended" className="submitBtn" id="music" type="submit">추가하기</Fab>
             </form>

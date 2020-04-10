@@ -17,7 +17,7 @@ import '../DBInterfaces.tsx';
 const BookPopular: React.FC = () => {
   const [bookDB, setBookDB] = useState<Array<PopularBook>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
-  const [selectedCat, setSelectedCat] = useState<string>("");
+  const [selectedCat, setSelectedCat] = useState<string>("모든");
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   useEffect(() => {
@@ -45,9 +45,14 @@ const BookPopular: React.FC = () => {
       );
     });
 
+    let _selectedCat: string = selectedCat;
+    if (_selectedCat === "모든") {
+      _selectedCat = ""
+    }
+
     data = data.filter((datum: PopularBook) => {
       return (
-        (datum.categoryName.indexOf(selectedCat) > -1)
+        (datum.categoryName.indexOf(_selectedCat) > -1)
       );
     });
 
@@ -130,6 +135,9 @@ const BookPopular: React.FC = () => {
           onChange={handleCategory}
           name="category"
           style={{fontSize: '1.7rem', fontWeight: 500, color: '#1ABF80'}}>
+            <MenuItem value={"모든"} style={{fontSize: '1.7rem', fontWeight: 500}}>
+              모든
+            </MenuItem>
           {category ? category.map(cat => {
             return (
               <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>

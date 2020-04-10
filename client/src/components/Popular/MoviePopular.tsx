@@ -18,7 +18,7 @@ import '../DBInterfaces.tsx';
 const MoviePopular: React.FC = () => {
   const [movieDB, setMovieDB] = useState<Array<PopularMovie>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
-  const [selectedCat, setSelectedCat] = useState<string>("");
+  const [selectedCat, setSelectedCat] = useState<string>("모든");
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   useEffect(() => {
@@ -41,9 +41,14 @@ const MoviePopular: React.FC = () => {
       );
     });
 
+    let _selectedCat: string = selectedCat;
+    if (_selectedCat === "모든") {
+      _selectedCat = ""
+    }
+
     data = data.filter((datum: PopularMovie) => {
       return (
-        (datum.categoryName.indexOf(selectedCat) > -1)
+        (datum.categoryName.indexOf(_selectedCat) > -1)
       );
     });
 
@@ -124,6 +129,9 @@ const MoviePopular: React.FC = () => {
             onChange={handleCategory}
             name="category"
             style={{fontSize: '1.7rem', fontWeight: 500, color: '#FF4444'}}>
+              <MenuItem value={"모든"} style={{fontSize: '1.7rem', fontWeight: 500}}>
+              모든
+              </MenuItem>
             {category ? category.map(cat => {
               return (
                 <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>
