@@ -26,14 +26,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: "/node_modules/",
-        loader: [
-          {
-            loader: 'ts-loader',
-            options: {
-              experimentalWatchApi: true, //변경된 파일만 재컴파일
-            }
-          }
-        ]
+        use: 'ts-loader',
       },
       {
         test: /\.html$/,
@@ -46,7 +39,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: "style-loader"
+        use: [
+          "style-loader",
+          "css-loader"
+        ]
       },
       {
         test: /\.scss$/,

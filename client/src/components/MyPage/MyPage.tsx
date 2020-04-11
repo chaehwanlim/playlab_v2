@@ -12,6 +12,8 @@ import MyMusic from './MyMusic';
 import MyMovie from './MyMovie';
 import MyBook from './MyBook';
 import Footer from '../footer';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import '../styles/Content.scss';
 import '../styles/MyPage.scss';
 
@@ -49,6 +51,7 @@ const MyPage: React.FC = () => {
     userPassword: ''
   });
   const [content, setContent] = useState<Content>(movieContent);
+  const [tabValue, setTabValue] = useState<number>(1);
 
   useEffect(() => {
     if(sessionStorage.userName){
@@ -77,6 +80,10 @@ const MyPage: React.FC = () => {
     .then(() => alert('로그아웃 했습니다.'))
     .then(() => setUser(''))
     .catch((err) => console.log(err));
+  }
+
+  const handleTabChange = (e: React.ChangeEvent<{}>, newValue: number) => {
+    setTabValue(newValue);
   }
   
   const myPage = () => {
@@ -108,12 +115,17 @@ const MyPage: React.FC = () => {
               {userInfo.description}
             </p>
 
-            <Button className="btnGroup" onClick={() => {setContent(musicContent)}}>
-              음악</Button>
-            <Button className="btnGroup" onClick={() => {setContent(movieContent)}}>
-              영화</Button>
-            <Button className="btnGroup" onClick={() => {setContent(bookContent)}}>
-              책</Button>
+            <Tabs 
+              value={tabValue}
+              indicatorColor="primary"
+              textColor="primary"
+              onChange={handleTabChange}
+              aria-label="content tabs"
+            >
+              <Tab label="음악" className="contentTabs" onClick={() => {setContent(musicContent)}} />
+              <Tab label="영화" className="contentTabs" onClick={() => {setContent(movieContent)}} />
+              <Tab label="책" className="contentTabs" onClick={() => {setContent(bookContent)}} />
+            </Tabs>
             
             <Divider />
             {content.subtitle}

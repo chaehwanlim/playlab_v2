@@ -22,37 +22,6 @@ const _AppBar = ({
   style, toWhite, toBlack
 }: AppBarProps) => 
 {
-
-  /* return (
-    <div className="appBar">
-      <AppBar position="static" className="appBarBackground">
-        <Container maxWidth="lg">
-          <Toolbar style={{padding: '0rem'}}>
-            <Typography className="title">
-              <Link to="/" className="link" onClick={() => {setColor(HomeColor)}}
-                style={color}>
-                PlayLab
-              </Link>
-            </Typography>
-
-            <Link to="/Popular" onClick={() => {setColor(ContentColor)}}>
-              <IconButton style={color}><StarIcon style={{fontSize: '2.2rem'}}/></IconButton>
-            </Link>
-            <Link to="/PlaylistAdd" onClick={() => {setColor(ContentColor)}}>
-              <IconButton style={color}><AddIcon style={{fontSize: '2.2rem'}}/></IconButton>
-            </Link>
-            <Link to="/Transmedia" onClick={() => {setColor(ContentColor)}}>
-              <IconButton style={color}><ViewCarousel style={{fontSize: '2.2rem'}}/></IconButton>
-            </Link>
-            <Link to="/MyPage" onClick={() => {setColor(ContentColor)}}>
-              <IconButton style={color}><AccountCircle style={{fontSize: '2.2rem'}}/></IconButton>
-            </Link>
-
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </div> 
-  ); */
   return (
     <div className="appBar">
       <AppBar position="static" className="appBarBackground">

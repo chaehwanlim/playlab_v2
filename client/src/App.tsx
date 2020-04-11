@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Popular from "./components/Popular/Popular";
 import PlaylistAdd from "./components/PlaylistAdd/PlaylistAdd";
 import Transmedia from './components/Transmedia/Transmedia';
+import TransmediaPage from './components/Transmedia/TransmediaPage';
 import MyPage from "./components/MyPage/MyPage";
 import Login from "./components/Login";
 
