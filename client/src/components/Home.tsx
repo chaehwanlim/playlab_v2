@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import './styles/Home.scss';
 
 
 const footer = () => {
     return (
-        <footer style={{backgroundColor: 'whitesmoke', color: 'grey', fontSize: '1.4rem', textAlign: 'center', position: 'absolute', top: '100%'}}>
+        <footer style={{color: 'grey', fontSize: '1.4rem', textAlign: 'center', position: 'absolute', top: '100%'}}>
             <p>Copyright © 2020 PlayLab</p>
             <p>Contact webmaster for more information. <a href="mailto: chlim428@gmail.com" color="black">chlim428@gmail.com</a></p>
             <p><a href="https://github.com/chaehwanlim/playlab" color="black" target="_blank" rel="noopener noreferrer">GitHub</a></p>
@@ -14,6 +14,10 @@ const footer = () => {
 }
 
 const Home: React.FC = () => {
+    useEffect(() => {
+        document.body.style.backgroundColor = 'whitesmoke';
+    }, []);
+
     return (
         <div className="background">
             <Container maxWidth="lg">
@@ -24,7 +28,7 @@ const Home: React.FC = () => {
                     감동적인 작품을 모두와 함께
                 </div>
             </Container>
-            {footer()}
+{/*             {footer()} */}
         </div>
     )
 }

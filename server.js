@@ -412,6 +412,63 @@ app.delete('/api/myPage/delete/:id', (req, res) => {
     );
 })
 
+//Transmedia
+//TransmediaInfo
+app.get('/api/Transmedia/:id/Info', (req, res) => {
+    const id = parseInt(req.params.id);
+    const sqlTransmediaInfo = 'SELECT * FROM transmedia WHERE transmediaID = ?';
+    dbConnection.query(sqlTransmediaInfo, [id],
+        (err, results, fields) => {
+            if (err)
+                console.log(err)
+            else {
+                res.send(results);
+            }
+        }
+    );
+})
+
+app.get('/api/Transmedia/:id/Music', (req, res) => {
+    const id = parseInt(req.params.id);
+    const sqlTransmediaMusic = 'SELECT * FROM music WHERE transmediaID = ?';
+    dbConnection.query(sqlTransmediaMusic, [id],
+        (err, results, fields) => {
+            if (err)
+                console.log(err)
+            else {
+                res.send(results);
+            }
+        }
+    );
+})
+app.get('/api/Transmedia/:id/Movie', (req, res) => {
+    const id = parseInt(req.params.id);
+    const sqlTransmediaMovie = 'SELECT * FROM movie WHERE transmediaID = ?';
+    dbConnection.query(sqlTransmediaMovie, [id],
+        (err, results, fields) => {
+            if (err)
+                console.log(err)
+            else {
+                res.send(results);
+            }
+        }
+    );
+})
+app.get('/api/Transmedia/:id/Book', (req, res) => {
+    const id = parseInt(req.params.id);
+    const sqlTransmediaBook = 'SELECT * FROM book WHERE transmediaID = ?';
+    dbConnection.query(sqlTransmediaBook, [id],
+        (err, results, fields) => {
+            if (err)
+                console.log(err)
+            else {
+                res.send(results);
+            }
+        }
+    );
+})
+
+
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });

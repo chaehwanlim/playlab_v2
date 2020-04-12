@@ -125,4 +125,5 @@ interface Transmedia {
   transmediaID: number;
   transmediaName: string;
   transmediaImage: string;
+  transmediaDesc: string;
 }

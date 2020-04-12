@@ -1,6 +1,69 @@
+.pageBox {
+  height: 7rem;
+  &:hover {
+    backdrop-filter: brightness(50%);
+  }
+}
+
+.pageLink {
+  transition: 0.5s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 7rem;
+  font-size: 2.5rem;
+  color: white;
+  text-decoration: none;
+  backdrop-filter: brightness(50%);
+  background-size: cover;
+
+  &:hover {
+    transition: 0.5s;
+    filter: brightness(50%);
+    
+  }
+  
+}
+
 .transmediaImage {
+  transition: 0.5s;
   height: 50rem;
   object-fit: cover;
+  object-position: top;
   width: 100%;
 
+
 }
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .transmediaImage {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.ImageLoading {
+  position: absolute;
+  top: 6.4rem;
+  color: secondary;
+  
+}
+
+.T-title-background {
+  backdrop-filter: blur(8px);
+  position: absolute;
+  top: 35rem;
+  
+}
+
+.T-title {
+  font-family: 'Samsung';
+  position: absolute;
+  top: 40rem;
+  font-size: 6rem;
+  font-weight: 700;
+  color: whitesmoke;
+}
+
