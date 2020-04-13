@@ -8,7 +8,7 @@ const footer = () => {
         <footer style={{color: 'grey', fontSize: '1.4rem', textAlign: 'center', position: 'absolute', top: '100%'}}>
             <p>Copyright © 2020 PlayLab</p>
             <p>Contact webmaster for more information. <a href="mailto: chlim428@gmail.com" color="black">chlim428@gmail.com</a></p>
-            <p><a href="https://github.com/chaehwanlim/playlab" color="black" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+            <p><a href="https://github.com/chaehwanlim/playlab_v2" color="black" target="_blank" rel="noopener noreferrer">GitHub</a></p>
         </footer>
     )
 }
@@ -20,15 +20,12 @@ const Home: React.FC = () => {
 
     return (
         <div className="background">
-            <Container maxWidth="lg">
-                <div className="title">
-                    PlayLab
-                </div>
-                <div className="subtitle">
-                    감동적인 작품을 모두와 함께
-                </div>
-            </Container>
-{/*             {footer()} */}
+            <div className="title">
+                PlayLab
+            </div>
+            <div className="subtitle">
+                감동적인 작품을 모두와 함께
+            </div>
         </div>
     )
 }

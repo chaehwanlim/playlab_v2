@@ -23,7 +23,7 @@ const initialState: AppBarStyle = { color : 'white', textShadow: '' };
 const styleChanger = (state: AppBarStyle = initialState, action: ChangeAction) => {
   switch (action.type) {
     case WHITE:
-      document.body.style.backgroundColor = '#282C34';
+      document.body.style.backgroundColor = '#18171C';
       return { color : 'white', textShadow: '' };
     case BLACK:
       document.body.style.backgroundColor = 'whitesmoke';

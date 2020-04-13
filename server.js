@@ -430,7 +430,14 @@ app.get('/api/Transmedia/:id/Info', (req, res) => {
 
 app.get('/api/Transmedia/:id/Music', (req, res) => {
     const id = parseInt(req.params.id);
-    const sqlTransmediaMusic = 'SELECT * FROM music WHERE transmediaID = ?';
+    const sqlTransmediaMusic = "SELECT musicID, title, artist, genre, c.categoryName, u.userName, t.transmediaName, likes \
+    FROM music AS m \
+    LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
+    LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
+    LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
+    WHERE m.isDeleted = 0 AND m.transmediaID = ? \
+    ORDER BY likes DESC;";
+    
     dbConnection.query(sqlTransmediaMusic, [id],
         (err, results, fields) => {
             if (err)
@@ -443,7 +450,13 @@ app.get('/api/Transmedia/:id/Music', (req, res) => {
 })
 app.get('/api/Transmedia/:id/Movie', (req, res) => {
     const id = parseInt(req.params.id);
-    const sqlTransmediaMovie = 'SELECT * FROM movie WHERE transmediaID = ?';
+    const sqlTransmediaMovie = "SELECT movieID, title, director, genre, c.categoryName, u.userName, t.transmediaName, m.imageURL, m.actor, m.year, m.userRating, likes \
+    FROM movie AS m \
+    LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
+    LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
+    LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
+    WHERE m.isDeleted = 0 AND m.transmediaID = ?\
+    ORDER BY likes DESC;";
     dbConnection.query(sqlTransmediaMovie, [id],
         (err, results, fields) => {
             if (err)
@@ -456,7 +469,13 @@ app.get('/api/Transmedia/:id/Movie', (req, res) => {
 })
 app.get('/api/Transmedia/:id/Book', (req, res) => {
     const id = parseInt(req.params.id);
-    const sqlTransmediaBook = 'SELECT * FROM book WHERE transmediaID = ?';
+    const sqlTransmediaBook = "SELECT bookID, title, author, genre, c.categoryName, u.userName, t.transmediaName, b.imageURL, b.description, likes \
+    FROM book AS b \
+    LEFT OUTER JOIN category AS c ON (c.categoryID = b.categoryID) \
+    LEFT OUTER JOIN users AS u ON (u.userID = b.adderID) \
+    LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = b.transmediaID) \
+    WHERE b.isDeleted = 0 AND b.transmediaID = ?\
+    ORDER BY likes DESC;";
     dbConnection.query(sqlTransmediaBook, [id],
         (err, results, fields) => {
             if (err)

@@ -34,6 +34,15 @@ const Login: React.FC = () => {
     }
     const handleLoginSubmit = (e) => {
       e.preventDefault();
+      if(login.userName.length === 0) {
+        alert('아이디를 입력해주세요.');
+        return;
+      } else {
+        if(login.userPassword.length === 0) {
+          alert('비밀번호를 입력해주세요.');
+          return;
+        }
+      }
       loginProcess();
     }
     const loginProcess = () => {
@@ -51,8 +60,8 @@ const Login: React.FC = () => {
           /* store.dispatch({ type: 'LOGINED', userName: login.userName }); */
           sessionStorage.setItem('userName', login.userName);
           sessionStorage.setItem('userID', res.data.userID);
+          window.location.assign('/MyPage');
         }
-        window.location.assign('/MyPage');
       })
       .catch((err) => console.log(err));
     }
