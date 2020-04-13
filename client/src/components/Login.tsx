@@ -75,6 +75,15 @@ const Login: React.FC = () => {
 
     const handleRegisterSubmit = (e) => {
       e.preventDefault();
+      if(register.userName.length === 0) {
+        alert('아이디를 입력해주세요.');
+        return;
+      } else {
+        if(register.userPassword.length === 0) {
+          alert('비밀번호를 입력해주세요.');
+          return;
+        }
+      }
       registerProcess();
     }
 

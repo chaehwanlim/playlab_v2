@@ -22,6 +22,7 @@ const _AppBar = ({
   style, toWhite, toBlack
 }: AppBarProps) => 
 {
+
   return (
     <div className="appBar">
       <AppBar position="static" className="appBarBackground">

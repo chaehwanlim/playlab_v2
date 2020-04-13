@@ -5,10 +5,8 @@
     background: transparent;
     position: fixed;
     box-shadow: none;
-    filter: brightness(95%);
-    -webkit-filter: brightness(95%);
-    backdrop-filter: blur(8px) brightness(90%);
-    -webkit-backdrop-filter: blur(8px) brightness(90%);
+    backdrop-filter: blur(8px) brightness(70%);
+    -webkit-backdrop-filter: blur(8px) brightness(70%);
 
     .title {
       flex-grow: 1;

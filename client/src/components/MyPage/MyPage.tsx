@@ -54,6 +54,8 @@ const MyPage: React.FC = () => {
   const [tabValue, setTabValue] = useState<number>(1);
 
   useEffect(() => {
+    document.body.style.backgroundColor = 'whitesmoke';
+
     if(sessionStorage.userName){
       setUser(sessionStorage.userName);
     }

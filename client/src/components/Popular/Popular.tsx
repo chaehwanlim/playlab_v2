@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -29,6 +29,10 @@ const Popular: React.FC = () => {
     };
 
     const [content, setContent] = useState<Content>(movieContent);
+
+    useEffect(() => {
+        document.body.style.backgroundColor = 'whitesmoke';
+    }, []);
 
     const handleMusic = (e) => {
         e.preventDefault();

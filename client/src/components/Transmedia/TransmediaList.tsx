@@ -10,6 +10,7 @@ const TransmediaList = ({ match }) => {
   const [transmedia, setTransmedia] = useState<Array<Transmedia>>([]);
 
   useEffect(() => {
+    document.body.style.backgroundColor = '#18171C';
     fetch('/api/transmediaDB')
       .then(res => res.json())
       .then(res => setTransmedia(res))
