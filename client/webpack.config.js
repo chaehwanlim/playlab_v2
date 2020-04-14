@@ -13,7 +13,7 @@ module.exports = {
   //웹팩의 빌드 결과 파일 속성
   output: { 
     filename: "bundle.js",
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "../client_build"),
     publicPath: '/'
   },
   mode: "development",
