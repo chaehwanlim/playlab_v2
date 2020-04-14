@@ -29,22 +29,22 @@ const _AppBar = ({
         <Container maxWidth="lg">
           <Toolbar style={{padding: '0rem'}}>
             <Typography className="title">
-              <Link to="/" className="link" onClick={toWhite}
+              <Link to="/" className="link" 
                 style={style}>
                 PlayLab
               </Link>
             </Typography>
 
-            <Link to="/Popular" onClick={toBlack}>
+            <Link to="/Popular" >
               <IconButton style={style}><StarIcon style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
-            <Link to="/PlaylistAdd" onClick={toBlack}>
+            <Link to="/PlaylistAdd" >
               <IconButton style={style}><AddIcon style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
-            <Link to="/Transmedia" onClick={toWhite}>
+            <Link to="/Transmedia" >
               <IconButton style={style}><ViewCarousel style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
-            <Link to="/MyPage" onClick={toBlack}>
+            <Link to="/MyPage" >
               <IconButton style={style}><AccountCircle style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
 

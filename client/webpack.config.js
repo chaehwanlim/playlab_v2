@@ -13,7 +13,8 @@ module.exports = {
   //웹팩의 빌드 결과 파일 속성
   output: { 
     filename: "bundle.js",
-    path: path.resolve(__dirname, "build")
+    path: path.resolve(__dirname, "build"),
+    publicPath: '/'
   },
   mode: "development",
   module: {
@@ -88,6 +89,8 @@ module.exports = {
         target: 'http://localhost:5000',
         changeOrigin: true
       }
-    }
+    },
+
+    historyApiFallback: true,
   }
 }

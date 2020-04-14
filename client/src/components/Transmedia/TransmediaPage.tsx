@@ -16,6 +16,7 @@ const TransmediaPage = ({ match, history }) => {
   const [transmediaInfo, setTransmediaInfo] = useState<Array<Transmedia>>();
 
   useEffect(() => {
+    document.body.style.backgroundColor = '#18171C';
     fetch(`/api/Transmedia/${match.params.id}/Info`)
       .then(res => res.json())
       .then(res => setTransmediaInfo(res))

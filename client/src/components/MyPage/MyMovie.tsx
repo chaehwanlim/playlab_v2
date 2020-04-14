@@ -63,7 +63,7 @@ const MyMovie: React.FC = () => {
             </TableCell>
             <TableCell className="tableData" style={{maxWidth:"5rem"}}>
               <div className="btnAlign">
-                <Button color="secondary" className="deletion"
+                <Button className="deletion"
                 onClick={() => {handleDeletion(datum.movieID)}}>
                 삭제</Button>
               </div>
