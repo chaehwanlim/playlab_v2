@@ -1,0 +1,37 @@
+.Bookmark {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+}
+
+@media screen and (max-width: 767px) {
+  .Bookmark {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+  }
+}
+
+.Bookmark-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+
+  display: flex;
+
+  align-items: center;
+}
+
+.Bookmark-subtitle {
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: slategrey;
+}
+
+.Bookmark-item-title {
+  padding: 1rem 1rem 1rem 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.Bookmark-item-creator {
+  padding: 0rem 1rem 1rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: whitesmoke;
+}

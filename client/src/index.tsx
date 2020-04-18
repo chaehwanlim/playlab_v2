@@ -5,6 +5,7 @@ import App from './App';
 import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './modules';
 
 const theme = createMuiTheme({

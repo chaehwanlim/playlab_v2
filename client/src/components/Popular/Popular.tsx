@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import MusicPopular from './MusicPopular';
 import MoviePopular from './MoviePopular';
+import MoviePopularContainer from '../../containers/MoviePopularContainer';
 import BookPopular from './BookPopular'; 
 import Footer from '../footer';
 import '../styles/Content.scss';
@@ -21,7 +22,7 @@ const Popular: React.FC = () => {
     };
     const movieContent: Content = {
         title: "영화 인기 차트",
-        component: <MoviePopular />
+        component: <MoviePopularContainer />
     };
     const bookContent: Content = {
         title: "책 인기 차트",

@@ -127,3 +127,8 @@ interface Transmedia {
   transmediaImage: string;
   transmediaDesc: string;
 }
+
+interface BookmarkWork {
+  title: string;
+  creator: string;
+}

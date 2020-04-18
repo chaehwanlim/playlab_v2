@@ -1,10 +1,10 @@
 //루트 리듀서
 
 import { combineReducers } from 'redux';
-import AppBarStyle from './AppBarStyle';
+import Bookmark from './bookmark';
 
 const rootReducer = combineReducers({
-  AppBarStyle
+  Bookmark
 });
 
 export default rootReducer;

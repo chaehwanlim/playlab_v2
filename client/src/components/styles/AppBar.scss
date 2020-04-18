@@ -1,5 +1,6 @@
 .appBar {
   flex-grow: 1;
+  
 
   .appBarBackground {
     background: transparent;
@@ -19,5 +20,10 @@
         text-decoration: none;
       }
     }
+
+    .MuiDrawer- {
+      background-color: brown;
+    }
   }
 }
+

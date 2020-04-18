@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import AppBarContainer from "./containers/AppBarContainer";
+import AppBar from "./components/AppBar";
 import Home from "./components/Home";
 import Popular from "./components/Popular/Popular";
 import PlaylistAdd from "./components/PlaylistAdd/PlaylistAdd";
@@ -11,7 +11,7 @@ import Login from "./components/Login";
 const App: React.FC = () => {
   return (
     <Router>
-      <AppBarContainer />
+      <AppBar />
       <Route exact path="/" component={Home} />
       <Route path="/Popular" component={Popular} />
       <Route path="/PlaylistAdd" component={PlaylistAdd} />

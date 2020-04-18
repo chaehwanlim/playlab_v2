@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ThumbUp from '@material-ui/icons/ThumbUp';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
@@ -14,8 +15,11 @@ import '../styles/Content.scss';
 import '../styles/Movie.scss';
 import '../DBInterfaces.tsx';
 
+type MoviePopularProps = {
+  onSet: (work: BookmarkWork) => void;
+}
 
-const MoviePopular: React.FC = () => {
+const MoviePopular = ({ onSet }: MoviePopularProps) => {
   const [movieDB, setMovieDB] = useState<Array<PopularMovie>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState<string>("모든");
@@ -61,15 +65,29 @@ const MoviePopular: React.FC = () => {
                     <img className="moviePoster" src={datum.imageURL} title={datum.title} alt={datum.title}/>
                     <Button variant="contained" className="movieLikes"
                       onClick={() => {handleLikes(datum.movieID)}}
-                      ><ThumbUp />&nbsp;{datum.likes}</Button>
+                    >
+                      <ThumbUp />&nbsp;{datum.likes}
+                    </Button>
                 </div>
                 </Grid>
                 <Grid item xs={8}>
                     <div className="movieTitle">
                       <span style={{color: 'orange'}}>{index + 1}&nbsp;&nbsp;</span>
-                      <span>{datum.title}
-                      <span className="movieYear">{datum.year}</span>
+                      <span>
+                        {datum.title}
+                        <span className="movieYear">
+                          {datum.year}
+                        </span>
+                        <IconButton style={{padding: '0rem 1rem 0rem 1rem'}} 
+                          onClick={() => onSet({
+                            title: datum.title,
+                            creator: datum.actor
+                          })}
+                        >
+                          <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
+                        </IconButton>
                       </span>
+                      
                     </div>
                     <div className="movieInfo">
                         <b>감독</b>  {datum.director}<br />
