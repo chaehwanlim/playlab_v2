@@ -15,11 +15,11 @@ import '../styles/Content.scss';
 import '../styles/Movie.scss';
 import '../DBInterfaces.tsx';
 
-type MoviePopularProps = {
-  onSet: (work: BookmarkWork) => void;
+interface MoviePopularProps {
+  onAdd: (work: BookmarkItem) => void;
 }
 
-const MoviePopular = ({ onSet }: MoviePopularProps) => {
+const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
   const [movieDB, setMovieDB] = useState<Array<PopularMovie>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState<string>("모든");
@@ -78,10 +78,12 @@ const MoviePopular = ({ onSet }: MoviePopularProps) => {
                         <span className="movieYear">
                           {datum.year}
                         </span>
-                        <IconButton style={{padding: '0rem 1rem 0rem 1rem'}} 
-                          onClick={() => onSet({
+                        <IconButton style={{padding: '0.5rem 0.5rem 0.5rem 0.5rem', marginLeft: '0.5rem'}} 
+                          onClick={() => onAdd({
                             title: datum.title,
-                            creator: datum.actor
+                            creator: datum.director,
+                            category: datum.categoryName,
+                            media: '영화'
                           })}
                         >
                           <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
@@ -90,14 +92,14 @@ const MoviePopular = ({ onSet }: MoviePopularProps) => {
                       
                     </div>
                     <div className="movieInfo">
-                        <b>감독</b>  {datum.director}<br />
-                        <b>출연</b>  {datum.actor}<br />
-                        <b>평점</b>  {datum.userRating}<br />
-                        <b>트랜스미디어</b>  {datum.transmediaName}
+                      <b>감독</b>  {datum.director}<br />
+                      <b>출연</b>  {datum.actor}<br />
+                      <b>평점</b>  {datum.userRating}<br />
+                      <b>트랜스미디어</b>  {datum.transmediaName}
                     </div>
                     <div className="movieCategory">
-                        <b>{datum.userName}</b> 님의<br />
-                        <b>{datum.categoryName}</b> 영화입니다.<br />
+                      <b>{datum.userName}</b> 님의<br />
+                      <b>{datum.categoryName}</b> 영화입니다.<br />
                     </div>
                 </Grid>
             </div>

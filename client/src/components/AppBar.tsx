@@ -16,20 +16,19 @@ import Divider from '@material-ui/core/Divider';
 import BookmarkListContainer from '../containers/BookmarkListContainer';
 import { Link } from "react-router-dom";
 import './styles/AppBar.scss';
+import './styles/Bookmark.scss';
 
 
 const useStyles = makeStyles({
-  props: {
-    MuiDrawer: {
-      backgroundColor: 'whitesmoke',
-    }
+  paper: {
+    backgroundColor: 'whitesmoke',
   }
 });
 
 const _AppBar = () => 
 {
   const [drawerState, setDrawerState] = useState(false);
-  const style = { color : 'white', textShadow: '' };
+  const style = { color : 'white', /* textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' */ };
 
   const classes = useStyles();
 
@@ -49,18 +48,24 @@ const _AppBar = () =>
                 <NoteIcon style={{fontSize: '2.2rem'}} />
               </IconButton>
               
-              <Drawer anchor={"right"} open={drawerState} onClose={() => setDrawerState(false)}>
-              <div className="Memo">
-                <div className="Memo-title">
-                  <IconButton onClick={() => setDrawerState(false)}>
-                    <CloseIcon style={{fontSize: '2.4rem'}}/>
-                  </IconButton>
+              <Drawer anchor={"right"} 
+                open={drawerState} 
+                onClose={() => setDrawerState(false)} 
+                classes={{paper: classes.paper}}>
+              <div className="bookmark">
+                <IconButton 
+                  onClick={() => setDrawerState(false)} 
+                  style={{position: 'absolute', top: '0.5rem', right: '0.5rem', padding: '1rem 1rem 1rem 1rem'}}
+                >
+                  <CloseIcon style={{fontSize: '2.4rem'}}/>
+                </IconButton>
+                <div className="bookmark-title">
                   북마크
                 </div>
-                <div className="Memo-subtitle">
+                <div className="bookmark-subtitle">
                   북마크한 작품을 이곳에서 확인하세요.
                 </div>
-                <Divider style={{marginTop: '1rem'}}/>
+                <Divider style={{marginTop: '1.5rem'}}/>
                 <BookmarkListContainer />
               </div>
               </Drawer>

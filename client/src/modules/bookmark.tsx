@@ -1,57 +1,73 @@
 import '../components/DBInterfaces.tsx';
 
-//리덕스 액션 type 선언
-const SET_BOOKMARK = "bookmarks/SET_BOOKMARK" as const;
-const DEL_BOOKMARK = "bookmarks/DEL_BOOKMARK" as const;
+//type 선언
+export interface BookmarkItemParams {
+  id: number;
+  item: BookmarkItem;
+}
+
+export interface BookmarkState {
+  bookmarkItems: BookmarkItemParams[];
+}
+
+const ADD = "bookmarks/ADD" as const;
+const REMOVE = "bookmarks/REMOVE" as const;
+
+interface AddAction {
+  type: typeof ADD;
+  payload: BookmarkItemParams;
+}
+
+interface RemoveAction {
+  type: typeof REMOVE;
+  payload: number;
+}
+
+export type BookmarkActionTypes =
+  | AddAction
+  | RemoveAction;
 
 //액션 생성 함수 선언
-let total = 0;
-export const setBookmark = (work: BookmarkWork) => ({
-  type: SET_BOOKMARK,
+let autoId = 0;
+
+export const add = (item: BookmarkItem) => ({
+  type: ADD,
   payload: {
-    id: ++total,
-    work
+    id: autoId++,
+    item: item
   }
 });
-export const delBookmark = (id: number) => ({
-  type: DEL_BOOKMARK,
+export const remove = (id: number) => ({
+  type: REMOVE,
   payload: id
 });
 
-//액션 객체에 대한 타입스크립트 type 준비
-type handleBookmark = 
-  | ReturnType<typeof setBookmark>
-  | ReturnType<typeof delBookmark>;
-
-//상태의 타입과 상태의 초깃값 선언
-/* export interface WorkMemo {
-  name: string;
-  creator: string;
-} */
-export interface bookmarkState {
-  bookmarks: any[];
-}
-
-const initialState: bookmarkState = {
-  bookmarks: []
+export const actionCreators = {
+  add,
+  remove
 };
 
-//리듀서
-const bookmarkReducer = (state: bookmarkState = initialState, action: handleBookmark) => {
+//상태의 타입과 상태의 초깃값 선언
+const initialState: BookmarkState = {
+  bookmarkItems: []
+};
+
+//Reducer
+export const bookmarkReducer = (
+  state: BookmarkState = initialState, 
+  action: BookmarkActionTypes
+): BookmarkState => {
   switch (action.type) {
-    case SET_BOOKMARK:
+    case ADD:
       return {
-        ...state,
-      bookmarks: state.bookmarks.concat({ ...action.payload })
+        bookmarkItems: [...state.bookmarkItems, action.payload]
       };
-    case DEL_BOOKMARK:
+    case REMOVE:
       return {
         ...state,
-        bookmarks: state.bookmarks.filter((bookmark) => (bookmark.id !== action.payload))
+        bookmarkItems: state.bookmarkItems.filter(bookmark => bookmark.id !== action.payload)
       }
     default:
       return state;
   }
 }
-
-export default bookmarkReducer;

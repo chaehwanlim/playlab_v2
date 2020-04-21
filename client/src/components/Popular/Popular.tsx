@@ -3,9 +3,9 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import MusicPopular from './MusicPopular';
-import MoviePopular from './MoviePopular';
+import MusicPopularContainer from '../../containers/MusicPopularContainer';
 import MoviePopularContainer from '../../containers/MoviePopularContainer';
+import BookPopularContainer from '../../containers/BookPopularContainer';
 import BookPopular from './BookPopular'; 
 import Footer from '../footer';
 import '../styles/Content.scss';
@@ -18,7 +18,7 @@ interface Content {
 const Popular: React.FC = () => {
     const musicContent: Content = {
         title: "음악 인기 차트",
-        component: <MusicPopular />
+        component: <MusicPopularContainer />
     };
     const movieContent: Content = {
         title: "영화 인기 차트",
@@ -26,7 +26,7 @@ const Popular: React.FC = () => {
     };
     const bookContent: Content = {
         title: "책 인기 차트",
-        component: <BookPopular />
+        component: <BookPopularContainer />
     };
 
     const [content, setContent] = useState<Content>(movieContent);

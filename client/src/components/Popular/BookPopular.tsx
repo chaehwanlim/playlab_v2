@@ -5,6 +5,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
@@ -13,8 +14,11 @@ import '../styles/Content.scss';
 import '../styles/Book.scss';
 import '../DBInterfaces.tsx';
 
+interface BookPopularProps {
+  onAdd: (work: BookmarkItem) => void;
+}
 
-const BookPopular: React.FC = () => {
+const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
   const [bookDB, setBookDB] = useState<Array<PopularBook>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState<string>("모든");
@@ -71,7 +75,17 @@ const BookPopular: React.FC = () => {
             <Grid item xs={8} md={4}>
               <div className="bookTitle">
                 <span style={{color: 'orange'}}>{index + 1}&nbsp;&nbsp;</span>
-                {removeBTags(datum.title)}&nbsp;&nbsp;
+                {removeBTags(datum.title)}&nbsp;
+                <IconButton style={{padding: '0.5rem 0.5rem 0.5rem 0.5rem', marginLeft: '0.5rem'}} 
+                  onClick={() => onAdd({
+                    title: datum.title,
+                    creator: datum.author,
+                    category: datum.categoryName,
+                    media: '책'
+                  })}
+                >
+                  <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
+                </IconButton>
               </div>
               <div className="bookInfo">
                 <b>작가</b>  {datum.author}<br />

@@ -4,59 +4,66 @@ import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import Divider from '@material-ui/core/Divider';
+import { BookmarkItemParams } from "../modules/bookmark";
 import './DBInterfaces';
 import './styles/Bookmark.scss';
 
 const useStyles = makeStyles({
   root: {
-    background: '#202126',
+    marginTop: '1.5rem',
   }
 })
 
-type BookmarkProps = {
-  bookmark: {
-    id: number;
-    BookmarkWork: BookmarkWork;
-  };
+interface BookmarkItemProps {
+  bookmarkItem: BookmarkItemParams;
   onRemove: (id: number) => void;
 }
 
-type BookmarkListProps = {
-  bookmarks: any;
+interface Props {
+  bookmarkItems: BookmarkItemParams[];
   onRemove: (id: number) => void;
 }
 
-const Bookmark = ({ bookmark, onRemove }: BookmarkProps) => {
-  const { id, BookmarkWork } = bookmark;
+const Bookmark: React.SFC<BookmarkItemProps> = ({ bookmarkItem, onRemove }) => {
   const classes = useStyles();
 
   return (
     <Grid item xs={12}>
-      <Card classes={{root: classes.root}}>
-        <Grid item xs={10}>
-          <div className="bookmark-item-title">{BookmarkWork.title}</div>
+      <Card classes={{root: classes.root}} elevation={3}>
+        <Grid container spacing={0}>
+          <Grid item xs={10}>
+            <div className="bookmark-item-title">{bookmarkItem.item.title}</div>
+          </Grid>
+          <Grid item xs={2}>
+            <IconButton 
+              onClick={() => onRemove(bookmarkItem.id)}
+              style={{padding: '1.5rem', display: 'flex', flexDirection: 'row', alignItems: 'center'}}
+            >
+              <ClearIcon style={{fontSize: '2rem'}}/>
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid item xs={2}>
-          <IconButton onClick={() => onRemove(id)}>
-            <ClearIcon style={{fontSize: '2rem'}}/>
-          </IconButton>
-        </Grid>
-        <div className="bookmark-item-creator">{BookmarkWork.creator}</div>
+        <div className="bookmark-item-creator">{bookmarkItem.item.creator}</div>
+        <Divider />
+        <div className="bookmark-item-category">{bookmarkItem.item.category} {bookmarkItem.item.media}</div>
       </Card>
     </Grid>
   )
 };
 
-const BookmarkList = ({ bookmarks, onRemove }: BookmarkListProps) => {
+const BookmarkList: React.SFC<Props> = ({ bookmarkItems, onRemove }) => {
+  const bookmarkItemList = bookmarkItems.map(bookmarkItem => 
+    bookmarkItem ? (
+      <Bookmark
+        bookmarkItem={bookmarkItem}
+        onRemove={onRemove}
+      />
+    ) : null);
+
   return (
     <Grid container spacing={1}>
-      {bookmarks ? bookmarks.map((bookmark) => (
-        <Bookmark
-          bookmark={bookmark}
-          key={bookmark.id}
-          onRemove={onRemove} 
-        />
-      )) : <div />}
+      {bookmarkItemList}
     </Grid>
   )
 };

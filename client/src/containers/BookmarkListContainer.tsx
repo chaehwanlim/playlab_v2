@@ -1,23 +1,24 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../modules';
-import { delBookmark } from '../modules/bookmark';
 import BookmarkList from '../components/BookmarkList';
+import { useSelector, useDispatch } from 'react-redux';
+import { StoreState } from '../modules';
+import { BookmarkItemParams, remove } from '../modules/bookmark';
 
 const BookmarkListContainer = () => {
-  const bookmarks = useSelector((state: RootState) => state.Bookmark);
+  const bookmarkItems: BookmarkItemParams[] = useSelector((state: StoreState) => state.bookmarks.bookmarkItems);
+
   const dispatch = useDispatch();
 
   const onRemove = (id: number) => {
-    dispatch(delBookmark(id));
+    dispatch(remove(id));
   }
 
   return (
     <BookmarkList 
-      bookmarks={bookmarks}
+      bookmarkItems={bookmarkItems}
       onRemove={onRemove}
     />
   );
-};
+}
 
 export default BookmarkListContainer;

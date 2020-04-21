@@ -128,7 +128,9 @@ interface Transmedia {
   transmediaDesc: string;
 }
 
-interface BookmarkWork {
+interface BookmarkItem {
   title: string;
   creator: string;
+  category: string;
+  media: string;
 }

@@ -1,37 +1,49 @@
-.Bookmark {
+.bookmark {
   padding: 1rem 1.5rem 1rem 1.5rem;
+  max-width: 300px;
+  min-width: 300px;
 }
 
 @media screen and (max-width: 767px) {
-  .Bookmark {
+  .bookmark {
     padding: 1rem 1.5rem 1rem 1.5rem;
+    width: device-width;
   }
 }
 
-.Bookmark-title {
-  font-size: 2.5rem;
-  font-weight: 900;
-
-  display: flex;
-
-  align-items: center;
+.bookmark-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem 0.5rem 0rem;
 }
 
-.Bookmark-subtitle {
+.bookmark-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.bookmark-subtitle {
   font-size: 1.7rem;
   font-weight: 500;
   color: slategrey;
 }
 
-.Bookmark-item-title {
+.bookmark-item-title {
   padding: 1rem 1rem 1rem 1rem;
   font-size: 2rem;
   font-weight: 700;
 }
 
-.Bookmark-item-creator {
+.bookmark-item-creator {
   padding: 0rem 1rem 1rem 1rem;
   font-size: 1.5rem;
   font-weight: 300;
-  color: whitesmoke;
+  color: slategrey;
+}
+
+.bookmark-item-category {
+  padding: 1rem 1rem 1rem 1rem;
+  font-size: 1.6rem;
+  font-weight: 400;
 }

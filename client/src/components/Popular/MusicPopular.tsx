@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
@@ -18,8 +19,11 @@ import '../styles/Content.scss';
 import '../styles/Table.scss';
 import '../DBInterfaces.tsx';
 
+interface MusicPopularProps {
+  onAdd: (work: BookmarkItem) => void;
+}
 
-export default function MusicPopular() {
+const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
   const [musicDB, setMusicDB] = useState<Array<PopularMusic>>([]);
   const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState<string>("모든");
@@ -69,6 +73,16 @@ export default function MusicPopular() {
             <Button variant="contained" className="musicLikes"
             onClick={() => {handleLikes(datum.musicID)}}
             ><ThumbUp />&nbsp;{datum.likes}</Button>
+            <IconButton style={{padding: '0.5rem 0.5rem 0.5rem 0.5rem', marginLeft: '0.5rem'}} 
+              onClick={() => onAdd({
+                title: datum.title,
+                creator: datum.artist,
+                category: datum.categoryName,
+                media: '음악'
+              })}
+            >
+              <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
+            </IconButton>
           </TableCell>
           <TableCell className="tableData2" id="musicForMobile">{datum.genre}</TableCell>
           <TableCell className="tableData2" id="musicForMobile">{datum.transmediaName}</TableCell>
@@ -156,3 +170,5 @@ export default function MusicPopular() {
     </div>
   )
 }
+
+export default MusicPopular;
