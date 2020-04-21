@@ -74,18 +74,28 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
             </Grid>
             <Grid item xs={8} md={4}>
               <div className="bookTitle">
-                <span style={{color: 'orange'}}>{index + 1}&nbsp;&nbsp;</span>
-                {removeBTags(datum.title)}&nbsp;
-                <IconButton style={{padding: '0.5rem 0.5rem 0.5rem 0.5rem', marginLeft: '0.5rem'}} 
-                  onClick={() => onAdd({
-                    title: datum.title,
-                    creator: datum.author,
-                    category: datum.categoryName,
-                    media: '책'
-                  })}
-                >
-                  <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
-                </IconButton>
+                <Grid container spacing={0}>
+                  <Grid item xs={10}>
+                    <span style={{color: 'orange'}}>
+                      {index + 1}&nbsp;&nbsp;
+                    </span>
+                    {removeBTags(datum.title)}&nbsp;
+                  </Grid>
+                  <Grid item xs={2}>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                      <IconButton style={{padding: '1rem'}} 
+                        onClick={() => onAdd({
+                          title: datum.title,
+                          creator: datum.author,
+                          category: datum.categoryName,
+                          media: '책'
+                        })}
+                      >
+                        <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
+                      </IconButton>
+                    </div>
+                  </Grid>
+                </Grid>
               </div>
               <div className="bookInfo">
                 <b>작가</b>  {datum.author}<br />

@@ -72,24 +72,33 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
                 </Grid>
                 <Grid item xs={8}>
                     <div className="movieTitle">
-                      <span style={{color: 'orange'}}>{index + 1}&nbsp;&nbsp;</span>
-                      <span>
-                        {datum.title}
-                        <span className="movieYear">
-                          {datum.year}
+                      <Grid container spacing={0}>
+                        <Grid item xs={10}>
+                        <span style={{color: 'orange'}}>
+                          {index + 1}&nbsp;&nbsp;
                         </span>
-                        <IconButton style={{padding: '0.5rem 0.5rem 0.5rem 0.5rem', marginLeft: '0.5rem'}} 
-                          onClick={() => onAdd({
-                            title: datum.title,
-                            creator: datum.director,
-                            category: datum.categoryName,
-                            media: '영화'
-                          })}
-                        >
-                          <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
-                        </IconButton>
-                      </span>
-                      
+                        <span>
+                          {datum.title}
+                          <span className="movieYear">
+                            {datum.year}
+                          </span>
+                        </span>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                            <IconButton style={{padding: '1rem'}} 
+                              onClick={() => onAdd({
+                                title: datum.title,
+                                creator: datum.director,
+                                category: datum.categoryName,
+                                media: '영화'
+                              })}
+                            >
+                              <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
+                            </IconButton>
+                          </div>
+                        </Grid>
+                      </Grid>
                     </div>
                     <div className="movieInfo">
                       <b>감독</b>  {datum.director}<br />

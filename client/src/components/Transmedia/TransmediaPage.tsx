@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
-import Divider from '@material-ui/core/Divider';
-import Axios from 'axios';
-import TransmediaBook from './TransmediaBook';
-import TransmediaMovie from './TransmediaMovie';
-import TransmediaMusic from './TransmediaMusic';
+import TransmediaBookContainer from '../../containers/TransmediaBookContainer';
+import TransmediaMovieContainer from '../../containers/TransmediaMovieContainer';
+import TransmediaMusicContainer from '../../containers/TransmediaMusicContainer';
 import Footer from '../footer';
 import '../DBInterfaces';
 import '../styles/Content.scss';
@@ -34,9 +31,9 @@ const TransmediaPage = ({ match, history }) => {
       : <div />}
 
       <Container maxWidth="lg">
-        <TransmediaMusic id={match.params.id}/>
-        <TransmediaMovie id={match.params.id}/>
-        <TransmediaBook id={match.params.id}/>
+        <TransmediaMusicContainer id={match.params.id}/>
+        <TransmediaMovieContainer id={match.params.id}/>
+        <TransmediaBookContainer id={match.params.id}/>
       </Container>
       
       {transmediaInfo ? <Footer color={'whitesmoke'} />

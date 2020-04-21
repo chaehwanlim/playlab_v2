@@ -4,6 +4,8 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import IconButton from '@material-ui/core/IconButton';
 import '../DBInterfaces';
 import '../styles/Transmedia.scss';
 
@@ -13,7 +15,12 @@ const useStyles = makeStyles({
   }
 })
 
-const TransmediaBook = ({ id }) => {
+interface TransmediaBookProps {
+  id: number;
+  onAdd: (work: BookmarkItem) => void;
+}
+
+const TransmediaBook: React.SFC<TransmediaBookProps> = ({ id, onAdd }) => {
   const [book, setBook] = useState<Array<PopularBook>>([]);
 
   const classes = useStyles();
@@ -36,7 +43,25 @@ const TransmediaBook = ({ id }) => {
                 <Grid item xs={12} sm={6} md={4}>
                   <Card classes={{root: classes.root}}>
                     <CardMedia component="img" height="200px" image={datum.imageURL} title={datum.title}/>
-                    <div className="T-content-title">{datum.title}</div>
+                    <Grid container spacing={0}>
+                      <Grid item xs={10}>
+                        <div className="T-content-title">{datum.title}</div>
+                      </Grid>
+                      <Grid item xs={2}>
+                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                          <IconButton style={{padding: '1.5rem'}} 
+                            onClick={() => onAdd({
+                              title: datum.title,
+                              creator: datum.author,
+                              category: datum.categoryName,
+                              media: '책'
+                            })}
+                          >
+                            <NoteAddIcon style={{color: 'white', width: '2rem', height: '2rem'}}/>
+                          </IconButton>
+                        </div>
+                      </Grid>
+                    </Grid>
                     <div className="T-content-creator">{datum.author}</div>
                     <Divider className="divider" style={{backgroundColor: '#3B3A40'}} />
                     <div className="T-content-desc">{datum.userName}님의 {datum.categoryName} 책</div>
