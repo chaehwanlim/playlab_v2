@@ -10,6 +10,7 @@
 
 <h2> 기능 </h2>
 
+* 북마크 : 나중에 보기 위해 북마크한 작품을 한 곳에서 확인할 수 있습니다.
 * 인기차트 : 작품의 인기도를 확인하거나 검색할 수 있습니다.
 * 작품추가 : 감상한 작품을 추가할 수 있습니다. (로그인 필요)
   * 음악 : 직접 입력하여 추가할 수 있습니다.
@@ -20,7 +21,7 @@
 
 <h2> 개발 </h2>
 
-* Front-end : HTML, SCSS, TS, React.js(SPA), Material-UI framework, React-router-dom, React-Redux
+* Front-end : HTML, SCSS, TS, React.js(SPA), Material-UI framework, React-Redux
 * Back-end : JS, Node.js(Express), RestAPI
 * DB : MySQL(AWS RDS)
 * Infra : AWS EC2, nginx, pm2, Git
