@@ -5,8 +5,8 @@
 > A new version of Playlab with TypeScript, Webpack, Babel. <br/>
 > 영화나 음악, 책을 접하고 느낀 내 감정을 다른 사람과 공유할 수 있는 웹 서비스입니다. <br/>
 > 2019년 2학년 2학기 데이터베이스설계 수업의 팀 프로젝트 아이디어를 실제로 구현했습니다.
-<img src="https://user-images.githubusercontent.com/60354103/79132646-ac4e0b00-7de5-11ea-9100-6c4df74f970b.png" alt="preview1">
-<img src="https://user-images.githubusercontent.com/60354103/79132663-b1ab5580-7de5-11ea-9437-db73d24e60be.png" alt="preview2">
+<img src="https://user-images.githubusercontent.com/60354103/79992119-0dfd2c00-84ee-11ea-8fb6-aa8c6249bfc5.png" alt="preview1">
+<img src="https://user-images.githubusercontent.com/60354103/79992125-0f2e5900-84ee-11ea-836e-b031fc3badbb.png" alt="preview2">
 
 <h2> 기능 </h2>
 
