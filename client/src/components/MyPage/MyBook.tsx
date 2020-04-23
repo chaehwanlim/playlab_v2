@@ -46,7 +46,7 @@ const MyBook: React.FC = () => {
   }
 
   return (
-    <div className="table">
+    <div className="MyPage-table">
       <TableContainer className="tableContainer">
       <Table stickyHeader aria-label="sticky table">
         <TableBody>

@@ -7,7 +7,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Axios from 'axios';
 import '../styles/Add.scss';
-import MovieAdd from './MovieAdd';
 
 
 const MusicAdd: React.FC = () => {
@@ -154,4 +153,4 @@ const MusicAdd: React.FC = () => {
     )
 }
 
-export default MovieAdd;
+export default MusicAdd;

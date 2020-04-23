@@ -1,11 +1,139 @@
 @import './Colors.scss';
 
-.table {
+.MuiButtonBase-root.MuiExpansionPanelSummary-root {
+  padding: 0 1rem 0 0;
+}
+
+.MuiButtonBase-root {
+  .MuiExpansionPanelSummary-content {
+    margin: 0;
+  }
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.musicLikesBtn {
+  background-color: $musicBlue;
+  font-size: 1.4rem;
+  color: white;
+  padding: 0rem 1rem 0rem 1rem;
+  width: 8rem;
+}
+
+.MuiPaper-root.MuiExpansionPanel-root.Mui-expanded.MuiExpansionPanel-rounded.MuiPaper-elevation1.MuiPaper-rounded {
+  margin: 0;
+  border-top: 1px solid rgba(224, 224, 224, 1);
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.MuiTableContainer-root.Music-table{
+  overflow-x: hidden;
+}
+
+.Music-table {
+  max-height: 70rem;
+  overflow-x: hidden;
+  
+  .MuiExpansionPanelDetails-root {
+    padding-top: 0;
+    padding-left: 5.6rem;
+    display: block;
+  }
+
+  .MuiTableCell-root {
+    border-bottom: none;
+  }
+
+  .tableData {
+    font-size: 1.7rem;
+    font-weight: 400;
+
+    .music-item-title {
+      font-weight: 700;
+    }
+  }
+
+  #ranking {
+    text-align: center;
+    padding: 0 0 0 1rem;
+    width: 3rem;
+  }
+
+  .music-btns {
+    padding: 0;
+    width: 8rem;
+
+    .musicLikeBtn {
+      background-color: $musicBlue;
+      font-size: 1.4rem;
+      color: white;
+      padding: 0rem 1rem 0rem 1rem;
+      width: 8rem;
+    }
+  }
+
+}
+
+.MyPage-table {
+  .tableContainer {
+    height: 70rem;
+
+    .tableData {
+      font-size: 1.7rem;
+      font-weight: 400;
+    
+      .title {
+        font-size: 1.7rem;
+        font-weight: 700;
+      }
+
+      .btnAlign {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .deletion {
+          padding: 0.2rem 0rem 0.2rem 0rem;
+          transition: 0.5s;
+          background-color: #FE6B8B;
+          color: white;
+          font-size: 1.5rem;
+          font-weight: 400;
+          &:hover {
+            transform: scale(1.1);
+            transition: 0.5s;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* .table {
   margin-top: 0.5rem;
   width: 100%;
   
   .tableContainer {
     height: 70rem;
+
+    .MuiExpansionPanelSummary-root {
+      padding: 0 1.5rem 0 0;
+    }
+
+    .MuiExpansionPanel-root.Mui-expanded {
+      margin: 0;
+    }
+
+    .music-content-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .musicLikes {
+        background-color: $musicBlue;
+        font-size: 1.4rem;
+        color: white;
+        padding: 0rem 1rem 0rem 1rem;
+      }
+    }
 
     .tableData {
       font-size: 1.7rem;
@@ -60,4 +188,4 @@
 
   }
 
-}
+} */

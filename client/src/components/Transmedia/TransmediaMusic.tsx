@@ -46,7 +46,7 @@ const TransmediaMusic: React.SFC<TransmediaMusicProps> = ({ id, onAdd }) => {
                         <div className="T-content-title">{datum.title}</div>
                       </Grid>
                       <Grid item xs={2}>
-                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                        <div className="T-content-btn">
                           <IconButton style={{padding: '1.5rem'}} 
                             onClick={() => onAdd({
                               title: datum.title,

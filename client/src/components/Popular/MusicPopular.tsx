@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -61,32 +64,60 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
     });
     return data.map((datum: PopularMusic, index: number) => {
       return (
-        <TableRow>
-          <TableCell className="tableData" component="th" scope="row" id="ranking">{index + 1}</TableCell>
-          <TableCell className="tableData" style={{paddingLeft: '1rem'}}>
-              <span className="title">{datum.title}</span><br></br>{datum.artist}
-          </TableCell>
-          <TableCell className="tableData" id="category">
-              {datum.userName} 님의<br />{datum.categoryName} 음악
-          </TableCell>
-          <TableCell className="tableData">
-            <Button variant="contained" className="musicLikes"
-            onClick={() => {handleLikes(datum.musicID)}}
-            ><ThumbUp />&nbsp;{datum.likes}</Button>
-            <IconButton style={{padding: '0.5rem 0.5rem 0.5rem 0.5rem', marginLeft: '0.5rem'}} 
-              onClick={() => onAdd({
-                title: datum.title,
-                creator: datum.artist,
-                category: datum.categoryName,
-                media: '음악'
-              })}
-            >
-              <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
-            </IconButton>
-          </TableCell>
-          <TableCell className="tableData2" id="musicForMobile">{datum.genre}</TableCell>
-          <TableCell className="tableData2" id="musicForMobile">{datum.transmediaName}</TableCell>
-        </TableRow>
+        <ExpansionPanel>
+          <ExpansionPanelSummary
+            expandIcon={<ExpandMoreIcon style={{fontSize: '2rem'}}/>}
+          >
+            <Table>
+            <TableBody>
+            <TableRow>
+              <TableCell className="tableData" id="ranking">
+                {index + 1}
+              </TableCell>
+              <TableCell className="tableData">
+                <span className="music-item-title">
+                  {datum.title}
+                  <IconButton style={{padding: '0.5rem', marginLeft: '0.5rem'}} 
+                    onClick={() => onAdd({
+                      title: datum.title,
+                      creator: datum.artist,
+                      category: datum.categoryName,
+                      media: '음악'
+                    })}
+                  >
+                    <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
+                  </IconButton>
+                </span>
+                <br />
+                {datum.artist}
+              </TableCell>
+              <TableCell className="music-btns">
+                <Button variant="contained" 
+                  className="musicLikeBtn"
+                  onClick={() => {handleLikes(datum.musicID)}}
+                >
+                  <ThumbUp />&nbsp;{datum.likes}
+                </Button>
+              </TableCell>
+            </TableRow>
+            </TableBody> 
+            </Table>
+          </ExpansionPanelSummary>
+          
+          <ExpansionPanelDetails className="tableData">
+            <div>
+              <b>{datum.userName}</b> 님의&nbsp;
+              <b>{datum.categoryName}</b> 음악
+            </div>
+            <div>
+              <b>장르</b>&nbsp;&nbsp;{datum.genre}
+            </div>
+            <div>
+              <b>트랜스미디어</b>&nbsp;&nbsp;
+              {datum.transmediaName}
+            </div>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       )
     });
   }
@@ -144,6 +175,7 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
         </Select>
       &nbsp; 음악의 인기 차트</div>
       </Card>
+
       <form noValidate autoComplete="off" className="form" onSubmit={handleClick}>
         <Card component="form" className="searchBar" elevation={3} square={true}>
           <InputBase
@@ -158,15 +190,12 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
           </IconButton>
         </Card>
       </form>
-      <Paper className="table">
-        <TableContainer className="tableContainer">
-          <Table stickyHeader aria-label="sticky table">
-            <TableBody>
-            {musicDB ? filterData(musicDB) : <TableRow>error ocurred</TableRow>}
-            </TableBody>
-          </Table>
+
+      <Card elevation={3} square={true}>
+        <TableContainer className="Music-table">
+          {musicDB ? filterData(musicDB) : <div />}
         </TableContainer>
-      </Paper>
+      </Card>
     </div>
   )
 }

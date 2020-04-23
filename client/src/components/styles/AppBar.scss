@@ -20,10 +20,9 @@
         text-decoration: none;
       }
     }
-
-    .MuiDrawer- {
-      background-color: brown;
-    }
   }
 }
 
+.MuiBackdrop-root {
+  backdrop-filter: blur(10px);
+}
