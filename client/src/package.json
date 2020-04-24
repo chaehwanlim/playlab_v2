@@ -1,0 +1,50 @@
+{
+  "name": "playlab_v2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "client": "webpack-dev-server src/index.tsx --output dist/bundle.js --mode development --open --hot",
+    "client_build": "webpack --mode production --optimize-minimize"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-typescript": "^7.9.0",
+    "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.50",
+    "@types/react": "^16.9.31",
+    "@types/react-dom": "^16.9.6",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.3",
+    "axios": "^0.19.2",
+    "file-loader": "^6.0.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.3",
+    "html-loader": "^1.0.0",
+    "nodemon": "^2.0.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-responsive-carousel": "^3.1.57",
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.42.1",
+    "webpack-bundle-analyzer": "^3.6.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.4.2",
+    "html-webpack-plugin": "^4.0.3",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack-dev-server": "^3.10.3"
+  }
+}

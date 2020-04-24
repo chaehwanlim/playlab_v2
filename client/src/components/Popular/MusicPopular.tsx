@@ -4,6 +4,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -63,6 +64,10 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
       );
     });
     return data.map((datum: PopularMusic, index: number) => {
+      const bookmarkAddBtn = () => {
+        
+      }
+
       return (
         <ExpansionPanel>
           <ExpansionPanelSummary
@@ -77,27 +82,43 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
               <TableCell className="tableData">
                 <span className="music-item-title">
                   {datum.title}
-                  <IconButton style={{padding: '0.5rem', marginLeft: '0.5rem'}} 
-                    onClick={() => onAdd({
-                      title: datum.title,
-                      creator: datum.artist,
-                      category: datum.categoryName,
-                      media: '음악'
-                    })}
-                  >
-                    <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
-                  </IconButton>
+                  <FormControlLabel
+                    control={
+                      <IconButton style={{padding: '0.5rem', marginLeft: '0.5rem'}} 
+                        onClick={() => onAdd({
+                          title: datum.title,
+                          creator: datum.artist,
+                          category: datum.categoryName,
+                          media: '음악'
+                        })}
+                      >
+                        <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
+                      </IconButton>
+                    }
+                    onClick={(event) => event.stopPropagation()}
+                    onFocus={(event) => event.stopPropagation()}
+                    label={null}
+                    style={{margin: 0}}
+                  />
                 </span>
                 <br />
                 {datum.artist}
               </TableCell>
               <TableCell className="music-btns">
-                <Button variant="contained" 
-                  className="musicLikeBtn"
-                  onClick={() => {handleLikes(datum.musicID)}}
-                >
-                  <ThumbUp />&nbsp;{datum.likes}
-                </Button>
+                <FormControlLabel
+                  control={
+                    <Button variant="contained" 
+                      className="musicLikeBtn"
+                      onClick={() => {handleLikes(datum.musicID)}}
+                    >
+                      <ThumbUp />&nbsp;{datum.likes}
+                    </Button>
+                  }
+                  onClick={(event) => event.stopPropagation()}
+                  onFocus={(event) => event.stopPropagation()}
+                  label={null}
+                  style={{margin: 0}}
+                />
               </TableCell>
             </TableRow>
             </TableBody> 
