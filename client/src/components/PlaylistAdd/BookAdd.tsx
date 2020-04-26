@@ -85,7 +85,7 @@ const BookAdd: React.FC = () => {
       setForm({
         ...form,
         title: removeBTags(searchResult[index].title),
-        author: searchResult[index].author,
+        author: removeBTags(searchResult[index].author),
         imageURL: searchResult[index].image,
         description : removeBTags(searchResult[index].description)
       });
