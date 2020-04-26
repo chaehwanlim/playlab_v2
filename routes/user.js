@@ -116,20 +116,36 @@ router.post('/book', (req, res) => {
 
 //DB에 회원 정보 입력하여 회원가입 : post
 router.post('/new', (req, res) => {
-  const sql = 'INSERT INTO users VALUES (NULL, ?, NULL, ?);'
+  const sql = 'SELECT * FROM users WHERE userName = ?'
   const userName = req.body.userName;
   const userPassword = req.body.userPassword;
   const params = [userName, userPassword];
-  dbConnection.query(sql, params,
+  let successRes = {};
+
+  //존재하는 아이디인지 체크
+  dbConnection.query(sql, [userName],
     (err, results, fields) => {
-      if (err)
-        console.log(err)
+      if(err)
+        res.send({"code" : 400, "alert": "회원가입에 실패했습니다. 새로고침 해주세요."});
       else {
-        res.send(results);
+        if(results.length > 0) {
+          res.send({"code" : 204, "alert": "이미 존재하는 아이디입니다."});
+        } else {
+          dbConnection.query('INSERT INTO users VALUES (NULL, ?, NULL, ?);', params,
+            (err, results, fields) => {
+              if(err) 
+                console.log(err);
+              else {
+                res.send({"code" : 200, "alert": "회원가입을 축하드립니다!"});
+              }
+            }
+          )
+        }
       }
     }
   );
 });
+
 
 //특정 정보를 입력받아 login 작업 : post
 router.post('/login', (req, res) => {
@@ -140,7 +156,7 @@ router.post('/login', (req, res) => {
   dbConnection.query(sql, [userName], 
     (err, results, fields) => {
       if (err) {
-        res.send({"code" : 400, "failed": "로그인에 실패했습니다. 새로고침 해주세요."});
+        res.send({"code" : 400, "alert": "로그인에 실패했습니다. 새로고침 해주세요."});
       } else {
         if(results.length > 0) {
           if(results[0].userPassword === userPassword) {

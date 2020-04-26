@@ -65,9 +65,9 @@ const MyPage: React.FC = () => {
 
     if(sessionStorage.userName){
       setUser(sessionStorage.userName);
+      getUserInfo();
     }
 
-    getUserInfo();
   }, []);
 
   const getUserInfo = () => {

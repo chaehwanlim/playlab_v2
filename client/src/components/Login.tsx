@@ -32,6 +32,7 @@ const Login: React.FC = () => {
       nextState[e.target.name] = e.target.value;
       setLogin(nextState);
     }
+
     const handleLoginSubmit = (e) => {
       e.preventDefault();
       if(login.userName.length === 0) {
@@ -45,6 +46,7 @@ const Login: React.FC = () => {
       }
       loginProcess();
     }
+
     const loginProcess = () => {
       Axios({
         method: 'post',
@@ -96,7 +98,9 @@ const Login: React.FC = () => {
           userPassword: register.userPassword
         }
       })
-      .then(() => alert('회원가입을 축하드립니다!'))
+      .then((res) => {
+        alert(res.data.alert);
+      })
       .catch((err) => console.log(err));
     }
 
