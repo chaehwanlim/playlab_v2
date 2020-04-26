@@ -4,7 +4,6 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import Login from '../Login';
 import Axios from 'axios';
@@ -62,7 +61,7 @@ const MyPage: React.FC = () => {
 
     Axios({
       method: 'post',
-      url: '/api/myPage/',
+      url: '/api/user',
       data: {
         userName: sessionStorage.userName
       }
@@ -74,14 +73,13 @@ const MyPage: React.FC = () => {
   const handleLogout = () => {
     sessionStorage.removeItem('userName');
     sessionStorage.removeItem('userID');
-    Axios({
-      method:'get',
-      url: '/api/logout',
-      data: {'logout' : true}
-    })
+
+    fetch('/api/user/logout')
     .then(() => alert('로그아웃 했습니다.'))
     .then(() => setUser(''))
     .catch((err) => console.log(err));
+
+    window.location.assign('/MyPage');
   }
 
   const handleTabChange = (e: React.ChangeEvent<{}>, newValue: number) => {

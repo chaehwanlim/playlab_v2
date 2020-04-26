@@ -34,11 +34,11 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   useEffect(() => {
-    fetch('/api/musicPopular')
+    fetch('/api/music')
       .then(res => res.json())
       .then(res => setMusicDB(res))
       .catch(err => console.log(err))
-    fetch('/api/categoryDB')
+    fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
       .catch(err => console.log(err))
@@ -157,7 +157,7 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
   }
 
   const handleLikes = (id: number) => {
-    const urlWithID = `/api/popular/like/increment/${id}`;
+    const urlWithID = `/api/music/${id}`;
     Axios({
       method: 'put',
       url: urlWithID,
@@ -165,7 +165,7 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
     .then(res => {
       if(res.status === 200){
         alert('성공적으로 추천했습니다!');
-        fetch('/api/musicPopular')
+        fetch('/api/music')
           .then(res => res.json())
           .then(res => setMusicDB(res))
           .catch(err => console.log(err))

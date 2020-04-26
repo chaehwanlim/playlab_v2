@@ -17,7 +17,7 @@ const MyMovie: React.FC = () => {
   const getDB = () => {
     Axios({
       method: 'post',
-      url: '/api/myPage/movie',
+      url: '/api/user/movie',
       data: {
         userName: sessionStorage.userName
       }
@@ -31,19 +31,19 @@ const MyMovie: React.FC = () => {
   }, []);
 
   const handleDeletion = (id: number) => {
-    const urlWithID = `/api/myPage/delete/${id}`;
+    const urlWithID = `/api/movie/${id}`;
 
     Axios({
-      method: 'DELETE',
+      method: 'delete',
       url: urlWithID,
     })
-    .then((res) => {
+    .then(res => {
       if(res.status === 200){
         alert('정상적으로 삭제되었습니다');
         getDB();
       }
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
   }
 
   return (

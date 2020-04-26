@@ -25,7 +25,7 @@ const TransmediaMusic: React.SFC<TransmediaMusicProps> = ({ id, onAdd }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    fetch(`/api/Transmedia/${id}/Music`)
+    fetch(`/api/transmedia/${id}/music`)
       .then(res => res.json())
       .then(res => setMusic(res))
       .catch(err => console.log(err))

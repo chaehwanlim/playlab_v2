@@ -48,7 +48,7 @@ const Login: React.FC = () => {
     const loginProcess = () => {
       Axios({
         method: 'post',
-        url: '/api/login_process',
+        url: '/api/user/login',
         data: {
           userName: login.userName,
           userPassword: login.userPassword
@@ -90,7 +90,7 @@ const Login: React.FC = () => {
     const registerProcess = () => {
       Axios({
         method: 'post',
-        url: '/api/register',
+        url: '/api/user/new',
         data: {
           userName: register.userName,
           userPassword: register.userPassword

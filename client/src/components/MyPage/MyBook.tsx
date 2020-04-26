@@ -16,7 +16,7 @@ const MyBook: React.FC = () => {
   const getDB = () => {
     Axios({
       method: 'post',
-      url: '/api/myPage/book',
+      url: '/api/user/book',
       data: {
         userName: sessionStorage.userName
       }
@@ -30,10 +30,10 @@ const MyBook: React.FC = () => {
   }, []);
 
   const handleDeletion = (id: number) => {
-    const urlWithID = `/api/myPage/delete/${id}`;
+    const urlWithID = `/api/book/${id}`;
 
     Axios({
-      method: 'DELETE',
+      method: 'delete',
       url: urlWithID,
     })
     .then(res => {
@@ -54,7 +54,7 @@ const MyBook: React.FC = () => {
         return (
           <TableRow>
             <TableCell className="tableData">
-                <span className="title">{datum.title}</span><br></br>{datum.author}
+              <span className="title">{datum.title}</span><br></br>{datum.author}
             </TableCell>
             <TableCell className="tableData" style={{minWidth:"12rem"}}>
               {datum.categoryName} 책

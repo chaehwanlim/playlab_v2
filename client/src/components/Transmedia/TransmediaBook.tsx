@@ -26,7 +26,7 @@ const TransmediaBook: React.SFC<TransmediaBookProps> = ({ id, onAdd }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    fetch(`/api/Transmedia/${id}/Book`)
+    fetch(`/api/transmedia/${id}/book`)
       .then(res => res.json())
       .then(res => setBook(res))
       .catch(err => console.log(err))

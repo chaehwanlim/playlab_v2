@@ -26,11 +26,11 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   useEffect(() => {
-    fetch('/api/moviePopular')
+    fetch('/api/movie')
       .then(res => res.json())
       .then(res => setMovieDB(res))
       .catch(err => console.log(err))
-    fetch('/api/categoryDB')
+    fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
       .catch(err => console.log(err))
@@ -131,7 +131,7 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
   }
 
   const handleLikes = (id: number) => {
-    const urlWithID = `/api/popular/like/increment/${id}`;
+    const urlWithID = `/api/movie/${id}`;
     Axios({
       method: 'put',
       url: urlWithID,
@@ -139,7 +139,7 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
     .then(res => {
       if(res.status === 200){
         alert('성공적으로 추천했습니다!');
-        fetch('/api/moviePopular')
+        fetch('/api/movie')
           .then(res => res.json())
           .then(res => setMovieDB(res))
           .catch(err => console.log(err))

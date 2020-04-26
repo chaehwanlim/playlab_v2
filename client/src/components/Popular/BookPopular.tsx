@@ -25,11 +25,11 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   useEffect(() => {
-    fetch('/api/bookPopular')
+    fetch('/api/book')
       .then(res => res.json())
       .then(res => setBookDB(res))
       .catch(err => console.log(err))
-    fetch('/api/categoryDB')
+    fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
       .catch(err => console.log(err))
@@ -132,7 +132,7 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
   }
 
   const handleLikes = (id: number) => {
-    const urlWithID = `/api/popular/like/increment/${id}`;
+    const urlWithID = `/api/book/${id}`;
     Axios({
       method: 'put',
       url: urlWithID,
@@ -140,7 +140,8 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
     .then(res => {
       if(res.status === 200){
         alert('성공적으로 추천했습니다!');
-        fetch('/api/bookPopular')
+        
+        fetch('/api/book')
           .then(res => res.json())
           .then(res => setBookDB(res))
           .catch(err => console.log(err))

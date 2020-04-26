@@ -36,11 +36,11 @@ const MovieAdd: React.FC = () => {
   const [transmedia, setTransmedia] = useState<Array<Transmedia>>([]);
 
   useEffect(() => {
-    fetch('/api/categoryDB')
+    fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
       .catch(err => console.log(err))
-    fetch('/api/transmediaDB')
+    fetch('/api/transmedia')
       .then(res => res.json())
       .then(res => setTransmedia(res))
       .catch(err => console.log(err))
@@ -60,7 +60,7 @@ const MovieAdd: React.FC = () => {
   const searchMovie = () => {
     Axios({
       method: 'get',
-      url: `/api/movieSearch/${search}`,
+      url: `/api/naver/movie/${search}`,
     })
     .then(res => setSearchResult(res.data.items))
     .catch(err => console.log(err));
@@ -109,7 +109,7 @@ const MovieAdd: React.FC = () => {
   const addMovie = () => {
     Axios({
       method: 'post',
-      url: 'api/movieAdd',
+      url: '/api/movie',
       data: {
         title: form.title,
         director: form.director,

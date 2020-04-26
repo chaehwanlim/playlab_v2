@@ -26,7 +26,7 @@ const TransmediaMovie: React.SFC<TransmediaMovieProps> = ({ id, onAdd }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    fetch(`/api/Transmedia/${id}/Movie`)
+    fetch(`/api/transmedia/${id}/movie`)
       .then(res => res.json())
       .then(res => setMovie(res))
       .catch(err => console.log(err))

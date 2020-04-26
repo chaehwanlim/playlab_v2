@@ -14,11 +14,11 @@ const MusicAdd: React.FC = () => {
     const [transmedia, setTransmedia] = useState<Array<Transmedia>>([]);
 
     useEffect(() => {
-        fetch('/api/categoryDB')
+        fetch('/api/category')
             .then(res => res.json())
             .then(res => setCategory(res))
             .catch(err => console.log(err))
-        fetch('/api/transmediaDB')
+        fetch('/api/transmedia')
             .then(res => res.json())
             .then(res => setTransmedia(res))
             .catch(err => console.log(err))
@@ -65,7 +65,7 @@ const MusicAdd: React.FC = () => {
     const addMusic = () => {
         Axios({
             method: 'post',
-            url:'/api/musicAdd',
+            url:'/api/music',
             data: {
                 title : form.title,
                 artist: form.artist,

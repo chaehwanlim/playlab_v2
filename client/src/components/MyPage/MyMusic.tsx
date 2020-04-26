@@ -17,7 +17,7 @@ const MyMusic: React.FC = () => {
   const getDB = () => {
     Axios({
       method: 'post',
-      url: '/api/myPage/music',
+      url: '/api/user/music',
       data: {
         userName: sessionStorage.userName
       }
@@ -31,10 +31,10 @@ const MyMusic: React.FC = () => {
   }, []);
 
   const handleDeletion = (id: number) => {
-    const urlWithID = `/api/myPage/delete/${id}`;
+    const urlWithID = `/api/music/${id}`;
 
     Axios({
-      method: 'DELETE',
+      method: 'delete',
       url: urlWithID,
     })
     .then(res => {

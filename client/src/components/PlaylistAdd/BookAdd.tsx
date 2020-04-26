@@ -35,11 +35,11 @@ const BookAdd: React.FC = () => {
   const [transmedia, setTransmedia] = useState<Array<Transmedia>>([]);
 
   useEffect(() => {
-    fetch('/api/categoryDB')
+    fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
       .catch(err => console.log(err))
-    fetch('/api/transmediaDB')
+    fetch('/api/transmedia')
       .then(res => res.json())
       .then(res => setTransmedia(res))
       .catch(err => console.log(err))
@@ -58,7 +58,7 @@ const BookAdd: React.FC = () => {
   const searchBook = () => {
     Axios({
       method: 'get',
-      url: `/api/bookSearch/${search}`,
+      url: `/api/naver/book/${search}`,
     })
     .then(res => setSearchResult(res.data.items))
     .catch(err => console.log(err));
@@ -105,7 +105,7 @@ const BookAdd: React.FC = () => {
   const addBook = () => {
     Axios({
       method: 'post',
-      url: 'api/bookAdd',
+      url: '/api/book',
       data: {
         title: form.title,
         author: form.author,
