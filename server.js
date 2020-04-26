@@ -37,8 +37,8 @@ dbConnection.connect();
 app.get('/api/category', (req, res) => {
     dbConnection.query(
         "SELECT * FROM category WHERE categoryID > 100;",
-        (err, rows, fields) => {
-            res.send(rows);
+        (err, results, fields) => {
+            res.send(results);
         }
     )
 });
