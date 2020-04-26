@@ -19,9 +19,10 @@ app.use('/api/transmedia', transmediaRouter);
 app.use('/api/user', userRouter);
 
 //데이터베이스 접근
+const path = require('path');
 const fs = require('fs');
-const dbAndApiData = fs.readFileSync('./dbandapi.json');
-const dbAndApi = JSON.parse(dbAndApiData);
+const dbAndApiFile = fs.readFileSync(path.resolve(__dirname, 'dbandapi.json'));
+const dbAndApi = JSON.parse(dbAndApiFile);
 const mysql = require('mysql');
 
 const dbConnection = mysql.createConnection({

@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
+const path = require('path');
 const fs = require('fs');
-const dbAndApiFile = fs.readFileSync('../dbandapi.json');
+const dbAndApiFile = fs.readFileSync(path.resolve(__dirname, '../', 'dbandapi.json'));
 const dbAndApi = JSON.parse(dbAndApiFile);
 
 //request.body에 오는 데이터를 json 형식으로 변환
