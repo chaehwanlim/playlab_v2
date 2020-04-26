@@ -19,7 +19,7 @@ const MyMovie: React.FC = () => {
       method: 'post',
       url: '/api/user/movie',
       data: {
-        userName: sessionStorage.userName
+        userID: sessionStorage.userID
       }
     })
     .then(res => setMyMovie(res.data))

@@ -19,7 +19,7 @@ const MyMusic: React.FC = () => {
       method: 'post',
       url: '/api/user/music',
       data: {
-        userName: sessionStorage.userName
+        userID: sessionStorage.userID
       }
     })
     .then(res => setMyMusic(res.data))

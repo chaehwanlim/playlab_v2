@@ -39,10 +39,10 @@ router.use(session({
 
 //DB에서 특정 user의 정보 조회: post
 router.post('/', (req, res) => {
-  const sql = 'SELECT * FROM users WHERE userName = ?';
-  const userName = req.body.userName;
+  const sql = 'SELECT * FROM users WHERE userID = ?';
+  const userID = parseInt(req.body.userID);
 
-  dbConnection.query(sql, [userName],
+  dbConnection.query(sql, [userID],
     (err, results, fields) => {
       if (err)
         console.log(err)
@@ -60,10 +60,10 @@ router.post('/music', (req, res) => {
   LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
   LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
   LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
-  WHERE (u.userName = ?) AND (m.isDeleted = 0);"
-  const userName = req.body.userName;
+  WHERE (u.userID = ?) AND (m.isDeleted = 0);"
+  const userID = parseInt(req.body.userID);
 
-  dbConnection.query(sql, [userName],
+  dbConnection.query(sql, [userID],
     (err, results, fields) => {
       if (err)
         console.log(err)
@@ -80,10 +80,10 @@ router.post('/movie', (req, res) => {
   LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
   LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
   LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
-  WHERE (u.userName = ?) AND (m.isDeleted = 0);"
-  const userName = req.body.userName;
+  WHERE (u.userID = ?) AND (m.isDeleted = 0);"
+  const userID = req.body.userID;
 
-  dbConnection.query(sql, [userName],
+  dbConnection.query(sql, [userID],
     (err, results, fields) => {
       if (err)
         console.log(err)
@@ -100,10 +100,10 @@ router.post('/book', (req, res) => {
   LEFT OUTER JOIN category AS c ON (c.categoryID = b.categoryID) \
   LEFT OUTER JOIN users AS u ON (u.userID = b.adderID) \
   LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = b.transmediaID) \
-  WHERE (u.userName = ?) AND (b.isDeleted = 0);"
-  const userName = req.body.userName;
+  WHERE (u.userID = ?) AND (b.isDeleted = 0);"
+  const userID = req.body.userID;
 
-  dbConnection.query(sql, [userName],
+  dbConnection.query(sql, [userID],
     (err, results, fields) => {
       if (err)
         console.log(err)
@@ -161,10 +161,22 @@ router.post('/login', (req, res) => {
   )
 })
 
-/* //자기 소개 수정 : put
+//자기 소개 수정 : put
 router.put('/', (req, res) => {
-  const sql = 'UPDATE users SET description = ? WHERE '
-}) */
+  const sql = 'UPDATE users SET description = ? WHERE userID = ?';
+  const newDescription = req.body.newDescription;
+  const userID = parseInt(req.body.userID);
+
+  dbConnection.query(sql, [newDescription, userID],
+    (err, results, fields) => {
+      if (err)
+        console.log(err)
+      else {
+        res.send({"code" : 200, "alert": "성공적으로 변경했습니다!"});
+      }
+    }
+  );
+})
 
 //logout 처리 : get
 router.get('/logout', (req, res) => {

@@ -18,7 +18,7 @@ const MyBook: React.FC = () => {
       method: 'post',
       url: '/api/user/book',
       data: {
-        userName: sessionStorage.userName
+        userID: sessionStorage.userID
       }
     })
     .then(res => setMyBook(res.data))

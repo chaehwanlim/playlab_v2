@@ -4,7 +4,11 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import TextField from '@material-ui/core/TextField';
 import Login from '../Login';
 import Axios from 'axios';
 import MyMusic from './MyMusic';
@@ -51,6 +55,10 @@ const MyPage: React.FC = () => {
   });
   const [content, setContent] = useState<Content>(movieContent);
   const [tabValue, setTabValue] = useState<number>(1);
+  const [isEditFormOpen, setIsEditFormOpen] = useState<string>("none");
+  const [editForm, setEditForm] = useState<string>("");
+
+  const InputProps: object = { style: { fontSize: '1.7rem' } }
 
   useEffect(() => {
     document.body.style.backgroundColor = 'whitesmoke';
@@ -59,16 +67,20 @@ const MyPage: React.FC = () => {
       setUser(sessionStorage.userName);
     }
 
+    getUserInfo();
+  }, []);
+
+  const getUserInfo = () => {
     Axios({
       method: 'post',
       url: '/api/user',
       data: {
-        userName: sessionStorage.userName
+        userID: sessionStorage.userID
       }
     })
     .then((res) => setUserInfo(res.data[0]))
     .catch((err) => console.log(err));
-  }, []);
+  }
 
   const handleLogout = () => {
     sessionStorage.removeItem('userName');
@@ -84,6 +96,37 @@ const MyPage: React.FC = () => {
 
   const handleTabChange = (e: React.ChangeEvent<{}>, newValue: number) => {
     setTabValue(newValue);
+  }
+
+  const handleEditFormDisplay = () => {
+    if(isEditFormOpen === "none") {
+      setIsEditFormOpen("flex");
+    } else {
+      setIsEditFormOpen("none");
+    }
+  }
+
+  const handleEditFormInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditForm(e.target.value);
+  }
+
+  const handleSaveChange = () => {
+    Axios({
+      method: 'put',
+      url: '/api/user',
+      data: {
+        userID: sessionStorage.userID,
+        newDescription: editForm
+      }
+    })
+    .then(res => {
+      if(res.data.code === 200) {
+        alert(res.data.alert);
+        handleEditFormDisplay();
+        getUserInfo();
+      }
+    })
+    .catch(err => console.log(err));
   }
   
   const myPage = () => {
@@ -113,9 +156,33 @@ const MyPage: React.FC = () => {
             </div>
             <p className="userDescription">
               {userInfo.description}
+              <IconButton 
+                style={{padding: '1rem', margin: '0 0 0.4rem 1rem'}}
+                onClick={handleEditFormDisplay}
+              >
+                <EditRoundedIcon style={{fontSize: '1.7rem'}} />
+              </IconButton>
             </p>
+            
+            <div className="formAlign"
+              style={{display: `${isEditFormOpen}`}}>
+              <TextField
+                defaultValue={userInfo.description}
+                onChange={handleEditFormInput}
+                multiline={true}
+                rowsMax={5}
+                size="medium"
+                variant="outlined"
+                className="userEditForm"
+                InputProps={InputProps}
+              />
+              <Button className="userEditSaveBtn" onClick={handleSaveChange}>
+                저장하기
+              </Button>
+            </div>
+            
 
-            <Tabs 
+            <Tabs
               value={tabValue}
               indicatorColor="primary"
               textColor="primary"
