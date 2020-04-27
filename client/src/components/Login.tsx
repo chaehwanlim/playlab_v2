@@ -33,8 +33,9 @@ const Login: React.FC = () => {
       setLogin(nextState);
     }
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+
       if(login.userName.length === 0) {
         alert('아이디를 입력해주세요.');
         return;
@@ -75,8 +76,9 @@ const Login: React.FC = () => {
       setRegister(nextState);
     }
 
-    const handleRegisterSubmit = (e) => {
+    const handleRegisterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      
       if(register.userName.length === 0) {
         alert('아이디를 입력해주세요.');
         return;

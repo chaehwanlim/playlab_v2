@@ -121,13 +121,12 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
     setSearchKeyword(e.target.value);
   }
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   }
 
-  const handleCategory = (e) => {
-    e.preventDefault();
-    setSelectedCat(e.target.value);
+  const handleCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
+    setSelectedCat(e.target.value as string);
   }
 
   const handleLikes = (id: number) => {

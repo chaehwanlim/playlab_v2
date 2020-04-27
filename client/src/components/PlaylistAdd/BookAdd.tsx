@@ -46,12 +46,13 @@ const BookAdd: React.FC = () => {
   }, []);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    setSearch(e.target.value as string);
   }
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSearched(true);
+
+    setIsSearched(true as boolean);
     searchBook();
   }
 
@@ -64,18 +65,17 @@ const BookAdd: React.FC = () => {
     .catch(err => console.log(err));
   }
 
-  const handleCategory = (e) => {
-    e.preventDefault();
+  const handleCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
     setForm({
       ...form,
-      categoryID : e.target.value
+      categoryID : e.target.value as number
     });
   }
-  const handleTransmedia = (e) => {
-    e.preventDefault();
+  
+  const handleTransmedia = (e: React.ChangeEvent<{ value: unknown }>) => {
     setForm({
       ...form,
-      transmediaID : e.target.value
+      transmediaID : e.target.value as number
     });
   }
 
@@ -92,8 +92,9 @@ const BookAdd: React.FC = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if(sessionStorage.userName) {
       addBook();
     } else if (sessionStorage.userName === undefined) {

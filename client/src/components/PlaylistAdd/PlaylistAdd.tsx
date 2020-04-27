@@ -38,16 +38,13 @@ const PlaylistAdd: React.FC = () => {
         document.body.style.backgroundColor = 'whitesmoke';
     }, []);
 
-    const handleMusic = (e) => {
-        e.preventDefault();
+    const handleMusic = () => {
         setContent(musicContent);
     }
-    const handleMovie = (e) => {
-        e.preventDefault();
+    const handleMovie = () => {
         setContent(movieContent);
     }
-    const handleBook = (e) => {
-        e.preventDefault();
+    const handleBook = () => {
         setContent(bookContent);
     }
 

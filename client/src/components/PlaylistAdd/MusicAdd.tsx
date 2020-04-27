@@ -37,22 +37,24 @@ const MusicAdd: React.FC = () => {
         nextState[e.target.name] = e.target.value;
         setForm(nextState);
     }
-    const handleCategory = (e) => {
-        e.preventDefault();
+
+    const handleCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
         setForm({
             ...form,
-            categoryID : e.target.value
+            categoryID : e.target.value as number
         });
     }
-    const handleTransmedia = (e) => {
-        e.preventDefault();
+
+    const handleTransmedia = (e: React.ChangeEvent<{ value: unknown }>) => {
         setForm({
             ...form,
-            transmediaID : e.target.value
+            transmediaID : e.target.value as number
         });
     }
-    const handleSubmit = (e) => {
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
         if(sessionStorage.userName) {
             addMusic();
         } else if (sessionStorage.userName === undefined) {
@@ -75,7 +77,7 @@ const MusicAdd: React.FC = () => {
                 trnasmediaID : form.transmediaID
             }
         })
-        .then((res) => alert('음악을 정상적으로 추가했습니다!'))
+        .then(() => alert('음악을 정상적으로 추가했습니다!'))
         .catch((err) => console.log(err));
 
         initializeForm();
@@ -89,7 +91,7 @@ const MusicAdd: React.FC = () => {
             categoryID: 100,
             transmediaID: 10000,
         });
-        console.log('cleared');
+
     }
 
     const InputProps: object = { style: {fontSize: '2rem'}};
