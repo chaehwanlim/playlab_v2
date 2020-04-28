@@ -3,9 +3,8 @@
 .card {
   margin-top: 2rem;
   font-size: 1.7rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-bottom: 3rem;
+  padding: 0 1.5rem;
+  display: grid;
 
   .formTitle {
     font-size: 2.2rem;
@@ -18,11 +17,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin: 4rem;
 
     .naverSearch {
-      margin: 2rem;
+
       position: center;
       display: flex;
       align-items: center;

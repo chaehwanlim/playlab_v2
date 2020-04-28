@@ -22,7 +22,7 @@ router.use(bodyParser.json());
 //request.body에 대한 url encoding을 확장할 수 있도록 true option 설정
 router.use(bodyParser.urlencoded({extended: true}));
 
-///////세션 구현
+///////세션 구현, 아직 미사용
 const session = require('express-session'); //세션 미들웨어 설치
 const dbStore = require('express-mysql-session')(session);  //세션 저장소로 mysql 사용
 router.use(session({
