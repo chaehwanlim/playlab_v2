@@ -5,8 +5,12 @@ import App from './App';
 import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './modules';
+//redux persist : state 유지
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/integration/react';
+
 
 const theme = createMuiTheme({
     typography: {
@@ -24,13 +28,22 @@ const theme = createMuiTheme({
     }
 });
 
-const store = createStore(rootReducer);
+const persistConfig = {
+    key: 'root',
+    storage
+};
+
+const enhancedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(enhancedReducer);
+const persistor = persistStore(store);
 
 ReactDOM.render(
     <Provider store={store}>
-        <MuiThemeProvider theme={theme}>
-            <App />
-        </MuiThemeProvider>
+        <PersistGate loading={null} persistor={persistor}>
+            <MuiThemeProvider theme={theme}>
+                <App />
+            </MuiThemeProvider>
+        </PersistGate>
     </Provider>, 
     document.getElementById('app')
 );

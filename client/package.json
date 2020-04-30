@@ -28,6 +28,7 @@
     "react-responsive-carousel": "^3.1.57",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
