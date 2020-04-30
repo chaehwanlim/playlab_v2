@@ -9,7 +9,7 @@ import AddIcon from '@material-ui/icons/AddRounded';
 import StarIcon from '@material-ui/icons/StarRounded';
 import ViewCarousel from '@material-ui/icons/ViewCarousel';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import NoteIcon from '@material-ui/icons/Note';
+import BookmarkRounded from '@material-ui/icons/BookmarksRounded';
 import Container from '@material-ui/core/Container';
 import CloseIcon from '@material-ui/icons/Close';
 import Divider from '@material-ui/core/Divider';
@@ -45,7 +45,7 @@ const _AppBar = () =>
 
             <React.Fragment>
               <IconButton style={style} onClick={() => setDrawerState(true)}>
-                <NoteIcon style={{fontSize: '2.2rem'}} />
+                <BookmarkRounded style={{fontSize: '2.2rem'}} />
               </IconButton>
               
               <Drawer anchor={"right"} 

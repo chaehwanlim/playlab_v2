@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
 import IconButton from '@material-ui/core/IconButton';
 import '../DBInterfaces';
 import '../styles/Transmedia.scss';
@@ -57,7 +57,8 @@ const TransmediaMovie: React.SFC<TransmediaMovieProps> = ({ id, onAdd }) => {
                               media: '영화'
                             })}
                           >
-                            <NoteAddIcon style={{color: 'white', width: '2rem', height: '2rem'}}/>
+                            <BookmarkRounded
+                           style={{color: 'white', width: '2rem', height: '2rem'}}/>
                           </IconButton>
                         </div>
                       </Grid>

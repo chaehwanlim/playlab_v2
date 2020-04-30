@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
 import IconButton from '@material-ui/core/IconButton';
 import '../DBInterfaces';
 import '../styles/Transmedia.scss';
@@ -55,7 +55,7 @@ const TransmediaMusic: React.SFC<TransmediaMusicProps> = ({ id, onAdd }) => {
                               media: '음악'
                             })}
                           >
-                            <NoteAddIcon style={{color: 'white', width: '2rem', height: '2rem'}}/>
+                            <BookmarkRounded style={{color: 'white', width: '2rem', height: '2rem'}}/>
                           </IconButton>
                         </div>
                       </Grid>

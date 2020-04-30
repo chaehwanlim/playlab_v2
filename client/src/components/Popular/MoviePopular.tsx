@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ThumbUp from '@material-ui/icons/ThumbUp';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
@@ -94,7 +94,7 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
                                 media: '영화'
                               })}
                             >
-                              <NoteAddIcon style={{color: 'black', width: '2rem', height: '2rem'}}/>
+                              <BookmarkRounded style={{color: 'black', width: '2rem', height: '2rem'}}/>
                             </IconButton>
                           </div>
                         </Grid>
