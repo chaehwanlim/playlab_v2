@@ -26,7 +26,7 @@ const BookAdd: React.FC = () => {
   const [form, setForm] = useState<BookForm>({
     title: "",
     author: "",
-    categoryID: 100,
+    categoryID: 101,
     transmediaID: 10000,
     imageURL: "",
     description: "",
@@ -104,6 +104,11 @@ const BookAdd: React.FC = () => {
   }
 
   const addBook = () => {
+    if (form.title.length === 0) {
+      alert('책을 선택해주세요.');
+      return;
+    }
+
     Axios({
       method: 'post',
       url: '/api/book',

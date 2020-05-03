@@ -24,12 +24,12 @@ const MovieAdd: React.FC = () => {
   const [form, setForm] = useState<MovieForm>({
     title: "",
     director: "",
-    categoryID: 100,
+    categoryID: 101,
     transmediaID: 10000,
     imageURL: "",
     actor: "",
-    userRating: -1,
-    year: -1,
+    userRating: 0,
+    year: 0,
   });
   const [category, setCategory] = useState<Array<Category>>([]);
   const [transmedia, setTransmedia] = useState<Array<Transmedia>>([]);
@@ -105,6 +105,11 @@ const MovieAdd: React.FC = () => {
   }
 
   const addMovie = () => {
+    if (form.title.length === 0) {
+      alert('영화를 선택해주세요.');
+      return;
+    }
+
     Axios({
       method: 'post',
       url: '/api/movie',

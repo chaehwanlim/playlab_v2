@@ -28,7 +28,7 @@ const MusicAdd: React.FC = () => {
         title : "",
         artist: "",
         genre: "",
-        categoryID: 100,
+        categoryID: 101,
         transmediaID: 10000,
     });
     const [category, setCategory] = useState<Array<Category>>([]);
@@ -70,17 +70,17 @@ const MusicAdd: React.FC = () => {
         .catch(err => console.log(err));
     }
 
-    const handleCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const handleCategory = (e: React.ChangeEvent<{ value: number }>) => {
         setForm({
             ...form,
-            categoryID : e.target.value as number
+            categoryID : e.target.value
         });
     }
 
-    const handleTransmedia = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const handleTransmedia = (e: React.ChangeEvent<{ value: number }>) => {
         setForm({
             ...form,
-            transmediaID : e.target.value as number
+            transmediaID : e.target.value
         });
     }
 
@@ -94,10 +94,25 @@ const MusicAdd: React.FC = () => {
         }
     }
 
-    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        let nextState = form;
-        nextState[e.target.name] = e.target.value;
-        setForm(nextState);
+    const handleTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+            ...form,
+            title: e.target.value
+        })
+    }
+
+    const handleArtistInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+            ...form,
+            artist: e.target.value
+        })
+    }
+
+    const handleGenreInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+            ...form,
+            genre: e.target.value
+        })
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -112,6 +127,16 @@ const MusicAdd: React.FC = () => {
     }  
 
     const addMusic = () => {
+        if (form.title.length === 0) {
+            alert('제목을 입력해주세요.');
+            return;
+        } else {
+            if (form.artist.length === 0) {
+                alert('아티스트를 입력해주세요.');
+                return;
+            }
+        }
+
         Axios({
             method: 'post',
             url:'/api/music',
@@ -250,13 +275,13 @@ const MusicAdd: React.FC = () => {
             <form noValidate autoComplete="off" className="form" onSubmit={handleSubmit}>
                 <TextField id="standard-basic" label="제목" name="title"
                     inputProps={InputProps} InputLabelProps={InputLabelProps}
-                    required={true} onChange={handleInput} value={form.title}/><br></br>
+                    required={true} onChange={handleTitleInput} value={form.title}/><br></br>
                 <TextField id="standard-basic" label="아티스트" name="artist"
                     inputProps={InputProps} InputLabelProps={InputLabelProps}
-                    required={true} onChange={handleInput} value={form.artist}/><br />
+                    required={true} onChange={handleArtistInput} value={form.artist}/><br />
                 <TextField id="standard-basic" label="장르" name="genre"
                     inputProps={InputProps} InputLabelProps={InputLabelProps}
-                    onChange={handleInput} value={form.genre}/><br />
+                    onChange={handleGenreInput} value={form.genre}/><br />
 
                 <div className="guide"><br />이 음악은 &nbsp;
                 <Select labelId="demo-simple-select-label"

@@ -9,7 +9,7 @@ import AddIcon from '@material-ui/icons/AddRounded';
 import StarIcon from '@material-ui/icons/StarRounded';
 import ViewCarousel from '@material-ui/icons/ViewCarousel';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import BookmarkRounded from '@material-ui/icons/BookmarksRounded';
+import BookmarksRounded from '@material-ui/icons/BookmarksRounded';
 import Container from '@material-ui/core/Container';
 import CloseIcon from '@material-ui/icons/Close';
 import Divider from '@material-ui/core/Divider';
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 const _AppBar = () => 
 {
   const [drawerState, setDrawerState] = useState(false);
-  const style = { color : 'white', /* textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' */ };
+  const style = { color : 'white' };
 
   const classes = useStyles();
 
@@ -45,7 +45,7 @@ const _AppBar = () =>
 
             <React.Fragment>
               <IconButton style={style} onClick={() => setDrawerState(true)}>
-                <BookmarkRounded style={{fontSize: '2.2rem'}} />
+                <BookmarksRounded style={{fontSize: '2rem'}} />
               </IconButton>
               
               <Drawer anchor={"right"} 
