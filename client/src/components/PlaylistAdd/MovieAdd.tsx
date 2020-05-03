@@ -157,7 +157,6 @@ const MovieAdd: React.FC = () => {
 
       {isSearched ? 
       <div className="guide">
-        네이버 영화 검색 결과입니다.<br />
         영화를 선택하고 하단의 양식을 완성해주세요.<br/><br/><br/></div> 
       : ""}
 

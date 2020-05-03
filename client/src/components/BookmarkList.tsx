@@ -36,12 +36,14 @@ const Bookmark: React.SFC<BookmarkItemProps> = ({ bookmarkItem, onRemove }) => {
             <div className="bookmark-item-title">{bookmarkItem.item.title}</div>
           </Grid>
           <Grid item xs={2}>
-            <IconButton 
-              onClick={() => onRemove(bookmarkItem.id)}
-              style={{padding: '1.5rem', display: 'flex', flexDirection: 'row', alignItems: 'center'}}
-            >
-              <ClearIcon style={{fontSize: '2rem'}}/>
-            </IconButton>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+              <IconButton 
+                onClick={() => onRemove(bookmarkItem.id)}
+                style={{padding: '1.5rem'}}
+              >
+                <ClearIcon style={{fontSize: '2rem'}}/>
+              </IconButton>
+            </div>
           </Grid>
         </Grid>
         <div className="bookmark-item-creator">{bookmarkItem.item.creator}</div>
