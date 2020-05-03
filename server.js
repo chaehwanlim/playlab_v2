@@ -10,6 +10,7 @@ const movieRouter = require('./routes/movie');
 const bookRouter = require('./routes/book');
 const transmediaRouter = require('./routes/transmedia');
 const userRouter = require('./routes/user');
+const melonRouter = require('./routes/melon');
 
 app.use('/api/naver', naverRouter);
 app.use('/api/music', musicRouter);
@@ -17,6 +18,7 @@ app.use('/api/movie', movieRouter);
 app.use('/api/book', bookRouter);
 app.use('/api/transmedia', transmediaRouter);
 app.use('/api/user', userRouter);
+app.use('/api/melon', melonRouter);
 
 //데이터베이스 접근
 const path = require('path');

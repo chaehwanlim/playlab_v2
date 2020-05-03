@@ -6,6 +6,11 @@
   padding: 0 1.5rem;
   display: grid;
 
+  .music-search-tabs {    
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+
   .formTitle {
     font-size: 2.2rem;
     font-weight: 70rem;
@@ -19,17 +24,11 @@
     align-items: center;
     margin: 4rem;
 
-    .naverSearch {
-
+    .webSearch {
       position: center;
       display: flex;
       align-items: center;
       width: auto;
-      transition: 0.5s;
-      &:hover {
-        transform: scale(1.05);
-        transition: 0.5s;
-      }
 
       .input {
         margin-left: 1rem;

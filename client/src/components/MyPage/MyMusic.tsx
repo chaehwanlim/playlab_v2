@@ -55,7 +55,9 @@ const MyMusic: React.FC = () => {
         return (
           <TableRow>
             <TableCell className="tableData">
-                <span className="title">{datum.title}</span><br></br>{datum.artist}
+              <span className="title">{datum.title}</span>
+              <br></br>
+              {datum.artist}
             </TableCell>
             <TableCell className="tableData" style={{minWidth:"12rem"}}>
               {datum.categoryName} 음악

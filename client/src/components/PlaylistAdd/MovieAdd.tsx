@@ -13,9 +13,8 @@ import Axios from 'axios';
 import '../styles/Add.scss';
 import '../styles/Movie.scss';
 
-
 const MovieAdd: React.FC = () => {
-  const [search, setSearch] = useState<string>("");
+  const [keyword, setKeyword] = useState<string>("");
   const [isSearched, setIsSearched] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState<WorkSelection>({
@@ -47,7 +46,7 @@ const MovieAdd: React.FC = () => {
   }, []);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value as string);
+    setKeyword(e.target.value as string);
   }
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,7 +59,7 @@ const MovieAdd: React.FC = () => {
   const searchMovie = () => {
     Axios({
       method: 'get',
-      url: `/api/naver/movie/${search}`,
+      url: `/api/naver/movie/${keyword}`,
     })
     .then(res => setSearchResult(res.data.items))
     .catch(err => console.log(err));
@@ -137,15 +136,15 @@ const MovieAdd: React.FC = () => {
       </div>
       <Divider />
       <form noValidate autoComplete="off" className="form" onSubmit={handleSearch}>
-        <Paper component="form" className="naverSearch" variant="outlined">
+        <Paper component="form" className="webSearch" variant="outlined">
           <InputBase
             className="input"
             placeholder="영화 제목을 입력하세요."
-            inputProps={{ 'aria-label': 'search' }}
-            value={search}
+            inputProps={{ 'aria-label': 'keyword' }}
+            value={keyword}
             onChange={handleValueChange}
           />
-          <IconButton type="submit" aria-label="search">
+          <IconButton type="submit" aria-label="keyword">
             <SearchIcon />
           </IconButton>
         </Paper>

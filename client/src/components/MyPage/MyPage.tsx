@@ -181,13 +181,13 @@ const MyPage: React.FC = () => {
               </Button>
             </div>
             
-
             <Tabs
               value={tabValue}
               indicatorColor="primary"
               textColor="primary"
               onChange={handleTabChange}
               aria-label="content tabs"
+              centered
             >
               <Tab label="음악" className="contentTabs" onClick={() => {setContent(musicContent)}} />
               <Tab label="영화" className="contentTabs" onClick={() => {setContent(movieContent)}} />

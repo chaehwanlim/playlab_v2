@@ -19,7 +19,7 @@ const PlaylistAdd: React.FC = () => {
     const musicContent: Content = {
         title: "내가 들은 음악 추가하기",
         component: <MusicAdd />,
-        subtitle: "직접 음악 정보를 입력하여 추가하세요."
+        subtitle: "직접 입력하거나 멜론에서 검색하여 추가하세요"
     };
     const movieContent: Content = {
         title: "내가 감상한 영화 추가하기",
