@@ -59,31 +59,34 @@
     
   }
 
+  $t: 0.5s;
+  $s: 1.1;
+
   #music {
     background-color: $musicBlue;
-    transition: 0.7s;
+    transition: $t;
     &:hover {
       background-color: $musicBlue;
-      transform: scale(1.1);
-      transition: 0.7s;
+      transform: scale($s);
+      transition: $t;
     }
   }
   #movie {
     background-color: $movieRed;
-    transition: 0.7s;
+    transition: $t;
     &:hover {
       background-color: $movieRed;
-      transform: scale(1.1);
-      transition: 0.7s;
+      transform: scale($s);
+      transition: $t;
     }
   }
   #book {
     background-color: $bookGreen;
-    transition: 0.7s;
+    transition: $t;
     &:hover {
       background-color: $bookGreen;
-      transform: scale(1.1);
-      transition: 0.7s;
+      transform: scale($s);
+      transition: $t;
     }
   }
 
