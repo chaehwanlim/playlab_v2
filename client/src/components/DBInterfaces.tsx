@@ -134,3 +134,8 @@ interface BookmarkItem {
   category: string;
   media: string;
 }
+
+interface ReviewItem {
+  userName: string;
+  categoryName: string;
+}
