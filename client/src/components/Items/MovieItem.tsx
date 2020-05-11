@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import IconButton from '@material-ui/core/IconButton';
 import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
+import { Link } from 'react-router-dom';
+import '../DBInterfaces';
 import Axios from 'axios';
 
 interface MovieItem {
@@ -16,16 +18,24 @@ interface MovieItem {
 
 const MovieItem: React.SFC<MovieItem> = ({ movie, index, buttons, handleLikes, onAdd }) =>
 {
-  const [reviews, setReviews] = useState<Array<ReviewItem> | any>([]);
+  const [reviews, setReviews] = useState<Array<ReviewItem>>([]);
 
   useEffect(() => {
     Axios({
       method: 'get',
       url: `/api/review/${movie.movieID}`
     })
-    .then(res => setReviews(res))
+    .then(res => setReviews(res.data))
     .catch(err => console.log(err));
   }, []);
+
+  const renderReviews = () => (
+    reviews.map((datum: ReviewItem) => (
+      <div>
+        <b>{datum.userName}</b>의 {datum.categoryName} 영화
+      </div>
+    ))
+  )
 
   return (
     <Grid item xs={12} md={6}>
@@ -78,16 +88,16 @@ const MovieItem: React.SFC<MovieItem> = ({ movie, index, buttons, handleLikes, o
             <b>감독</b>  {movie.director}<br />
             <b>출연</b>  {movie.actor}<br />
             <b>평점</b>  {movie.userRating}<br />
-            <b>트랜스미디어</b>  {movie.transmediaName}
+            <b>트랜스미디어</b>  <a href={`Transmedia/${movie.transmediaID}`} style={{textDecoration: 'none', color: 'slategrey'}}>{movie.transmediaName}</a>
           </div>
           <div className="movieCategory">
-            <b>{movie.userName}</b> 님의<br />
-            <b>{movie.categoryName}</b> 영화입니다.<br />
+            {reviews ? renderReviews() : ""}
           </div>
         </Grid>
       </div>
     </Grid>
   )
+
 }
 
 export default MovieItem;

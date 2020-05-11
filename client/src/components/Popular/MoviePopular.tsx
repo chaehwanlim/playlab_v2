@@ -10,10 +10,12 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import MovieItem from '../Items/MovieItem';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Movie.scss';
 import '../DBInterfaces.tsx';
+
 
 interface MoviePopularProps {
   onAdd: (work: BookmarkItem) => void;
@@ -30,10 +32,12 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
       .then(res => res.json())
       .then(res => setMovieDB(res))
       .catch(err => console.log(err))
+
     fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
       .catch(err => console.log(err))
+
   }, []);
 
   const filterData = (data: Array<PopularMovie>) => {
@@ -58,61 +62,7 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
 
     return data.map((datum: PopularMovie, index: number) => {
       return (
-        <Grid item xs={12} md={6}>
-            <div className="movie">
-                <Grid item xs={4}>
-                <div className="moviePosterAlign">
-                    <img className="moviePoster" src={datum.imageURL} title={datum.title} alt={datum.title}/>
-                    <Button variant="contained" className="movieLikes"
-                      onClick={() => {handleLikes(datum.movieID)}}
-                    >
-                      <ThumbUp />&nbsp;{datum.likes}
-                    </Button>
-                </div>
-                </Grid>
-                <Grid item xs={8}>
-                    <div className="movieTitle">
-                      <Grid container spacing={0}>
-                        <Grid item xs={10}>
-                        <span style={{color: 'orange'}}>
-                          {index + 1}&nbsp;&nbsp;
-                        </span>
-                        <span>
-                          {datum.title}
-                          <span className="movieYear">
-                            {datum.year}
-                          </span>
-                        </span>
-                        </Grid>
-                        <Grid item xs={2}>
-                          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-                            <IconButton style={{padding: '1rem'}} 
-                              onClick={() => onAdd({
-                                title: datum.title,
-                                creator: datum.director,
-                                category: datum.categoryName,
-                                media: '영화'
-                              })}
-                            >
-                              <BookmarkRounded style={{color: 'black', width: '2rem', height: '2rem'}}/>
-                            </IconButton>
-                          </div>
-                        </Grid>
-                      </Grid>
-                    </div>
-                    <div className="movieInfo">
-                      <b>감독</b>  {datum.director}<br />
-                      <b>출연</b>  {datum.actor}<br />
-                      <b>평점</b>  {datum.userRating}<br />
-                      <b>트랜스미디어</b>  {datum.transmediaName}
-                    </div>
-                    <div className="movieCategory">
-                      <b>{datum.userName}</b> 님의<br />
-                      <b>{datum.categoryName}</b> 영화입니다.<br />
-                    </div>
-                </Grid>
-            </div>
-        </Grid>
+        <MovieItem movie={datum} index={index} buttons={true} handleLikes={handleLikes} onAdd={onAdd} />
       )
     });
   }

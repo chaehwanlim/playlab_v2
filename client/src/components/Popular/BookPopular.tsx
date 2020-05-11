@@ -9,10 +9,12 @@ import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
+import BookItem from '../Items/BookItem';
 import Axios from 'axios';
 import '../styles/Content.scss';
 import '../styles/Book.scss';
 import '../DBInterfaces.tsx';
+
 
 interface BookPopularProps {
   onAdd: (work: BookmarkItem) => void;
@@ -29,10 +31,12 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
       .then(res => res.json())
       .then(res => setBookDB(res))
       .catch(err => console.log(err))
+
     fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
       .catch(err => console.log(err))
+
   }, []);
 
   const removeBTags = (str: string) => {
@@ -62,58 +66,7 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
 
     return data.map((datum: PopularBook, index: number) => {
       return (
-        <Grid item xs={12}>
-          <div className="book">
-            <Grid item xs={4} md={2}>
-            <div className="bookCoverAlign">
-                <img className="bookCover" src={datum.imageURL} alt={datum.title}/>
-                <Button variant="contained" className="bookLikes"
-                  onClick={() => {handleLikes(datum.bookID)}}
-                  ><ThumbUp />&nbsp;{datum.likes}</Button>
-            </div>
-            </Grid>
-            <Grid item xs={8} md={4}>
-              <div className="bookTitle">
-                <Grid container spacing={0}>
-                  <Grid item xs={10}>
-                    <span style={{color: 'orange'}}>
-                      {index + 1}&nbsp;&nbsp;
-                    </span>
-                    {removeBTags(datum.title)}&nbsp;
-                  </Grid>
-                  <Grid item xs={2}>
-                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-                      <IconButton style={{padding: '1rem'}} 
-                        onClick={() => onAdd({
-                          title: datum.title,
-                          creator: datum.author,
-                          category: datum.categoryName,
-                          media: '책'
-                        })}
-                      >
-                        <BookmarkRounded style={{color: 'black', width: '2rem', height: '2rem'}}/>
-                      </IconButton>
-                    </div>
-                  </Grid>
-                </Grid>
-              </div>
-              <div className="bookInfo">
-                <b>작가</b>  {datum.author}<br />
-                <b>트랜스미디어</b>  {datum.transmediaName}<br />
-              </div>
-              <div className="bookCategory">
-                <b>{datum.userName}</b> 님의<br />
-                <b>{datum.categoryName}</b> 책입니다.<br />
-              </div>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <div className="bookDesc">
-                  {removeBTags(datum.description)}
-              </div>
-            </Grid>
-            
-          </div>
-        </Grid>
+        <BookItem book={datum} index={index} buttons={true} handleLikes={handleLikes} onAdd={onAdd} />
       )
     });
   }

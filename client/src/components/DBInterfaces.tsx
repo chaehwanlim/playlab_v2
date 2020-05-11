@@ -67,6 +67,7 @@ interface PopularMovie extends Movie {
   categoryName: string;
   userName: string;
   transmediaName: string;
+  transmediaID: number;
   imageURL: string;
   year: number;
   userRating: number;
