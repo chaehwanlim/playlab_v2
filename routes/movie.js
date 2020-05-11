@@ -24,7 +24,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 //DB에서 영화 차트 조회 : get
 router.get('/', (req, res) => {
-  const sql = "SELECT movieID, title, director, genre, c.categoryName, u.userName, t.transmediaName, m.imageURL, m.actor, m.year, m.userRating, likes \
+  const sql = "SELECT movieID, title, director, genre, c.categoryName, u.userName, t.transmediaName, m.transmediaID, m.imageURL, m.actor, m.year, m.userRating, likes \
   FROM movie AS m \
   LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
   LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
