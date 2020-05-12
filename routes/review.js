@@ -22,16 +22,51 @@ router.use(bodyParser.json());
 //request.body에 대한 url encoding을 확장할 수 있도록 true option 설정
 router.use(bodyParser.urlencoded({extended: true}));
 
-//DB에서 영화 리뷰 조회 : get
-router.get('/:workid', (req, res) => {
-  const sql = `SELECT userName, categoryName
+//DB에서 음악 리뷰 조회 : get
+router.get('/music', (req, res) => {
+  const sql = `SELECT workID, userName, categoryName
   FROM reviews as r
   LEFT OUTER JOIN users AS u on (u.userID = r.userID)
   LEFT OUTER JOIN category AS c on (c.categoryID = r.categoryID)
-  WHERE workID = ?`;
-  const id = parseInt(req.params.workid);
+  WHERE workID > 100000 and workID < 1000000`;
 
-  dbConnection.query(sql, [id],
+  dbConnection.query(sql,
+    (err, results, fields) => {
+      if(err)
+        console.log(err)
+      else {
+        res.send(results);
+      }
+    }
+  );
+})
+//DB에서 영화 리뷰 조회 : get
+router.get('/movie', (req, res) => {
+  const sql = `SELECT workID, userName, categoryName
+  FROM reviews as r
+  LEFT OUTER JOIN users AS u on (u.userID = r.userID)
+  LEFT OUTER JOIN category AS c on (c.categoryID = r.categoryID)
+  WHERE workID > 1000000 and workID < 10000000`;
+
+  dbConnection.query(sql,
+    (err, results, fields) => {
+      if(err)
+        console.log(err)
+      else {
+        res.send(results);
+      }
+    }
+  );
+})
+//DB에서 책 리뷰 조회 : get
+router.get('/book', (req, res) => {
+  const sql = `SELECT workID, userName, categoryName
+  FROM reviews as r
+  LEFT OUTER JOIN users AS u on (u.userID = r.userID)
+  LEFT OUTER JOIN category AS c on (c.categoryID = r.categoryID)
+  WHERE workID > 10000000 and workID < 100000000`;
+
+  dbConnection.query(sql,
     (err, results, fields) => {
       if(err)
         console.log(err)
@@ -43,7 +78,7 @@ router.get('/:workid', (req, res) => {
 })
 
 //DB에서 특정 감상평이 존재하는 음악 조회 : get
-router.get('/:categoryid', (req, res) => {
+router.get('/music/:categoryid', (req, res) => {
   const sql = "SELECT musicID, title, artist, genre, t.transmediaName, likes \
   FROM music AS m \
   LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
@@ -64,7 +99,7 @@ router.get('/:categoryid', (req, res) => {
 })
 
 //DB에서 특정 감상평이 존재하는 영화 조회 : get
-router.get('/:categoryid', (req, res) => {
+router.get('/movie/:categoryid', (req, res) => {
   const sql = "SELECT movieID, title, director, genre, t.transmediaName, m.imageURL, actor, year, userRating, likes \
   FROM movie AS m \
   LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
@@ -85,7 +120,7 @@ router.get('/:categoryid', (req, res) => {
 })
 
 //DB에서 특정 감상평이 존재하는 책 조회 : get
-router.get('/:categoryid', (req, res) => {
+router.get('/book/:categoryid', (req, res) => {
   const sql = "SELECT bookID, title, author, genre, t.transmediaName, b.imageURL, b.description, likes \
   FROM book AS b \
   LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \

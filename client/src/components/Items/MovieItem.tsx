@@ -4,38 +4,40 @@ import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import IconButton from '@material-ui/core/IconButton';
 import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
-import { Link } from 'react-router-dom';
-import '../DBInterfaces';
-import Axios from 'axios';
 
 interface MovieItem {
   movie: PopularMovie;
+  reviews: ReviewItem[];
   index: number;
   buttons: boolean;
   handleLikes: (id: number) => void;
   onAdd: (work: BookmarkItem) => void;
 }
 
-const MovieItem: React.SFC<MovieItem> = ({ movie, index, buttons, handleLikes, onAdd }) =>
+const MovieItem: React.SFC<MovieItem> = ({ movie, reviews, index, buttons, handleLikes, onAdd }) =>
 {
-  const [reviews, setReviews] = useState<Array<ReviewItem>>([]);
-
-  useEffect(() => {
-    Axios({
-      method: 'get',
-      url: `/api/review/${movie.movieID}`
-    })
-    .then(res => setReviews(res.data))
-    .catch(err => console.log(err));
-  }, []);
-
   const renderReviews = () => (
-    reviews.map((datum: ReviewItem) => (
-      <div>
-        <b>{datum.userName}</b>의 {datum.categoryName} 영화
+    reviews.map((review: ReviewItem, index: number) => (
+      <div key={index}>
+        <b>{review.userName}</b>님의 <b>{review.categoryName}</b> 영화
       </div>
     ))
   )
+
+  const transmediaLink = () => {
+    const caretRight = String.fromCharCode(61);
+
+    if(movie.transmediaID) {
+      return (
+        <div>
+          <b>트랜스미디어</b>&nbsp;&nbsp;
+          <a href={`Transmedia/${movie.transmediaID}`} 
+            style={{textDecoration: 'none', color: 'slategrey'}}
+          >{movie.transmediaName}&nbsp;></a>
+        </div>
+      )
+    }
+  }
 
   return (
     <Grid item xs={12} md={6}>
@@ -88,7 +90,7 @@ const MovieItem: React.SFC<MovieItem> = ({ movie, index, buttons, handleLikes, o
             <b>감독</b>  {movie.director}<br />
             <b>출연</b>  {movie.actor}<br />
             <b>평점</b>  {movie.userRating}<br />
-            <b>트랜스미디어</b>  <a href={`Transmedia/${movie.transmediaID}`} style={{textDecoration: 'none', color: 'slategrey'}}>{movie.transmediaName}</a>
+            {transmediaLink()}
           </div>
           <div className="movieCategory">
             {reviews ? renderReviews() : ""}

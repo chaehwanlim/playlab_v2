@@ -24,7 +24,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 //DB에서 음악 차트 조회 : get
 router.get('/', (req, res) => {
-  const sql = "SELECT musicID, title, artist, genre, c.categoryName, u.userName, t.transmediaName, likes \
+  const sql = "SELECT musicID, title, artist, genre, c.categoryName, u.userName, t.transmediaName, m.transmediaID, likes \
   FROM music AS m \
   LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
   LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \

@@ -27,6 +27,7 @@ interface PopularBook extends Book {
   categoryName: string;
   userName: string;
   transmediaName: string;
+  transmediaID: number;
   imageURL: string;
   description: string;
   likes: number;
@@ -107,6 +108,7 @@ interface PopularMusic extends Music {
   categoryName: string;
   userName: string;
   transmediaName: string;
+  transmediaID: number;
   likes: number;
 }
 
@@ -137,6 +139,7 @@ interface BookmarkItem {
 }
 
 interface ReviewItem {
+  workID: number;
   userName: string;
   categoryName: string;
 }

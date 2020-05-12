@@ -25,6 +25,7 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
   const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState<string>("모든");
   const [searchKeyword, setSearchKeyword] = useState<string>("");
+  const [reviews, setReviews] = useState<Array<ReviewItem>>([]);
 
   useEffect(() => {
     fetch('/api/book')
@@ -37,6 +38,11 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
       .then(res => setCategory(res))
       .catch(err => console.log(err))
 
+    fetch('/api/review/book')
+      .then(res => res.json())
+      .then(res => setReviews(res))
+      .catch(err => console.log(err))
+
   }, []);
 
   const removeBTags = (str: string) => {
@@ -45,28 +51,29 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
   }
 
   const filterData = (data: Array<PopularBook>) => {
-    data = data.filter((datum: PopularBook) => {
-      return (
-        (datum.title.indexOf(searchKeyword) > -1) ||
-        (datum.author.indexOf(searchKeyword) > -1) ||
-        (datum.userName.indexOf(searchKeyword) > -1)
-      );
-    });
+    data = data.filter((datum: PopularBook) => 
+      (datum.title.indexOf(searchKeyword) > -1) ||
+      (datum.author.indexOf(searchKeyword) > -1) ||
+      (datum.userName.indexOf(searchKeyword) > -1)
+    ); 
 
     let _selectedCat: string = selectedCat;
+
     if (_selectedCat === "모든") {
       _selectedCat = ""
     }
 
-    data = data.filter((datum: PopularBook) => {
-      return (
-        (datum.categoryName.indexOf(_selectedCat) > -1)
-      );
-    });
+    const reviewsForOneCat: ReviewItem[] = reviews.filter((datum: ReviewItem) => 
+      datum.categoryName.includes(_selectedCat)
+    );
 
     return data.map((datum: PopularBook, index: number) => {
+      const reviewsForOneBook: ReviewItem[] = reviewsForOneCat.filter((reviewItem: ReviewItem) => 
+        (reviewItem.workID === datum.bookID)
+      );
+
       return (
-        <BookItem book={datum} index={index} buttons={true} handleLikes={handleLikes} onAdd={onAdd} />
+        <BookItem book={datum} reviews={reviewsForOneBook} index={index} buttons={true} handleLikes={handleLikes} onAdd={onAdd} key={index} />
       )
     });
   }
@@ -115,12 +122,10 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
             <MenuItem value={"모든"} style={{fontSize: '1.7rem', fontWeight: 500}}>
               모든
             </MenuItem>
-          {category ? category.map(cat => {
-            return (
-              <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>
-                {cat.categoryName}</MenuItem>
-            )
-          }) : "error occured"}
+          {category ? category.map((cat: Category, index: number) => 
+            <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}} key={index}>
+              {cat.categoryName}</MenuItem>
+          ) : "error occured"}
         </Select>
       &nbsp; 책의 인기 차트</div>
       </Card>

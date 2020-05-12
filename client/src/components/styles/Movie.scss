@@ -10,11 +10,6 @@
   font-size: 1.7rem;
   padding-right: 1rem;
   padding-bottom: 1.5rem;
-  transition: 0.5s;
-  &:hover {
-    transform: scale(1.03);
-    transition: 0.5s;
-  }
 
   .moviePosterAlign {
     display: flex;

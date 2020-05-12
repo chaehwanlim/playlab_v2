@@ -4,36 +4,40 @@ import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import IconButton from '@material-ui/core/IconButton';
 import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
-import Axios from 'axios';
 
 interface BookItem {
   book: PopularBook;
+  reviews: ReviewItem[];
   index: number;
   buttons: boolean;
   handleLikes: (id: number) => void;
   onAdd: (work: BookmarkItem) => void;
 }
 
-const BookItem: React.SFC<BookItem> = ({ book, index, buttons, handleLikes, onAdd }) => 
+const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLikes, onAdd }) => 
 {
-  const [reviews, setReviews] = useState<Array<ReviewItem>>([]);
-
-  useEffect(() => {
-    Axios({
-      method: 'get',
-      url: `/api/review/${book.bookID}`
-    })
-    .then(res => setReviews(res.data))
-    .catch(err => console.log(err));
-  }, []);
-
   const renderReviews = () => (
-    reviews.map((datum: ReviewItem) => (
-      <div>
-        <b>{datum.userName}</b>의 {datum.categoryName} 책
+    reviews.map((review: ReviewItem, index: number) => (
+      <div key={index}>
+        <b>{review.userName}</b>님의 <b>{review.categoryName}</b> 책
       </div>
     ))
   )
+
+  const transmediaLink = () => {
+    const caretRight = String.fromCharCode(61);
+
+    if(book.transmediaID) {
+      return (
+        <div>
+          <b>트랜스미디어</b>&nbsp;&nbsp;
+          <a href={`Transmedia/${book.transmediaID}`} 
+            style={{textDecoration: 'none', color: 'slategrey'}}
+          >{book.transmediaName}&nbsp;></a>
+        </div>
+      )
+    }
+  }
 
   const removeBTags = (str: string) => {
     str = str.replace(/<b>/g, "");
@@ -84,9 +88,10 @@ const BookItem: React.SFC<BookItem> = ({ book, index, buttons, handleLikes, onAd
           </div>
           <div className="bookInfo">
             <b>작가</b>  {book.author}<br />
-            <b>트랜스미디어</b>  {book.transmediaName}<br />
+            
+            {transmediaLink()}
           </div>
-          <div className="reviews">
+          <div className="bookCategory">
             {reviews ? renderReviews() : ""}
           </div>
         </Grid>

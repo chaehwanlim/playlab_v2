@@ -26,6 +26,7 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
   const [category, setCategory] = useState<Array<Category>>([]);
   const [selectedCat, setSelectedCat] = useState<string>("모든");
   const [searchKeyword, setSearchKeyword] = useState<string>("");
+  const [reviews, setReviews] = useState<Array<ReviewItem>>([]);
 
   useEffect(() => {
     fetch('/api/movie')
@@ -38,31 +39,37 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
       .then(res => setCategory(res))
       .catch(err => console.log(err))
 
+    fetch('/api/review/movie')
+      .then(res => res.json())
+      .then(res => setReviews(res))
+      .catch(err => console.log(err))
+
   }, []);
 
-  const filterData = (data: Array<PopularMovie>) => {
-    data = data.filter((datum: PopularMovie) => {
-      return (
-        (datum.title.indexOf(searchKeyword) > -1) ||
-        (datum.actor.indexOf(searchKeyword) > -1) ||
-        (datum.userName.indexOf(searchKeyword) > -1)
-      );
-    });
+  const filterData = (data: PopularMovie[]) => {
+    data = data.filter((datum: PopularMovie) => 
+      (datum.title.indexOf(searchKeyword) > -1) ||
+      (datum.actor.indexOf(searchKeyword) > -1) ||
+      (datum.userName.indexOf(searchKeyword) > -1)
+    );
 
     let _selectedCat: string = selectedCat;
+
     if (_selectedCat === "모든") {
       _selectedCat = ""
     }
 
-    data = data.filter((datum: PopularMovie) => {
-      return (
-        (datum.categoryName.indexOf(_selectedCat) > -1)
-      );
-    });
+    const reviewsForOneCat: ReviewItem[] = reviews.filter((datum: ReviewItem) => 
+      datum.categoryName.includes(_selectedCat)
+    );
 
     return data.map((datum: PopularMovie, index: number) => {
+      const reviewsForOneMovie: ReviewItem[] = reviewsForOneCat.filter((reviewItem: ReviewItem) => 
+        (reviewItem.workID === datum.movieID)
+      );
+
       return (
-        <MovieItem movie={datum} index={index} buttons={true} handleLikes={handleLikes} onAdd={onAdd} />
+        <MovieItem movie={datum} reviews={reviewsForOneMovie} index={index} buttons={true} handleLikes={handleLikes} onAdd={onAdd} key={index} />
       )
     });
   }
@@ -110,12 +117,10 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
               <MenuItem value={"모든"} style={{fontSize: '1.7rem', fontWeight: 500}}>
               모든
               </MenuItem>
-            {category ? category.map(cat => {
-              return (
-                <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}}>
-                  {cat.categoryName}</MenuItem>
-              )
-            }) : "error occured"}
+            {category ? category.map((cat: Category, index: number) => 
+              <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}} key={index}>
+                {cat.categoryName}</MenuItem>
+            ) : "error occured"}
           </Select>
           &nbsp; 영화의 인기 차트
         </div>
@@ -136,7 +141,9 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
       </form>
       <br /><br />
       <Grid container spacing={4}>
-        {movieDB ? filterData(movieDB) : <CircularProgress />}
+        {movieDB ? 
+        filterData(movieDB) 
+        : <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><CircularProgress /></div>}
       </Grid>
     </div>
   )
