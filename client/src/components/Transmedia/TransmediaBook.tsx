@@ -49,7 +49,7 @@ const TransmediaBook: React.SFC<TransmediaBookProps> = ({ id, onAdd }) => {
                       </Grid>
                       <Grid item xs={2}>
                         <div className="T-content-btn">
-                          <IconButton style={{padding: '1.5rem'}} 
+                          {/* <IconButton style={{padding: '1.5rem'}} 
                             onClick={() => onAdd({
                               title: datum.title,
                               creator: datum.author,
@@ -58,13 +58,13 @@ const TransmediaBook: React.SFC<TransmediaBookProps> = ({ id, onAdd }) => {
                             })}
                           >
                             <BookmarkRounded style={{color: 'white', width: '2rem', height: '2rem'}}/>
-                          </IconButton>
+                          </IconButton> */}
                         </div>
                       </Grid>
                     </Grid>
                     <div className="T-content-creator">{datum.author}</div>
                     <Divider className="divider" style={{backgroundColor: '#3B3A40'}} />
-                    <div className="T-content-desc">{datum.userName}님의 {datum.categoryName} 책</div>
+                    {/* <div className="T-content-desc">{datum.userName}님의 {datum.categoryName} 책</div> */}
                   </Card>
                 </Grid>
               )

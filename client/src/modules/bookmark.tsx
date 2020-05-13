@@ -59,14 +59,21 @@ export const bookmarkReducer = (
 ): BookmarkState => {
   switch (action.type) {
     case ADD:
+      //review 중복값 제거
+      const newReview: Set<ReviewItem> = new Set(action.payload.item.review);
+      const newItem: BookmarkItem = { ...action.payload.item, review: newReview};
+      const newPayload = { ...action.payload, item: newItem };
+      console.log(newPayload.item.review);
       return {
-        bookmarkItems: [...state.bookmarkItems, action.payload]
+        bookmarkItems: [...state.bookmarkItems, newPayload]
       };
+
     case REMOVE:
       return {
         ...state,
         bookmarkItems: state.bookmarkItems.filter(bookmark => bookmark.id !== action.payload)
       }
+
     default:
       return state;
   }

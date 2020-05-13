@@ -56,7 +56,7 @@
 }
 
 .T-title {
-  font-family: 'Samsung', 'Noto Sans KR';
+  font-family: 'Samsung', 'Inter';
 
   position: absolute;
   top: 58vh;
@@ -93,12 +93,16 @@
   color: grey;
 }
 
-.T-content-desc {
+.T-content-desc-container {
   padding: 1rem 1rem 1rem 1rem;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: whitesmoke;
+  .T-content-desc {
+
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: whitesmoke;
+  }
 }
+
 
 .T-content-btn {
   display: flex;

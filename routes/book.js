@@ -24,10 +24,8 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 //DB에서 책 차트 조회 : get
 router.get('/', (req, res) => {
-  const sql = "SELECT bookID, title, author, genre, c.categoryName, u.userName, t.transmediaName, b.transmediaID, b.imageURL, b.description, likes \
+  const sql = "SELECT bookID, title, author, genre, t.transmediaName, b.transmediaID, b.imageURL, b.description, likes \
   FROM book AS b \
-  LEFT OUTER JOIN category AS c ON (c.categoryID = b.categoryID) \
-  LEFT OUTER JOIN users AS u ON (u.userID = b.adderID) \
   LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = b.transmediaID) \
   WHERE b.isDeleted = 0 \
   ORDER BY likes DESC;"

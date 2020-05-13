@@ -25,18 +25,16 @@ const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLi
   )
 
   const transmediaLink = () => {
-    const caretRight = String.fromCharCode(61);
-
-    if(book.transmediaID) {
+    if(book.transmediaID > 10000) {
       return (
         <div>
           <b>트랜스미디어</b>&nbsp;&nbsp;
           <a href={`Transmedia/${book.transmediaID}`} 
             style={{textDecoration: 'none', color: 'slategrey'}}
-          >{book.transmediaName}&nbsp;></a>
+          >{book.transmediaName}&nbsp;&#xE001;</a>
         </div>
       )
-    }
+    } else return <div></div>
   }
 
   const removeBTags = (str: string) => {
@@ -75,7 +73,7 @@ const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLi
                     onClick={() => onAdd({
                       title: book.title,
                       creator: book.author,
-                      category: book.categoryName,
+                      review: reviews,
                       media: '책'
                     })}
                   >

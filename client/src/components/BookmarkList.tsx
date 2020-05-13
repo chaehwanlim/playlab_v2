@@ -28,6 +28,16 @@ interface Props {
 const Bookmark: React.SFC<BookmarkItemProps> = ({ bookmarkItem, onRemove }) => {
   const classes = useStyles();
 
+  const renderCategory = () => {
+    if(bookmarkItem.item.review) {
+      return (
+        bookmarkItem.item.review.forEach((review: ReviewItem) => (
+          <div className="bookmark-item-category">{review.categoryName} {bookmarkItem.item.media}</div>
+        ))
+      )
+    }
+  }
+
   return (
     <Grid item xs={12}>
       <Card classes={{root: classes.root}} elevation={3}>
@@ -48,7 +58,7 @@ const Bookmark: React.SFC<BookmarkItemProps> = ({ bookmarkItem, onRemove }) => {
         </Grid>
         <div className="bookmark-item-creator">{bookmarkItem.item.creator}</div>
         <Divider />
-        <div className="bookmark-item-category">{bookmarkItem.item.category} {bookmarkItem.item.media}</div>
+        {renderCategory()}
       </Card>
     </Grid>
   )

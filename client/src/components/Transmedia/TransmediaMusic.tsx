@@ -46,7 +46,7 @@ const TransmediaMusic: React.SFC<TransmediaMusicProps> = ({ id, onAdd }) => {
                         <div className="T-content-title">{datum.title}</div>
                       </Grid>
                       <Grid item xs={2}>
-                        <div className="T-content-btn">
+                        {/* <div className="T-content-btn">
                           <IconButton style={{padding: '1.5rem'}} 
                             onClick={() => onAdd({
                               title: datum.title,
@@ -57,12 +57,12 @@ const TransmediaMusic: React.SFC<TransmediaMusicProps> = ({ id, onAdd }) => {
                           >
                             <BookmarkRounded style={{color: 'white', width: '2rem', height: '2rem'}}/>
                           </IconButton>
-                        </div>
+                        </div> */}
                       </Grid>
                     </Grid>
                     <div className="T-content-creator">{datum.artist}</div>
                     <Divider className="divider" style={{backgroundColor: '#3B3A40'}} />
-                    <div className="T-content-desc">{datum.userName}님의 {datum.categoryName} 음악</div>
+                    {/* <div className="T-content-desc">{datum.userName}님의 {datum.categoryName} 음악</div> */}
                   </Card>
                 </Grid>
               )

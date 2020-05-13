@@ -21,7 +21,8 @@ interface TransmediaMovieProps {
 }
 
 const TransmediaMovie: React.SFC<TransmediaMovieProps> = ({ id, onAdd }) => {
-  const [movie, setMovie] = useState<Array<PopularMovie>>([]);
+  const [movie, setMovie] = useState<PopularMovie[]>([]);
+  const [reviews, setReviews] = useState<ReviewItem[]>([]);
 
   const classes = useStyles();
 
@@ -30,46 +31,64 @@ const TransmediaMovie: React.SFC<TransmediaMovieProps> = ({ id, onAdd }) => {
       .then(res => res.json())
       .then(res => setMovie(res))
       .catch(err => console.log(err))
+
+    fetch(`/api/review/transmedia/${id}/movie`)
+      .then(res => res.json())
+      .then(res => setReviews(res))
+      .catch(err => console.log(err))
   }, []);
 
+  const renderMovie = (movie: PopularMovie) => {
+    const reviewsForOneMovie = reviews.filter((review: ReviewItem) => movie.movieID === review.workID);
+
+    return (
+      <Grid item xs={12} sm={6} md={4}>
+        <Card classes={{root: classes.root}}>
+          <CardMedia component="img" height="200px" image={movie.imageURL} title={movie.title}/>
+          <Grid container spacing={0}>
+            <Grid item xs={10}>
+              <div className="T-content-title">{movie.title}</div>
+            </Grid>
+            <Grid item xs={2}>
+              <div className="T-content-btn">
+                <IconButton style={{padding: '1.5rem'}} 
+                  onClick={() => onAdd({
+                    title: movie.title,
+                    creator: movie.director,
+                    review: reviewsForOneMovie,
+                    media: '영화'
+                  })}
+                >
+                  <BookmarkRounded
+                  style={{color: 'white', width: '2rem', height: '2rem'}}/>
+                </IconButton>
+              </div>
+            </Grid>
+          </Grid>
+          <div className="T-content-creator">{movie.director}</div>
+          <Divider className="divider" style={{backgroundColor: '#3B3A40'}} />
+          <div className="T-content-desc-container">
+            {renderReviews(reviewsForOneMovie)}
+          </div>
+        </Card>
+      </Grid>
+    )
+  }
+
+  const renderReviews = (reviewsForOneMovie: ReviewItem[]) => (
+    reviewsForOneMovie.map((review: ReviewItem) => 
+      <div className="T-content-desc">{review.userName}님의 {review.categoryName} 영화</div>
+    )
+  )
   return (
     <div>
       {movie.length !== 0 ? 
         <div>
           <div className="T-contentTitle">영화</div>
           <Grid container spacing={1}>
-            {movie.map((datum: PopularMovie) => {
-              return (
-                <Grid item xs={12} sm={6} md={4}>
-                  <Card classes={{root: classes.root}}>
-                    <CardMedia component="img" height="200px" image={datum.imageURL} title={datum.title}/>
-                    <Grid container spacing={0}>
-                      <Grid item xs={10}>
-                        <div className="T-content-title">{datum.title}</div>
-                      </Grid>
-                      <Grid item xs={2}>
-                        <div className="T-content-btn">
-                          <IconButton style={{padding: '1.5rem'}} 
-                            onClick={() => onAdd({
-                              title: datum.title,
-                              creator: datum.director,
-                              category: datum.categoryName,
-                              media: '영화'
-                            })}
-                          >
-                            <BookmarkRounded
-                           style={{color: 'white', width: '2rem', height: '2rem'}}/>
-                          </IconButton>
-                        </div>
-                      </Grid>
-                    </Grid>
-                    <div className="T-content-creator">{datum.director}</div>
-                    <Divider className="divider" style={{backgroundColor: '#3B3A40'}} />
-                    <div className="T-content-desc">{datum.userName}님의 {datum.categoryName} 영화</div>
-                  </Card>
-                </Grid>
-              )
-            })}
+            {movie.map((datum: PopularMovie) => 
+              renderMovie(datum)
+            )}
           </Grid>
         </div>
       : <div />}

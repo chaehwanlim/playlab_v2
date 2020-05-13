@@ -24,22 +24,11 @@ interface BookForm extends Book {
 interface PopularBook extends Book {
   bookID: number;
   genre: string;
-  categoryName: string;
-  userName: string;
   transmediaName: string;
   transmediaID: number;
   imageURL: string;
   description: string;
   likes: number;
-}
-
-interface BookInDB extends Book {
-  genre: string;
-  categoryName: string;
-  userName: string;
-  transmediaName: string;
-  imageURL: string;
-  description: string;
 }
 
 interface Movie {
@@ -65,24 +54,12 @@ interface MovieForm extends Movie {
 interface PopularMovie extends Movie {
   movieID: number;
   genre: string;
-  categoryName: string;
-  userName: string;
   transmediaName: string;
   transmediaID: number;
   imageURL: string;
   year: number;
   userRating: number;
   likes: number;
-}
-
-interface MovieInDB extends Movie {
-  genre: string;
-  categoryName: string;
-  userName: string;
-  transmediaName: string;
-  imageURL: string;
-  year: number;
-  userRating: number;
 }
 
 interface Music {
@@ -112,13 +89,6 @@ interface PopularMusic extends Music {
   likes: number;
 }
 
-interface MusicInDB extends Music {
-  genre: string;
-  categoryName: string;
-  userName: string;
-  transmediaName: string;
-}
-
 interface Category {
   categoryID: number;
   categoryName: string;
@@ -134,7 +104,7 @@ interface Transmedia {
 interface BookmarkItem {
   title: string;
   creator: string;
-  category: string;
+  review: Set<ReviewItem> | ReviewItem[];
   media: string;
 }
 

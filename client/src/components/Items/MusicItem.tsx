@@ -33,18 +33,16 @@ const MusicItem: React.SFC<MusicItem> = ({ music, reviews, index, buttons, handl
   )
 
   const transmediaLink = () => {
-    const caretRight = String.fromCharCode(61);
-
-    if(music.transmediaID) {
+    if(music.transmediaID > 10000) {
       return (
         <div>
           <b>트랜스미디어</b>&nbsp;&nbsp;
           <a href={`Transmedia/${music.transmediaID}`} 
             style={{textDecoration: 'none', color: 'slategrey'}}
-          >{music.transmediaName}&nbsp;></a>
+          >{music.transmediaName}&nbsp;&#xE001;</a>
         </div>
       )
-    }
+    } else return <div></div>
   }
 
   return (
@@ -68,7 +66,7 @@ const MusicItem: React.SFC<MusicItem> = ({ music, reviews, index, buttons, handl
                       onClick={() => onAdd({
                         title: music.title,
                         creator: music.artist,
-                        category: music.categoryName,
+                        review: reviews,
                         media: '음악'
                       })}
                     >

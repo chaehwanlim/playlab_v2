@@ -5,13 +5,13 @@
   padding-bottom: 3rem;
 
   .title {
-    font-size: 2.5rem;
-    font-weight: 900;
+    font-size: 3rem;
+    font-weight: 700;
   }
 
   .subtitle {
     font-size: 1.7rem;
-    font-weight: 500;
+    font-weight: 400;
     color: slategrey;
   }
 
@@ -79,7 +79,7 @@
       flex: 1;
       padding: 0.5rem;
       font-size: 1.7rem;
-      font-weight: 500;
+      font-weight: 400;
     }
     .iconButton {
       padding: 1rem;
@@ -94,7 +94,7 @@
   flex-direction: column;
   align-items: center;
   font-size: 1.7rem;
-  font-weight: 500;
+  font-weight: 400;
   background-color: white;
 
   .category {
@@ -103,7 +103,7 @@
   
     .menuItem {
       font-size: 1.7rem;
-      font-weight: 500;
+      font-weight: 400;
     }
   }
 

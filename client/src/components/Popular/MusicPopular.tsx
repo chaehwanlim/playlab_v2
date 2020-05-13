@@ -45,7 +45,7 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
     data = data.filter((datum: PopularMusic) => 
       (datum.title.indexOf(searchKeyword) > -1) ||
       (datum.artist.indexOf(searchKeyword) > -1) ||
-      (datum.userName.indexOf(searchKeyword) > -1)
+      (datum.transmediaName.indexOf(searchKeyword) > -1)
     );
 
     let _selectedCat: string = selectedCat;

@@ -25,18 +25,16 @@ const MovieItem: React.SFC<MovieItem> = ({ movie, reviews, index, buttons, handl
   )
 
   const transmediaLink = () => {
-    const caretRight = String.fromCharCode(61);
-
-    if(movie.transmediaID) {
+    if(movie.transmediaID > 10000) {
       return (
         <div>
           <b>트랜스미디어</b>&nbsp;&nbsp;
           <a href={`Transmedia/${movie.transmediaID}`} 
             style={{textDecoration: 'none', color: 'slategrey'}}
-          >{movie.transmediaName}&nbsp;></a>
+          >{movie.transmediaName}&nbsp;&#xE001;</a>
         </div>
       )
-    }
+    } else return <div></div>
   }
 
   return (
@@ -75,7 +73,7 @@ const MovieItem: React.SFC<MovieItem> = ({ movie, reviews, index, buttons, handl
                     onClick={() => onAdd({
                       title: movie.title,
                       creator: movie.director,
-                      category: movie.categoryName,
+                      review: reviews,
                       media: '영화'
                     })}
                   >

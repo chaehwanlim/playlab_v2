@@ -54,7 +54,7 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
     data = data.filter((datum: PopularBook) => 
       (datum.title.indexOf(searchKeyword) > -1) ||
       (datum.author.indexOf(searchKeyword) > -1) ||
-      (datum.userName.indexOf(searchKeyword) > -1)
+      (datum.transmediaName.indexOf(searchKeyword) > -1)
     ); 
 
     let _selectedCat: string = selectedCat;
