@@ -7,7 +7,7 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MovieItem from '../Items/MovieItem';
-import Box from '@material-ui/core/Box'
+import Box from '@material-ui/core/Box';
 import Axios from 'axios';
 import '../DBInterfaces.tsx';
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/SearchRounded';
@@ -203,7 +203,7 @@ const MusicAdd: React.FC = () => {
     const InputLabelProps: object = { style: {fontSize: '1.7rem', color: 'primary'} }
 
     return (
-        <Card className="card">
+        <Box className="card" borderRadius={10}>
             <div className="formTitle">
                 음악을 추가합니다.
             </div>
@@ -320,7 +320,7 @@ const MusicAdd: React.FC = () => {
 
                 <Fab variant="extended" className="submitBtn" id="music" type="submit">추가하기</Fab>
             </form>
-        </Card>
+        </Box>
     )
 }
 

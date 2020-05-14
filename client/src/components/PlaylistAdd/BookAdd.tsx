@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/SearchRounded';
@@ -46,13 +46,13 @@ const BookAdd: React.FC = () => {
   }, []);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value as string);
+    setKeyword(e.target.value);
   }
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsSearched(true as boolean);
+    setIsSearched(true);
     searchBook();
   }
 
@@ -65,17 +65,17 @@ const BookAdd: React.FC = () => {
     .catch(err => console.log(err));
   }
 
-  const handleCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
+  const handleCategory = (e: React.ChangeEvent<{ value: number }>) => {
     setForm({
       ...form,
-      categoryID : e.target.value as number
+      categoryID : e.target.value
     });
   }
   
-  const handleTransmedia = (e: React.ChangeEvent<{ value: unknown }>) => {
+  const handleTransmedia = (e: React.ChangeEvent<{ value: number }>) => {
     setForm({
       ...form,
-      transmediaID : e.target.value as number
+      transmediaID : e.target.value
     });
   }
 
@@ -132,7 +132,7 @@ const BookAdd: React.FC = () => {
   }
 
   return (
-    <Card className="card">
+    <Box className="card" borderRadius={10}>
       <div className="formTitle">
         책을 추가합니다.
       </div>
@@ -160,18 +160,19 @@ const BookAdd: React.FC = () => {
       <Grid container spacing={4}>
         {searchResult ?
           searchResult.map((book, index: number) => {
+            const title: string = removeBTags(book.title);
             return (
             <Grid item xs={12}>
-              <div className="book" key={index} onClick={() => handleBookSelect(index, removeBTags(book.title))}>
+              <Box className="book" key={index} onClick={() => handleBookSelect(index, title)}>
                 <Grid item xs={4} md={2}>
                 <div className="bookCoverAlign">
-                    <img className="bookCover" src={book.image} alt={book.title}/>
+                    <img className="bookCover" src={book.image} alt={title}/>
                 </div>
                 </Grid>
                 <Grid item xs={8} md={4}>
                     <div className="bookTitle">
                         <span style={{color: 'grey'}}>{index + 1}&nbsp;&nbsp;</span>
-                        {removeBTags(book.title)}
+                        {title}
                         </div>
                     <div className="bookInfo">
                         <b>작가</b> {book.author}<br />
@@ -183,7 +184,7 @@ const BookAdd: React.FC = () => {
                     </div>
                 </Grid>
                 
-              </div>
+              </Box>
             </Grid>
           )}) : <div>error occurred</div>}
       </Grid>
@@ -232,7 +233,7 @@ const BookAdd: React.FC = () => {
         </form>
       : ""}
 
-    </Card>
+    </Box>
   )
 }
 

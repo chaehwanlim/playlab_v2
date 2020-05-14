@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/SearchRounded';
@@ -9,6 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
+import Snackbar from '@material-ui/core/Snackbar';
 import Axios from 'axios';
 import '../styles/Add.scss';
 import '../styles/Movie.scss';
@@ -33,6 +36,7 @@ const MovieAdd: React.FC = () => {
   });
   const [category, setCategory] = useState<Array<Category>>([]);
   const [transmedia, setTransmedia] = useState<Array<Transmedia>>([]);
+  const [alertOpen, setAlertOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetch('/api/category')
@@ -46,13 +50,13 @@ const MovieAdd: React.FC = () => {
   }, []);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value as string);
+    setKeyword(e.target.value);
   }
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsSearched(true as boolean);
+    setIsSearched(true);
     searchMovie();
   }
 
@@ -65,16 +69,16 @@ const MovieAdd: React.FC = () => {
     .catch(err => console.log(err));
   }
 
-  const handleCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
+  const handleCategory = (e: React.ChangeEvent<{ value: number }>) => {
     setForm({
       ...form,
-      categoryID : e.target.value as number
+      categoryID : e.target.value
     });
   }
-  const handleTransmedia = (e: React.ChangeEvent<{ value: unknown }>) => {
+  const handleTransmedia = (e: React.ChangeEvent<{ value: number }>) => {
     setForm({
       ...form,
-      transmediaID : e.target.value as number
+      transmediaID : e.target.value
     });
   }
 
@@ -135,7 +139,7 @@ const MovieAdd: React.FC = () => {
   }
 
   return (
-    <Card className="card">
+    <Box className="card" borderRadius={10}>
       <div className="formTitle">
         영화를 추가합니다.
       </div>
@@ -163,19 +167,23 @@ const MovieAdd: React.FC = () => {
       <Grid container spacing={4}>
         {searchResult ?
           searchResult.map((movie, index) => {
+            const title: string = removeBTags(movie.title);
+
             return (
             <Grid item xs={12} md={6}>
-              <div className="movie" key={index} onClick={() => handleMovieSelect(index, removeBTags(movie.title))}>
+              <Box className="movie" key={index} borderRadius={10}
+                onClick={() => handleMovieSelect(index, title)}
+              >
                 <Grid item xs={4}>
                   <div className="moviePosterAlign">
-                    <img className="moviePoster" src={movie.image} title={removeBTags(movie.title)} 
-                    alt={removeBTags(movie.title)}/>
+                    <img className="moviePoster" src={movie.image} title={title} 
+                    alt={title}/>
                   </div>
                 </Grid>
                 <Grid item xs={8}>
                   <div className="movieTitle">
                     <span style={{color: 'grey'}}>{index + 1}&nbsp;&nbsp;</span>
-                    <span>{removeBTags(movie.title)}
+                    <span>{title}
                     <span className="movieYear">{movie.pubDate}</span></span>
                   </div>
                   <div className="movieInfo">
@@ -184,7 +192,7 @@ const MovieAdd: React.FC = () => {
                     <b>평점</b> {movie.userRating}
                   </div>
                 </Grid>
-              </div>
+              </Box>
             </Grid>
           )}) : ""}
       </Grid>
@@ -233,7 +241,7 @@ const MovieAdd: React.FC = () => {
         </form>
       : ""}
 
-    </Card>
+    </Box>
   )
 }
 

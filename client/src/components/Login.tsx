@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
-import { Grid, Card, TextField } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import Axios from 'axios';
 /* import store from './store'; */
@@ -115,7 +117,7 @@ const Login: React.FC = () => {
             <Container maxWidth="lg">
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={6}>
-                        <Card className="loginCard">
+                        <Box className="loginCard" borderRadius={10}>
                             <div className="subtitle">
                                 가입한 계정이 있으신가요?
                             </div>
@@ -139,10 +141,10 @@ const Login: React.FC = () => {
                                 <Fab variant="extended" className="submitButton" type="submit" id="login">
                                     로그인</Fab>
                             </form>
-                        </Card>
+                        </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Card className="loginCard">
+                        <Box className="loginCard" borderRadius={10}>
                             <div className="subtitle">
                                 <span style={{ fontFamily: 'Samsung' }}>PlayLab</span>에 처음 오셨나요?
                             </div>
@@ -167,7 +169,7 @@ const Login: React.FC = () => {
                                 <Fab variant="extended" className="submitButton" type="submit" id="register">
                                     회원가입</Fab>
                             </form>
-                        </Card>
+                        </Box>
                     </Grid>
                 </Grid>
             </Container>

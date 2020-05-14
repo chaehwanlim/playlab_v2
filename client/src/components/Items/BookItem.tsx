@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
@@ -51,7 +52,7 @@ const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLi
 
   return (
     <Grid item xs={12}>
-      <div className="book">
+      <Box className="book" borderRadius={10}>
         <Grid item xs={4} md={2}>
         <div className="bookCoverAlign">
             <img className="bookCover" src={book.imageURL} alt={book.title}/>
@@ -105,7 +106,7 @@ const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLi
             {removeBTags(book.description)}
           </div>
         </Grid>
-      </div>
+      </Box>
     </Grid>
   )
 }

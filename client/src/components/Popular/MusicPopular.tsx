@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Card from '@material-ui/core/Card';
+
 import TableContainer from '@material-ui/core/TableContainer';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -127,13 +127,11 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
         </Box>
       </form>
 
-      <Card elevation={3} square={true}>
-        <TableContainer className="Music-table">
-          {musicDB ? 
-          filterData(musicDB) : 
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><CircularProgress /></div>}
-        </TableContainer>
-      </Card>
+      <TableContainer className="Music-table">
+        {musicDB ? 
+        filterData(musicDB) : 
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><CircularProgress /></div>}
+      </TableContainer>
     </div>
   )
 }
