@@ -104,7 +104,7 @@ interface Transmedia {
 interface BookmarkItem {
   title: string;
   creator: string;
-  review: Set<ReviewItem> | ReviewItem[];
+  review: string[];
   media: string;
 }
 

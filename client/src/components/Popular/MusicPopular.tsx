@@ -6,29 +6,25 @@ import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import MusicItem from '../Items/MusicItem';
+import Box from '@material-ui/core/Box';
 import Axios from 'axios';
-import '../styles/Content.scss';
-import '../styles/Table.scss';
 import '../DBInterfaces.tsx';
+
 
 interface MusicPopularProps {
   onAdd: (work: BookmarkItem) => void;
 }
 
 const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
-  const [musicDB, setMusicDB] = useState<Array<PopularMusic>>([]);
-  const [category, setCategory] = useState<Array<Category>>([]);
-  const [selectedCat, setSelectedCat] = useState<string>("모든");
+  const [musicDB, setMusicDB] = useState<PopularMusic[]>([]);
+  const [category, setCategory] = useState<Category[]>([]);
+  const [selectedCat, setSelectedCat] = useState<number>(100);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [reviews, setReviews] = useState<Array<ReviewItem>>([]);
+  const [reviews, setReviews] = useState<ReviewItem[]>([]);
 
   useEffect(() => {
-    fetch('/api/music')
-      .then(res => res.json())
-      .then(res => setMusicDB(res))
-      .catch(err => console.log(err))
-
     fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
@@ -39,27 +35,25 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
       .then(res => setReviews(res))
       .catch(err => console.log(err))
 
+    getDB(selectedCat);
   }, []);
 
-  const filterData = (data: Array<PopularMusic>) => {
-    data = data.filter((datum: PopularMusic) => 
-      (datum.title.indexOf(searchKeyword) > -1) ||
-      (datum.artist.indexOf(searchKeyword) > -1) ||
-      (datum.transmediaName.indexOf(searchKeyword) > -1)
-    );
+  const getDB = (categoryid: number) => {
+    fetch(`/api/review/chart/music/${categoryid}`)
+      .then(res => res.json())
+      .then(res => setMusicDB(res))
+      .catch(err => console.log(err))
+  }
 
-    let _selectedCat: string = selectedCat;
+  const filterData = (data: PopularMusic[]) => {
+    const filteredData: PopularMusic[] = data.filter((datum: PopularMusic) => (
+      (datum.title.includes(searchKeyword)) ||
+      (datum.artist.includes(searchKeyword)) ||
+      (datum.genre.includes(searchKeyword))
+    ));
 
-    if (_selectedCat === "모든") {
-      _selectedCat = ""
-    }
-
-    const reviewsForOneCat: ReviewItem[] = reviews.filter((datum: ReviewItem) => 
-      datum.categoryName.includes(_selectedCat)
-    );
-
-    return data.map((datum: PopularMusic, index: number) => {
-      const reviewsForOneMusic: ReviewItem[] = reviewsForOneCat.filter((reviewItem: ReviewItem) => 
+    return filteredData.map((datum: PopularMusic, index: number) => {
+      const reviewsForOneMusic: ReviewItem[] = reviews.filter((reviewItem: ReviewItem) => 
         (reviewItem.workID === datum.musicID)
       );
 
@@ -77,8 +71,9 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
     e.preventDefault();
   }
 
-  const handleCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedCat(e.target.value as string);
+  const handleCategory = (e: React.ChangeEvent<{ value: number }>) => {
+    setSelectedCat(e.target.value);
+    getDB(e.target.value);
   }
 
   const handleLikes = (id: number) => {
@@ -90,10 +85,7 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
     .then(res => {
       if(res.status === 200){
         alert('성공적으로 추천했습니다!');
-        fetch('/api/music')
-          .then(res => res.json())
-          .then(res => setMusicDB(res))
-          .catch(err => console.log(err))
+        getDB(selectedCat);
       }
     })
     .catch(err => console.log(err));
@@ -101,27 +93,27 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
 
   return (
     <div>
-      <Card className="filter" elevation={3} square={true}>
+      <Box className="filter" borderRadius={10}>
         <div className="category" id="music">
         <Select labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={selectedCat}
           onChange={handleCategory}
           name="category"
-          style={{fontSize: '1.7rem', fontWeight: 500, color: '#018DFF'}}>
-            <MenuItem value={"모든"} style={{fontSize: '1.7rem', fontWeight: 500}}>
+          style={{fontSize: '1.7rem', fontWeight: 400, color: '#018DFF'}}>
+            <MenuItem value={100} style={{fontSize: '1.7rem', fontWeight: 400}}>
             모든
             </MenuItem>
             {category ? category.map((cat: Category, index: number) => 
-              <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}} key={index}>
+              <MenuItem value={cat.categoryID} style={{fontSize: '1.7rem', fontWeight: 400}} key={index}>
                 {cat.categoryName}</MenuItem>
             ) : "error occured"}
         </Select>
       &nbsp; 음악의 인기 차트</div>
-      </Card>
+      </Box>
 
       <form noValidate autoComplete="off" className="form" onSubmit={handleClick}>
-        <Card component="form" className="searchBar" elevation={3} square={true}>
+        <Box className="searchBar" borderRadius={10}>
           <InputBase
             className="input"
             placeholder="검색할 내용을 입력하세요"
@@ -132,12 +124,14 @@ const MusicPopular: React.SFC<MusicPopularProps> = ({ onAdd }) => {
           <IconButton type="submit" className="iconButton" aria-label="searchKeyword">
             <SearchIcon />
           </IconButton>
-        </Card>
+        </Box>
       </form>
 
       <Card elevation={3} square={true}>
         <TableContainer className="Music-table">
-          {musicDB ? filterData(musicDB) : <div />}
+          {musicDB ? 
+          filterData(musicDB) : 
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><CircularProgress /></div>}
         </TableContainer>
       </Card>
     </div>

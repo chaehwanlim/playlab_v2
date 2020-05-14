@@ -20,7 +20,8 @@ interface TransmediaMusicProps {
 }
 
 const TransmediaMusic: React.SFC<TransmediaMusicProps> = ({ id, onAdd }) => {
-  const [music, setMusic] = useState<Array<PopularMusic>>([]);
+  const [music, setMusic] = useState<PopularMusic[]>([]);
+  const [reviews, setReviews] = useState<ReviewItem[]>([]);
 
   const classes = useStyles();
 
@@ -29,7 +30,60 @@ const TransmediaMusic: React.SFC<TransmediaMusicProps> = ({ id, onAdd }) => {
       .then(res => res.json())
       .then(res => setMusic(res))
       .catch(err => console.log(err))
+
+    fetch(`/api/review/transmedia/${id}/music`)
+      .then(res => res.json())
+      .then(res => setReviews(res))
+      .catch(err => console.log(err))
   }, []);
+
+  const makeCatArray = (reviewsForOneMusic: ReviewItem[]) => {
+    const catArray: string[] = [];
+    reviewsForOneMusic.map((review: ReviewItem) => { catArray.push(review.categoryName) });
+
+    return catArray;
+  }
+
+  const renderMusic = (music: PopularMusic) => {
+    const reviewsForOneMusic = reviews.filter((review: ReviewItem) => music.musicID === review.workID);
+
+      return (
+        <Grid item xs={12} sm={6} md={4}>
+          <Card classes={{root: classes.root}}>
+          <Grid container spacing={0}>
+              <Grid item xs={10}>
+                <div className="T-content-title">{music.title}</div>
+              </Grid>
+              <Grid item xs={2}>
+                <div className="T-content-btn">
+                  <IconButton style={{padding: '1.5rem'}} 
+                    onClick={() => onAdd({
+                      title: music.title,
+                      creator: music.artist,
+                      review: makeCatArray(reviewsForOneMusic),
+                      media: '음악'
+                    })}
+                  >
+                    <BookmarkRounded style={{color: 'white', width: '2rem', height: '2rem'}}/>
+                  </IconButton>
+                </div>
+              </Grid>
+            </Grid>
+            <div className="T-content-creator">{music.artist}</div>
+            <Divider className="divider" style={{backgroundColor: '#3B3A40'}} />
+            <div className="T-content-desc-container">
+            {renderReviews(reviewsForOneMusic)}
+          </div>
+          </Card>
+        </Grid>
+      )
+  }
+
+  const renderReviews = (reviewsForOneMusic: ReviewItem[]) => (
+    reviewsForOneMusic.map((review: ReviewItem) => 
+      <div className="T-content-desc">{review.userName}님의 {review.categoryName} 음악</div>
+    )
+  )
 
   return (
     <div>
@@ -37,36 +91,9 @@ const TransmediaMusic: React.SFC<TransmediaMusicProps> = ({ id, onAdd }) => {
         <div>
           <div className="T-contentTitle">음악</div>
           <Grid container spacing={1}>
-            {music.map((datum: PopularMusic) => {
-              return (
-                <Grid item xs={12} sm={6} md={4}>
-                  <Card classes={{root: classes.root}}>
-                  <Grid container spacing={0}>
-                      <Grid item xs={10}>
-                        <div className="T-content-title">{datum.title}</div>
-                      </Grid>
-                      <Grid item xs={2}>
-                        {/* <div className="T-content-btn">
-                          <IconButton style={{padding: '1.5rem'}} 
-                            onClick={() => onAdd({
-                              title: datum.title,
-                              creator: datum.artist,
-                              category: datum.categoryName,
-                              media: '음악'
-                            })}
-                          >
-                            <BookmarkRounded style={{color: 'white', width: '2rem', height: '2rem'}}/>
-                          </IconButton>
-                        </div> */}
-                      </Grid>
-                    </Grid>
-                    <div className="T-content-creator">{datum.artist}</div>
-                    <Divider className="divider" style={{backgroundColor: '#3B3A40'}} />
-                    {/* <div className="T-content-desc">{datum.userName}님의 {datum.categoryName} 음악</div> */}
-                  </Card>
-                </Grid>
-              )
-            })}
+            {music.map((datum: PopularMusic) => 
+              renderMusic(datum)
+            )}
           </Grid>
         </div>
       : <div />}

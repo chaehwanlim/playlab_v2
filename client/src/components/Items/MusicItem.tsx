@@ -45,6 +45,13 @@ const MusicItem: React.SFC<MusicItem> = ({ music, reviews, index, buttons, handl
     } else return <div></div>
   }
 
+  const makeCatArray = (reviewsForOneMusic: ReviewItem[]) => {
+    const catArray: string[] = [];
+    reviewsForOneMusic.map((review: ReviewItem) => { catArray.push(review.categoryName) });
+
+    return catArray;
+  }
+
   return (
     <ExpansionPanel>
       <ExpansionPanelSummary
@@ -66,7 +73,7 @@ const MusicItem: React.SFC<MusicItem> = ({ music, reviews, index, buttons, handl
                       onClick={() => onAdd({
                         title: music.title,
                         creator: music.artist,
-                        review: reviews,
+                        review: makeCatArray(reviews),
                         media: '음악'
                       })}
                     >

@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import ThumbUp from '@material-ui/icons/ThumbUp';
 import IconButton from '@material-ui/core/IconButton';
 import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
+import Box from '@material-ui/core/Box';
 
 interface MovieItem {
   movie: PopularMovie;
@@ -37,9 +38,16 @@ const MovieItem: React.SFC<MovieItem> = ({ movie, reviews, index, buttons, handl
     } else return <div></div>
   }
 
+  const makeCatArray = (reviewsForOneMusic: ReviewItem[]) => {
+    const catArray: string[] = [];
+    reviewsForOneMusic.map((review: ReviewItem) => { catArray.push(review.categoryName) });
+
+    return catArray;
+  }
+
   return (
     <Grid item xs={12} md={6}>
-      <div className="movie">
+      <Box className="movie" borderRadius={10}>
         <Grid item xs={4}>
         <div className="moviePosterAlign">
           <img className="moviePoster" src={movie.imageURL} title={movie.title} alt={movie.title}/>
@@ -73,7 +81,7 @@ const MovieItem: React.SFC<MovieItem> = ({ movie, reviews, index, buttons, handl
                     onClick={() => onAdd({
                       title: movie.title,
                       creator: movie.director,
-                      review: reviews,
+                      review: makeCatArray(reviews),
                       media: '영화'
                     })}
                   >
@@ -94,7 +102,7 @@ const MovieItem: React.SFC<MovieItem> = ({ movie, reviews, index, buttons, handl
             {reviews ? renderReviews() : ""}
           </div>
         </Grid>
-      </div>
+      </Box>
     </Grid>
   )
 

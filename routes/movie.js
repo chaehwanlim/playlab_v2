@@ -42,8 +42,7 @@ router.get('/', (req, res) => {
 })
 
 //DB에 영화 추가 : post
-router.post('/', (req, res) => {
-  const sql = "INSERT INTO movie VALUES (NULL, ?, ?, NULL, ?, ?, ?, ?, ?, ?, 0, ?, 0);"
+router.post('/', (req, res) => {  
   const title = req.body.title;
   const director = req.body.director;
   const adderID = req.body.adderID;
@@ -53,6 +52,21 @@ router.post('/', (req, res) => {
   const actor = req.body.actor;
   const userRating = req.body.userRating;
   const year = parseInt(req.body.year);
+
+  //이미 존재하는 영화인지 확인하는 작업(영화 제목과 년도로 확인)
+  const sqlToCheck = "SELECT * FROM movie WHERE title = ? AND year = ?";
+  dbConnection.query(sqlToCheck, [title, year],
+    (err, results, fields) => {
+      if(err)
+        console.log(err)
+      else {
+        
+      }
+    }
+  )
+
+  const sql = "INSERT INTO movie VALUES (NULL, ?, ?, NULL, ?, ?, ?, ?, ?, ?, 0, ?, 0);"
+
   const params = [title, director, adderID, categoryID, transmediaID, imageURL, actor, userRating, year];
 
   dbConnection.query(sql, params,

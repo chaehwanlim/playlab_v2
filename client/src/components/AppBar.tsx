@@ -65,7 +65,7 @@ const _AppBar = () =>
                 <div className="bookmark-subtitle">
                   북마크한 작품을 이곳에서 확인하세요.
                 </div>
-                <Divider style={{marginTop: '1.5rem'}}/>
+                
                 <BookmarkListContainer />
               </div>
               </Drawer>

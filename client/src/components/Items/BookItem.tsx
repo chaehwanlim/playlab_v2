@@ -37,6 +37,13 @@ const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLi
     } else return <div></div>
   }
 
+  const makeCatArray = (reviewsForOneMusic: ReviewItem[]) => {
+    const catArray: string[] = [];
+    reviewsForOneMusic.map((review: ReviewItem) => { catArray.push(review.categoryName) });
+
+    return catArray;
+  }
+
   const removeBTags = (str: string) => {
     str = str.replace(/<b>/g, "");
     return str.replace(/<\/b>/g, "");
@@ -73,7 +80,7 @@ const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLi
                     onClick={() => onAdd({
                       title: book.title,
                       creator: book.author,
-                      review: reviews,
+                      review: makeCatArray(reviews),
                       media: '책'
                     })}
                   >

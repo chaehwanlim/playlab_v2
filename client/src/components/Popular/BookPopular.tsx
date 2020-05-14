@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import ThumbUp from '@material-ui/icons/ThumbUp';
-import BookmarkRounded from '@material-ui/icons/BookmarkRounded';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/SearchRounded';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import BookItem from '../Items/BookItem';
+import Box from '@material-ui/core/Box';
 import Axios from 'axios';
-import '../styles/Content.scss';
-import '../styles/Book.scss';
 import '../DBInterfaces.tsx';
 
 
@@ -21,18 +17,13 @@ interface BookPopularProps {
 }
 
 const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
-  const [bookDB, setBookDB] = useState<Array<PopularBook>>([]);
-  const [category, setCategory] = useState<Array<Category>>([]);
-  const [selectedCat, setSelectedCat] = useState<string>("모든");
+  const [bookDB, setBookDB] = useState<PopularBook[]>([]);
+  const [category, setCategory] = useState<Category[]>([]);
+  const [selectedCat, setSelectedCat] = useState<number>(100);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [reviews, setReviews] = useState<Array<ReviewItem>>([]);
+  const [reviews, setReviews] = useState<ReviewItem[]>([]);
 
   useEffect(() => {
-    fetch('/api/book')
-      .then(res => res.json())
-      .then(res => setBookDB(res))
-      .catch(err => console.log(err))
-
     fetch('/api/category')
       .then(res => res.json())
       .then(res => setCategory(res))
@@ -43,32 +34,25 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
       .then(res => setReviews(res))
       .catch(err => console.log(err))
 
+    getDB(selectedCat);
   }, []);
 
-  const removeBTags = (str: string) => {
-    str = str.replace(/<b>/g, "");
-    return str.replace(/<\/b>/g, "");
+  const getDB = (categoryid: number) => {
+    fetch(`/api/review/chart/book/${categoryid}`)
+      .then(res => res.json())
+      .then(res => setBookDB(res))
+      .catch(err => console.log(err))
   }
 
-  const filterData = (data: Array<PopularBook>) => {
-    data = data.filter((datum: PopularBook) => 
-      (datum.title.indexOf(searchKeyword) > -1) ||
-      (datum.author.indexOf(searchKeyword) > -1) ||
-      (datum.transmediaName.indexOf(searchKeyword) > -1)
-    ); 
+  const filterData = (data: PopularBook[]) => {
+    const filteredData: PopularBook[] = data.filter((datum: PopularBook) => (
+      (datum.title.includes(searchKeyword)) ||
+      (datum.author.includes(searchKeyword)) ||
+      (datum.description.includes(searchKeyword))
+    ));
 
-    let _selectedCat: string = selectedCat;
-
-    if (_selectedCat === "모든") {
-      _selectedCat = ""
-    }
-
-    const reviewsForOneCat: ReviewItem[] = reviews.filter((datum: ReviewItem) => 
-      datum.categoryName.includes(_selectedCat)
-    );
-
-    return data.map((datum: PopularBook, index: number) => {
-      const reviewsForOneBook: ReviewItem[] = reviewsForOneCat.filter((reviewItem: ReviewItem) => 
+    return filteredData.map((datum: PopularBook, index: number) => {
+      const reviewsForOneBook: ReviewItem[] = reviews.filter((reviewItem: ReviewItem) => 
         (reviewItem.workID === datum.bookID)
       );
 
@@ -86,8 +70,9 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
     e.preventDefault();
   }
 
-  const handleCategory = (e: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedCat(e.target.value as string);
+  const handleCategory = (e: React.ChangeEvent<{ value: number }>) => {
+    setSelectedCat(e.target.value);
+    getDB(e.target.value);
   }
 
   const handleLikes = (id: number) => {
@@ -99,11 +84,7 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
     .then(res => {
       if(res.status === 200){
         alert('성공적으로 추천했습니다!');
-        
-        fetch('/api/book')
-          .then(res => res.json())
-          .then(res => setBookDB(res))
-          .catch(err => console.log(err))
+        getDB(selectedCat);
       }
     })
     .catch(err => console.log(err));
@@ -111,26 +92,27 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
 
   return (
     <div>
-      <Card className="filter" elevation={3} square={true}>
+      <Box className="filter" borderRadius={10}>
         <div className="category" id="book">
         <Select labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={selectedCat}
           onChange={handleCategory}
           name="category"
-          style={{fontSize: '1.7rem', fontWeight: 500, color: '#1ABF80'}}>
-            <MenuItem value={"모든"} style={{fontSize: '1.7rem', fontWeight: 500}}>
+          style={{fontSize: '1.7rem', fontWeight: 400, color: '#1ABF80'}}>
+            <MenuItem value={100} style={{fontSize: '1.7rem', fontWeight: 400}}>
               모든
             </MenuItem>
           {category ? category.map((cat: Category, index: number) => 
-            <MenuItem value={cat.categoryName} style={{fontSize: '1.7rem', fontWeight: 500}} key={index}>
+            <MenuItem value={cat.categoryID} style={{fontSize: '1.7rem', fontWeight: 400}} key={index}>
               {cat.categoryName}</MenuItem>
           ) : "error occured"}
         </Select>
       &nbsp; 책의 인기 차트</div>
-      </Card>
+      </Box>
+
       <form noValidate autoComplete="off" className="form" onSubmit={handleClick}>
-        <Card component="form" className="searchBar" elevation={3} square={true}>
+        <Box className="searchBar" borderRadius={10}>
           <InputBase
             className="input"
             placeholder="검색할 내용을 입력하세요"
@@ -141,11 +123,14 @@ const BookPopular: React.SFC<BookPopularProps> = ({onAdd}) => {
           <IconButton type="submit" className="iconButton" aria-label="searchKeyword">
             <SearchIcon />
           </IconButton>
-        </Card>
+        </Box>
       </form>
       <br /><br />
+
       <Grid container spacing={4}>
-        {bookDB ? filterData(bookDB) : <div>error ocurred</div>}
+        {bookDB ? 
+        filterData(bookDB) : 
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><CircularProgress /></div>}
       </Grid>
     </div>
   )

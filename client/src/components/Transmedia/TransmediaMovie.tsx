@@ -38,6 +38,13 @@ const TransmediaMovie: React.SFC<TransmediaMovieProps> = ({ id, onAdd }) => {
       .catch(err => console.log(err))
   }, []);
 
+  const makeCatArray = (reviewsForOneMovie: ReviewItem[]) => {
+    const catArray: string[] = [];
+    reviewsForOneMovie.map((review: ReviewItem) => { catArray.push(review.categoryName) });
+
+    return catArray;
+  }
+
   const renderMovie = (movie: PopularMovie) => {
     const reviewsForOneMovie = reviews.filter((review: ReviewItem) => movie.movieID === review.workID);
 
@@ -55,7 +62,7 @@ const TransmediaMovie: React.SFC<TransmediaMovieProps> = ({ id, onAdd }) => {
                   onClick={() => onAdd({
                     title: movie.title,
                     creator: movie.director,
-                    review: reviewsForOneMovie,
+                    review: makeCatArray(reviewsForOneMovie),
                     media: '영화'
                   })}
                 >
@@ -80,6 +87,7 @@ const TransmediaMovie: React.SFC<TransmediaMovieProps> = ({ id, onAdd }) => {
       <div className="T-content-desc">{review.userName}님의 {review.categoryName} 영화</div>
     )
   )
+
   return (
     <div>
       {movie.length !== 0 ? 

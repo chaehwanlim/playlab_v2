@@ -74,6 +74,8 @@
     display: flex;
     align-items: center;
     width: auto;
+    box-shadow: 0 8px 38px rgba(133, 133, 133, 0.3), 0 5px 12px rgba(133, 133, 133,0.22);
+    background-color: white;
     
     .input {
       flex: 1;
@@ -95,6 +97,7 @@
   align-items: center;
   font-size: 1.7rem;
   font-weight: 400;
+  box-shadow: 0 8px 38px rgba(133, 133, 133, 0.3), 0 5px 12px rgba(133, 133, 133,0.22);
   background-color: white;
 
   .category {

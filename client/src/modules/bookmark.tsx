@@ -12,6 +12,7 @@ export interface BookmarkState {
 
 const ADD = "bookmarks/ADD" as const;
 const REMOVE = "bookmarks/REMOVE" as const;
+const REMOVEALL = "bookmarks/REMOVEALL" as const;
 
 interface AddAction {
   type: typeof ADD;
@@ -23,9 +24,14 @@ interface RemoveAction {
   payload: number;
 }
 
+interface RemoveAllAction {
+  type: typeof REMOVEALL;
+}
+
 export type BookmarkActionTypes =
   | AddAction
-  | RemoveAction;
+  | RemoveAction
+  | RemoveAllAction;
 
 //액션 생성 함수 선언
 let autoId = 0;
@@ -37,14 +43,20 @@ export const add = (item: BookmarkItem) => ({
     item: item
   }
 });
+
 export const remove = (id: number) => ({
   type: REMOVE,
   payload: id
 });
 
+export const removeAll = () => ({
+  type: REMOVEALL
+})
+
 export const actionCreators = {
   add,
-  remove
+  remove,
+  removeAll
 };
 
 //상태의 타입과 상태의 초깃값 선언
@@ -60,10 +72,10 @@ export const bookmarkReducer = (
   switch (action.type) {
     case ADD:
       //review 중복값 제거
-      const newReview: Set<ReviewItem> = new Set(action.payload.item.review);
-      const newItem: BookmarkItem = { ...action.payload.item, review: newReview};
+      const newReview: string[] = Array.from(new Set(action.payload.item.review));
+      const newItem: BookmarkItem = { ...action.payload.item, review: newReview };
       const newPayload = { ...action.payload, item: newItem };
-      console.log(newPayload.item.review);
+
       return {
         bookmarkItems: [...state.bookmarkItems, newPayload]
       };
@@ -73,6 +85,9 @@ export const bookmarkReducer = (
         ...state,
         bookmarkItems: state.bookmarkItems.filter(bookmark => bookmark.id !== action.payload)
       }
+
+    case REMOVEALL:
+      return initialState;
 
     default:
       return state;
