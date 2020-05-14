@@ -9,9 +9,8 @@ interface Book {
 }
 
 interface MyBook extends Book {
+  reviewID: number;
   categoryName: string;
-  userName: string;
-  bookID: number;
 }
 
 interface BookForm extends Book {
@@ -38,9 +37,8 @@ interface Movie {
 }
 
 interface MyMovie extends Movie {
+  reviewID: number;
   categoryName: string;
-  userName: string;
-  movieID: number;
 }
 
 interface MovieForm extends Movie {
@@ -68,9 +66,8 @@ interface Music {
 }
 
 interface MyMusic extends Music {
+  reviewID: number;
   categoryName: string;
-  userName: string;
-  musicID: number;
 }
 
 interface MusicForm extends Music {

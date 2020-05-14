@@ -31,7 +31,7 @@ const MyMusic: React.FC = () => {
   }, []);
 
   const handleDeletion = (id: number) => {
-    const urlWithID = `/api/music/${id}`;
+    const urlWithID = `/api/review/${id}`;
 
     Axios({
       method: 'delete',
@@ -51,13 +51,12 @@ const MyMusic: React.FC = () => {
       <TableContainer className="tableContainer">
       <Table stickyHeader aria-label="sticky table">
         <TableBody>
-        {myMusic ? myMusic.map((datum, index) => {
-        return (
+        {myMusic ? 
+        myMusic.map((datum, index) => (
           <TableRow>
             <TableCell className="tableData">
               <span className="title">{datum.title}</span>
-              <br></br>
-              {datum.artist}
+              <br></br>{datum.artist}
             </TableCell>
             <TableCell className="tableData" style={{minWidth:"12rem"}}>
               {datum.categoryName} 음악
@@ -65,13 +64,13 @@ const MyMusic: React.FC = () => {
             <TableCell className="tableData" style={{maxWidth:"5rem"}}>
               <div className="btnAlign">
                 <Button className="deletion"
-                onClick={() => {handleDeletion(datum.musicID)}}>
+                onClick={() => {handleDeletion(datum.reviewID)}}>
                 삭제</Button>
               </div>
             </TableCell>
           </TableRow>
-        )
-        }) : <div>error</div>}
+        )) : 
+        <div>error</div>}
         </TableBody>
       </Table>
       </TableContainer>

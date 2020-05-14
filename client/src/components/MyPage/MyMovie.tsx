@@ -12,7 +12,7 @@ import '../DBInterfaces.tsx';
 
 
 const MyMovie: React.FC = () => {
-  const [myMovie, setMyMovie] = useState<Array<MyMovie>>([]);
+  const [myMovie, setMyMovie] = useState<MyMovie[]>([]);
 
   const getDB = () => {
     Axios({
@@ -31,7 +31,7 @@ const MyMovie: React.FC = () => {
   }, []);
 
   const handleDeletion = (id: number) => {
-    const urlWithID = `/api/movie/${id}`;
+    const urlWithID = `/api/review/${id}`;
 
     Axios({
       method: 'delete',
@@ -39,7 +39,7 @@ const MyMovie: React.FC = () => {
     })
     .then(res => {
       if(res.status === 200){
-        alert('정상적으로 삭제되었습니다');
+        alert('정상적으로 삭제되었습니다.');
         getDB();
       }
     })
@@ -51,11 +51,12 @@ const MyMovie: React.FC = () => {
       <TableContainer className="tableContainer">
       <Table stickyHeader aria-label="sticky table">
         <TableBody>
-        {myMovie ? myMovie.map((datum, index) => {
-        return (
-          <TableRow>
+        {myMovie ? 
+        myMovie.map((datum: MyMovie, index: number) => (
+          <TableRow key={index}>
             <TableCell className="tableData">
-                <span className="title">{datum.title}</span><br></br>{datum.director}
+                <span className="title">{datum.title}</span>
+                <br></br>{datum.director}
                 <br></br>{datum.actor}
             </TableCell>
             <TableCell className="tableData" style={{minWidth:"12rem"}}>
@@ -64,13 +65,13 @@ const MyMovie: React.FC = () => {
             <TableCell className="tableData" style={{maxWidth:"5rem"}}>
               <div className="btnAlign">
                 <Button className="deletion"
-                onClick={() => {handleDeletion(datum.movieID)}}>
+                onClick={() => {handleDeletion(datum.reviewID)}}>
                 삭제</Button>
               </div>
             </TableCell>
           </TableRow>
-        )
-        }) : <div>error</div>}
+        )) : 
+        <div>error</div>}
         </TableBody>
       </Table>
       </TableContainer>

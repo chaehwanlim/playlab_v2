@@ -54,14 +54,13 @@ router.post('/', (req, res) => {
   );
 })
 
-//DB에서 특정 user의 음악, 영화, 책 조회 : post
+//DB에서 특정 user의 음악, 영화, 책 리뷰 조회 : post
 router.post('/music', (req, res) => {
-  const sql = "SELECT musicID, title, artist, c.categoryName, u.userName \
-  FROM music AS m \
-  LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
-  LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
-  LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
-  WHERE (u.userID = ?) AND (m.isDeleted = 0);"
+  const sql = `SELECT title, artist, r.reviewID, c.categoryName
+  FROM reviews AS r
+  JOIN music AS m ON (m.musicID = r.workID)
+  LEFT OUTER JOIN category AS c ON (c.categoryID = r.categoryID)
+  WHERE (r.userID = ?) AND (r.isDeleted = 0);`
   const userID = parseInt(req.body.userID);
 
   dbConnection.query(sql, [userID],
@@ -76,13 +75,12 @@ router.post('/music', (req, res) => {
 })
 
 router.post('/movie', (req, res) => {
-  const sql = "SELECT movieID, title, director, actor, c.categoryName, u.userName \
-  FROM movie AS m \
-  LEFT OUTER JOIN category AS c ON (c.categoryID = m.categoryID) \
-  LEFT OUTER JOIN users AS u ON (u.userID = m.adderID) \
-  LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = m.transmediaID) \
-  WHERE (u.userID = ?) AND (m.isDeleted = 0);"
-  const userID = req.body.userID;
+  const sql = `SELECT title, director, actor, r.reviewID, c.categoryName
+  FROM reviews AS r
+  JOIN movie AS m ON (m.movieID = r.workID)
+  LEFT OUTER JOIN category AS c ON (c.categoryID = r.categoryID)
+  WHERE (r.userID = ?) AND (r.isDeleted = 0);`
+  const userID = parseInt(req.body.userID);
 
   dbConnection.query(sql, [userID],
     (err, results, fields) => {
@@ -96,13 +94,12 @@ router.post('/movie', (req, res) => {
 })
 
 router.post('/book', (req, res) => {
-  const sql = "SELECT bookID, title, author, c.categoryName, u.userName \
-  FROM book AS b \
-  LEFT OUTER JOIN category AS c ON (c.categoryID = b.categoryID) \
-  LEFT OUTER JOIN users AS u ON (u.userID = b.adderID) \
-  LEFT OUTER JOIN transmedia AS t ON (t.transmediaID = b.transmediaID) \
-  WHERE (u.userID = ?) AND (b.isDeleted = 0);"
-  const userID = req.body.userID;
+  const sql = `SELECT title, author, r.reviewID, c.categoryName
+  FROM reviews AS r
+  JOIN book AS b ON (b.bookID = r.workID)
+  LEFT OUTER JOIN category AS c ON (c.categoryID = r.categoryID)
+  WHERE (r.userID = ?) AND (r.isDeleted = 0);`
+  const userID = parseInt(req.body.userID);
 
   dbConnection.query(sql, [userID],
     (err, results, fields) => {

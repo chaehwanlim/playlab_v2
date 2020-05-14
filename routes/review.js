@@ -224,4 +224,20 @@ router.get('/transmedia/:id/book', (req, res) => {
   );
 })
 
+//리뷰 삭제
+router.delete('/:id', (req, res) => {
+  const sql = `UPDATE reviews SET isDeleted = 1 WHERE reviewID = ?`
+  const id = parseInt(req.params.id);
+
+  dbConnection.query(sql, [id], 
+    (err, results, fields) => {
+      if (err)
+        console.log(err)
+      else {
+        res.send(results);
+      }
+    }
+  );
+});
+
 module.exports = router;
