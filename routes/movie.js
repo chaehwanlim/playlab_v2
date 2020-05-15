@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {  
   const title = req.body.title;
   const director = req.body.director;
-  const adderID = req.body.adderID;
+  const userID = req.body.adderID;
   const categoryID = req.body.categoryID;
   const transmediaID = req.body.transmediaID;
   const imageURL = req.body.imageURL;
@@ -53,32 +53,61 @@ router.post('/', (req, res) => {
   const userRating = req.body.userRating;
   const year = parseInt(req.body.year);
 
+  let workID = 0;
+
   //이미 존재하는 영화인지 확인하는 작업(영화 제목과 년도로 확인)
-  const sqlToCheck = "SELECT * FROM movie WHERE title = ? AND year = ?";
+  const sqlToCheck = "SELECT movieID FROM movie WHERE title = ? AND year = ?";
   dbConnection.query(sqlToCheck, [title, year],
-    (err, results, fields) => {
-      if(err)
-        console.log(err)
-      else {
-        
-      }
-    }
-  )
-
-  const sql = "INSERT INTO movie VALUES (NULL, ?, ?, NULL, ?, ?, ?, ?, ?, ?, 0, ?, 0);"
-
-  const params = [title, director, adderID, categoryID, transmediaID, imageURL, actor, userRating, year];
-
-  dbConnection.query(sql, params,
     (err, results, fields) => {
       if (err)
         console.log(err)
       else {
-        res.send(results);
+        if(results.length > 0) {  //작품이 이미 존재함
+          workID = parseInt(results[0].movieID);
+
+          const sqlReview = `INSERT INTO reviews VALUES (NULL, ?, ?, ?, 0);`
+          const sqlReviewParams = [workID, userID, categoryID];
+          dbConnection.query(sqlReview, sqlReviewParams,
+            (err2, results2, fields2) => {
+              if (err2) //리뷰 추가에 실패
+                console.log(err2)
+              else {  //리뷰 추가 성공
+                res.send(results2);
+              }
+            }
+          );
+
+        } else { //작품이 존재하지 않아 추가함
+          const sqlAddMovie = `INSERT INTO movie VALUES (NULL, ?, ?, NULL, ?, ?, ?, ?, ?, ?, 0, ?, 0);`
+          const sqlAddMovieParams = [title, director, userID, categoryID, transmediaID, imageURL, actor, userRating, year];
+
+          dbConnection.query(sqlAddMovie, sqlAddMovieParams,
+            (err2, results2, fields2) => {
+              if (err2) //영화 추가에 실패
+                console.log(err2)
+              else {  //새 영화 추가 완료
+                workID = results2.insertId;
+
+                const sqlReview = `INSERT INTO reviews VALUES (NULL, ?, ?, ?, 0);`
+                const sqlReviewParams = [workID, userID, categoryID];
+                dbConnection.query(sqlReview, sqlReviewParams,
+                  (err3, results3, fields3) => {
+                    if (err3)
+                      console.log(err3)
+                    else {
+                      res.send(results3);
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
       }
     }
-  );
+  )
 });
+
 
 //영화 좋아요 수 증가 : put
 router.put('/:id', (req, res) => {

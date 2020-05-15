@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
@@ -147,7 +147,7 @@ const MyPage: React.FC = () => {
             </Grid>
           </Grid>
 
-          <Paper className="myPage" elevation={5}>
+          <Box className="myPage" borderRadius={10}>
             <div className="accountIconAlign">
               <AccountCircleRoundedIcon className="accountIcon"/>
             </div>
@@ -197,7 +197,7 @@ const MyPage: React.FC = () => {
             <Divider />
             {content.subtitle}
             {content.component}
-            </Paper>
+          </Box>
         </Container>
       </div>
     )

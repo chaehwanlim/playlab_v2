@@ -38,7 +38,7 @@ const MusicItem: React.SFC<MusicItem> = ({ music, reviews, index, buttons, handl
         <div>
           <b>트랜스미디어</b>&nbsp;&nbsp;
           <a href={`Transmedia/${music.transmediaID}`} 
-            style={{textDecoration: 'none', color: 'slategrey'}}
+            style={{textDecoration: 'none', color: 'black'}}
           >{music.transmediaName}&nbsp;&#xE001;</a>
         </div>
       )
@@ -115,12 +115,12 @@ const MusicItem: React.SFC<MusicItem> = ({ music, reviews, index, buttons, handl
       
       <ExpansionPanelDetails className="tableData">
         <div>
-          {reviews ? renderReviews() : ""}
-        </div>
-        <div>
           <b>장르</b>&nbsp;&nbsp;{music.genre}
         </div>
         {transmediaLink()}
+        <div>
+          {reviews ? renderReviews() : ""}
+        </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )

@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
+import Snackbar from '@material-ui/core/Snackbar';
 import Axios from 'axios';
 import '../styles/Add.scss';
 import '../styles/Book.scss';
@@ -33,6 +34,7 @@ const BookAdd: React.FC = () => {
   });
   const [category, setCategory] = useState<Array<Category>>([]);
   const [transmedia, setTransmedia] = useState<Array<Transmedia>>([]);
+  const [alertOpen, setAlertOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetch('/api/category')
@@ -90,6 +92,7 @@ const BookAdd: React.FC = () => {
         description : removeBTags(searchResult[index].description)
       });
     }
+    setAlertOpen(true);
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -192,7 +195,7 @@ const BookAdd: React.FC = () => {
       {isSearched ? 
         <form noValidate autoComplete="off" className="form" onSubmit={handleSubmit}>
           <div className="guide"><br/><br/>
-            선택한 책 : &nbsp;{selectedBook.index + 1}번 &nbsp;<b>{selectedBook.title}</b>
+            [{selectedBook.index + 1}] &nbsp;<b>{selectedBook.title}</b>
           </div>
           <div className="guide"><br/>이 책은 &nbsp;
           <Select labelId="demo-simple-select-label"
@@ -232,6 +235,11 @@ const BookAdd: React.FC = () => {
           <Fab variant="extended" className="submitBtn" id="book" type="submit">추가하기</Fab>
         </form>
       : ""}
+
+      <Snackbar className="snackbar"
+        open={alertOpen}
+        message={`책 선택됨 - [${selectedBook.index + 1}] ${selectedBook.title}`}
+      />
 
     </Box>
   )

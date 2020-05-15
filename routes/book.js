@@ -43,22 +43,63 @@ router.get('/', (req, res) => {
 
 //DB에 책 추가 : put
 router.post('/', (req, res) => {
-  const sql = "INSERT INTO book VALUES (NULL, ?, ?, NULL, ?, ?, ?, ?, ?, 0, 0);"
   const title = req.body.title;
   const author = req.body.author;
-  const adderID = req.body.adderID;
+  const userID = req.body.adderID;
   const categoryID = req.body.categoryID;
   const transmediaID = req.body.transmediaID;
   const imageURL = req.body.imageURL;
   const description = req.body.description;
-  const params = [title, author, adderID, categoryID, transmediaID, imageURL, description];
 
-  dbConnection.query(sql, params,
+  let workID = 0;
+
+  const sqlToCheck = `SELECT bookID FROM book WHERE title = ? AND author = ?`;
+  dbConnection.query(sqlToCheck, [title, author],
     (err, results, fields) => {
       if (err)
         console.log(err)
       else {
-        res.send(results);
+        if(results.length > 0) {  //작품이 이미 존재함
+          workID = parseInt(results[0].bookID);
+
+          const sqlReview = `INSERT INTO reviews VALUES (NULL, ?, ?, ?, 0);`
+          const sqlReviewParams = [workID, userID, categoryID];
+          dbConnection.query(sqlReview, sqlReviewParams,
+            (err2, results2, fields2) => {
+              if (err2) //리뷰 추가에 실패
+                console.log(err2)
+              else {  //리뷰 추가 성공
+                res.send(results2);
+              }
+            }
+          );
+
+        } else {  //작품이 존재하지 않아 추가함
+          const sqlAddBook = `INSERT INTO book VALUES (NULL, ?, ?, NULL, ?, ?, ?, ?, ?, 0, 0);`
+          const sqlAddBookParams = [title, author, userID, categoryID, transmediaID, imageURL, description];
+
+          dbConnection.query(sqlAddBook, sqlAddBookParams,
+            (err2, results2, fields2) => {
+              if(err2)  //책 추가에 실패
+                console.log(err2);
+              else {  //새 책 추가 완료
+                workID = results2.insertId;
+
+                const sqlReview = `INSERT INTO reviews VALUES (NULL, ?, ?, ?, 0);`
+                const sqlReviewParams = [workID, userID, categoryID];
+                dbConnection.query(sqlReview, sqlReviewParams,
+                  (err3, results3, fields3) => {
+                    if (err3) //리뷰 추가에 실패
+                      console.log(err3)
+                    else {  //리뷰 추가 성공
+                      res.send(results3);
+                    }
+                  }
+                );
+              }
+            }  
+          )
+        }
       }
     }
   );

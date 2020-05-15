@@ -56,7 +56,7 @@ const Bookmark: React.SFC<BookmarkItemProps> = ({ bookmarkItem, onRemove }) => {
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
               <IconButton 
                 onClick={() => onRemove(bookmarkItem.id)}
-                style={{padding: '1.5rem'}}
+                style={{padding: '1.4rem'}}
               >
                 <ClearIcon style={{fontSize: '2rem'}}/>
               </IconButton>

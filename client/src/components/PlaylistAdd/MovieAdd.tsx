@@ -9,9 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
 import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 import '../styles/Add.scss';
 import '../styles/Movie.scss';
@@ -95,6 +94,7 @@ const MovieAdd: React.FC = () => {
         year: searchResult[index].pubDate
       });
     }
+    setAlertOpen(true);
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -200,7 +200,7 @@ const MovieAdd: React.FC = () => {
       {isSearched ? 
         <form noValidate autoComplete="off" className="form" onSubmit={handleSubmit}>
           <div className="guide"><br/><br/>
-            선택한 영화 : &nbsp;{selectedMovie.index + 1}번 &nbsp;<b>{selectedMovie.title}</b>
+            [{selectedMovie.index + 1}] &nbsp;<b>{selectedMovie.title}</b>
           </div>
           <div className="guide"><br/>이 영화는 &nbsp;
             <Select labelId="demo-simple-select-label"
@@ -240,6 +240,11 @@ const MovieAdd: React.FC = () => {
           <Fab variant="extended" className="submitBtn" id="movie" type="submit">추가하기</Fab>
         </form>
       : ""}
+
+      <Snackbar className="snackbar"
+        open={alertOpen}
+        message={`영화 선택됨 - [${selectedMovie.index + 1}] ${selectedMovie.title}`}
+      />
 
     </Box>
   )
