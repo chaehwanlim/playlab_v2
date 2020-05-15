@@ -1,0 +1,13 @@
+{
+    "mysql": {
+        "host": "playlab.cnpeufax0kjc.us-east-2.rds.amazonaws.com",
+        "user": "admin",
+        "password": "jihonam1014",
+        "port": "3306",
+        "database": "playlab"
+    },
+    "naver": {
+        "clientID": "DZPNYThVMb7cnfMF3BJS",
+        "clientSecret": "LefAoR_zRt"
+    }
+}
