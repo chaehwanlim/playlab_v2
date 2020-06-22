@@ -15,7 +15,7 @@ interface Content {
   component: JSX.Element;
 }
 
-const Popular: React.FC = () => {
+const Popular: React.FC<{ lightMode: () => void }> = ({ lightMode }) => {
     const musicContent: Content = {
         title: "음악 인기 차트",
         component: <MusicPopularContainer />
@@ -33,6 +33,8 @@ const Popular: React.FC = () => {
 
     useEffect(() => {
         document.body.style.backgroundColor = 'whitesmoke';
+
+        lightMode();
     }, []);
 
     const handleMusic = () => {

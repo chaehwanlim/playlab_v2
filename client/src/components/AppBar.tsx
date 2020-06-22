@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,12 +12,13 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import BookmarksRounded from '@material-ui/icons/BookmarksRounded';
 import Container from '@material-ui/core/Container';
 import CloseIcon from '@material-ui/icons/Close';
-import Divider from '@material-ui/core/Divider';
 import BookmarkListContainer from '../containers/BookmarkListContainer';
 import { Link } from "react-router-dom";
 import './styles/AppBar.scss';
 import './styles/Bookmark.scss';
 
+import { useSelector } from 'react-redux';
+import { StoreState } from '../modules';
 
 const useStyles = makeStyles({
   paper: {
@@ -28,27 +29,28 @@ const useStyles = makeStyles({
 const _AppBar = () => 
 {
   const [drawerState, setDrawerState] = useState(false);
-  const style = { color : 'white' };
+  const themeMode: string = useSelector((state: StoreState) => state.appbar.mode);
+  const text = themeMode === "lightMode" ? { color: 'black' } : { color: 'white' };
 
   const classes = useStyles();
 
   return (
     <div className="appBar">
-      <AppBar position="static" className="appBarBackground">
+      <AppBar position="static" className="blurredAppbar" id={themeMode}>
         <Container maxWidth="lg">
           <Toolbar style={{padding: '0rem'}}>
             <Typography className="title">
-              <Link to="/" className="link" style={style}>
+              <Link to="/" className="link" style={text}>
                 PlayLab
               </Link>
             </Typography>
 
             <React.Fragment>
-              <IconButton style={style} onClick={() => setDrawerState(true)}>
+              <IconButton style={text} onClick={() => setDrawerState(true)}>
                 <BookmarksRounded style={{fontSize: '2rem'}} />
               </IconButton>
               
-              <Drawer anchor={"right"} 
+              <Drawer anchor={"right"}
                 open={drawerState} 
                 onClose={() => setDrawerState(false)} 
                 classes={{paper: classes.paper}}>
@@ -72,16 +74,16 @@ const _AppBar = () =>
             </React.Fragment>
 
             <Link to="/Popular" >
-              <IconButton style={style}><StarIcon style={{fontSize: '2.2rem'}}/></IconButton>
+              <IconButton style={text}><StarIcon style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
             <Link to="/PlaylistAdd" >
-              <IconButton style={style}><AddIcon style={{fontSize: '2.2rem'}}/></IconButton>
+              <IconButton style={text}><AddIcon style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
             <Link to="/Transmedia" >
-              <IconButton style={style}><ViewCarousel style={{fontSize: '2.2rem'}}/></IconButton>
+              <IconButton style={text}><ViewCarousel style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
             <Link to="/MyPage" >
-              <IconButton style={style}><AccountCircle style={{fontSize: '2.2rem'}}/></IconButton>
+              <IconButton style={text}><AccountCircle style={{fontSize: '2.2rem'}}/></IconButton>
             </Link>
 
 

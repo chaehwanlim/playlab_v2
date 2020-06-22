@@ -19,6 +19,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import '../styles/Content.scss';
 import '../styles/MyPage.scss';
+import { lightMode } from 'src/modules/appbar';
 
 interface Content {
   component: JSX.Element;
@@ -32,7 +33,7 @@ interface UserInfo {
   userPassword: string;
 }
 
-const MyPage: React.FC = () => {
+const MyPage: React.FC<{ lightMode: () => void }> = ({ lightMode }) => {
   const musicContent: Content = {
     component: <MyMusic />, 
     subtitle: <div className="myPageSubtitle" id="myPageMusicSub">내가 추가한 음악 관리하기</div>
@@ -62,6 +63,8 @@ const MyPage: React.FC = () => {
 
   useEffect(() => {
     document.body.style.backgroundColor = 'whitesmoke';
+
+    lightMode();
 
     if(sessionStorage.userName){
       setUser(sessionStorage.userName);
@@ -205,7 +208,7 @@ const MyPage: React.FC = () => {
 
   return (
     <div>
-      {(user === '') ? <Login /> : myPage()}
+      {(user === '') ? <Login lightMode={lightMode}/> : myPage()}
       <Footer />
     </div>
   )

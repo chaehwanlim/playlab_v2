@@ -13,9 +13,11 @@ const footer = () => {
     )
 }
 
-const Home: React.FC = () => {
+const Home: React.FC<{ darkMode: () => void }> = ({ darkMode }) => {
     useEffect(() => {
         document.body.style.backgroundColor = 'whitesmoke';
+
+        darkMode();
     }, []);
 
     return (

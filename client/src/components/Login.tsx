@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -9,13 +9,14 @@ import Axios from 'axios';
 /* import store from './store'; */
 import './styles/Content.scss';
 import './styles/Login.scss';
+import { lightMode } from 'src/modules/appbar';
 
 interface User {
   userName: string;
   userPassword: string;
 }
 
-const Login: React.FC = () => {
+const Login: React.FC<{ lightMode: () => void }> = ({ lightMode }) => {
     const [login, setLogin] = useState<User>({
         userName: "",
         userPassword: "",
@@ -26,8 +27,12 @@ const Login: React.FC = () => {
     });
 
     const InputProps: object = { style: { fontSize: '2rem' } };
-    const InputLabelProps: object = { style: { fontSize: '1.7rem', color: 'primary' } }
-    const InputLabelProps2: object = { style: { fontSize: '1.7rem', color: "secondary" } }
+    const InputLabelProps: object = { style: { fontSize: '1.7rem', color: 'primary' } };
+    const InputLabelProps2: object = { style: { fontSize: '1.7rem', color: "secondary" } };
+
+    useEffect(() => {
+      lightMode();
+    }, []);
 
     const handleLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
       let nextState = login;

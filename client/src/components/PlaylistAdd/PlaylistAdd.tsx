@@ -15,7 +15,7 @@ interface Content {
     subtitle: string;
 }
 
-const PlaylistAdd: React.FC = () => {
+const PlaylistAdd: React.FC<{ lightMode: () => void }> = ({ lightMode }) => {
     const musicContent: Content = {
         title: "내가 들은 음악 추가하기",
         component: <MusicAdd />,
@@ -36,6 +36,8 @@ const PlaylistAdd: React.FC = () => {
 
     useEffect(() => {
         document.body.style.backgroundColor = 'whitesmoke';
+
+        lightMode();
     }, []);
 
     const handleMusic = () => {
