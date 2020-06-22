@@ -11,8 +11,8 @@
 * 아이디 | michael
 * 패스워드 | qwer1234
 
-<img src="https://user-images.githubusercontent.com/60354103/79992119-0dfd2c00-84ee-11ea-8fb6-aa8c6249bfc5.png" alt="preview1">
-<img src="https://user-images.githubusercontent.com/60354103/79992125-0f2e5900-84ee-11ea-836e-b031fc3badbb.png" alt="preview2">
+<img src="https://user-images.githubusercontent.com/60354103/85314861-0c071780-b4f5-11ea-921c-f877cb9e76d5.png" alt="preview1">
+<img src="https://user-images.githubusercontent.com/60354103/85314865-0dd0db00-b4f5-11ea-9e00-a38a74471dc3.png" alt="preview2">
 
 <h2> 기능 </h2>
 
