@@ -17,6 +17,8 @@ interface BookItem {
 
 const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLikes, onAdd }) => 
 {
+  const linkStyle = { color: 'white', background: 'slategrey', border: '1px solid', borderRadius: '10px', padding: '3px 5px', margin: '5px', textDecoration: 'none'};
+
   const renderReviews = () => (
     reviews.map((review: ReviewItem, index: number) => (
       <div key={index}>
@@ -29,10 +31,10 @@ const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLi
     if(book.transmediaID > 10000) {
       return (
         <div>
-          <b>트랜스미디어</b>&nbsp;&nbsp;
+          <b>트랜스미디어</b>
           <a href={`Transmedia/${book.transmediaID}`} 
-            style={{textDecoration: 'none', color: 'slategrey'}}
-          >{book.transmediaName}&nbsp;&#xE001;</a>
+            style={linkStyle}
+          >{book.transmediaName}</a>
         </div>
       )
     } else return <div></div>
