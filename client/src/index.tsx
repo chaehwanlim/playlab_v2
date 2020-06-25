@@ -14,7 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const theme = createMuiTheme({
     typography: {
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Inter", "Spoqa Han Sans", "Roboto", "Helvetica Neue", sans-serif',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Inter", "Noto Sans KR", "Roboto", "Helvetica Neue", sans-serif',
     },
     palette: {
         primary: {
