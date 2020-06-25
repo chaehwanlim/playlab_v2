@@ -17,7 +17,7 @@ interface BookItem {
 
 const BookItem: React.SFC<BookItem> = ({ book, reviews, index, buttons, handleLikes, onAdd }) => 
 {
-  const linkStyle = { color: 'white', background: 'slategrey', border: '1px solid', borderRadius: '10px', padding: '3px 5px', margin: '5px', textDecoration: 'none'};
+  const linkStyle = { color: 'white', background: 'slategrey', borderRadius: '10px', padding: '3px 5px', margin: '5px', textDecoration: 'none'};
 
   const renderReviews = () => (
     reviews.map((review: ReviewItem, index: number) => (

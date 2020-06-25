@@ -24,7 +24,7 @@ interface MusicItem {
 
 const MusicItem: React.SFC<MusicItem> = ({ music, reviews, index, buttons, handleLikes, onAdd }) => 
 {
-  const linkStyle = { color: 'white', background: 'black', border: '1px solid', borderRadius: '10px', padding: '3px 5px', margin: '5px', textDecoration: 'none'};
+  const linkStyle = { color: 'white', background: 'black', borderRadius: '10px', padding: '3px 5px', margin: '5px', textDecoration: 'none'};
 
   const renderReviews = () => (
     reviews.map((review: ReviewItem, index: number) => (
