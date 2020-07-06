@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppBar from "./components/AppBar";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import Popular from "./components/Popular/Popular";
 import PlaylistAdd from "./components/PlaylistAdd/PlaylistAdd";
 import Transmedia from './components/Transmedia/Transmedia';

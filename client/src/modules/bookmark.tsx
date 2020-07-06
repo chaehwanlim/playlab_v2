@@ -76,9 +76,17 @@ export const bookmarkReducer = (
       const newItem: BookmarkItem = { ...action.payload.item, review: newReview };
       const newPayload = { ...action.payload, item: newItem };
 
-      return {
-        bookmarkItems: [...state.bookmarkItems, newPayload]
-      };
+      //북마크 중복 제거
+      const found = state.bookmarkItems.find(bItemParams => 
+        bItemParams.item.title === action.payload.item.title && 
+        bItemParams.item.creator === action.payload.item.creator
+      );
+
+      if (found === undefined) {
+        return {
+          bookmarkItems: [...state.bookmarkItems, newPayload]
+        };
+      } else return state;
 
     case REMOVE:
       return {

@@ -6,7 +6,6 @@ import Fab from '@material-ui/core/Fab';
 import MusicPopularContainer from '../../containers/MusicPopularContainer';
 import MoviePopularContainer from '../../containers/MoviePopularContainer';
 import BookPopularContainer from '../../containers/BookPopularContainer';
-import BookPopular from './BookPopular'; 
 import Footer from '../footer';
 import '../styles/Content.scss';
 

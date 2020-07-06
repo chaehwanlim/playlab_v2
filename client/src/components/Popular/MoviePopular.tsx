@@ -131,7 +131,9 @@ const MoviePopular: React.SFC<MoviePopularProps> = ({ onAdd }) => {
       <Grid container spacing={4}>
         {movieDB ? 
         filterData(movieDB) : 
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}><CircularProgress /></div>}
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <CircularProgress />
+        </div>}
       </Grid>
     </div>
   )

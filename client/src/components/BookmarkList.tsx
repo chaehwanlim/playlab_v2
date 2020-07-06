@@ -35,8 +35,8 @@ const Bookmark: React.SFC<BookmarkItemProps> = ({ bookmarkItem, onRemove }) => {
 
     if(bookmarkItem.item.review.length !== 0) {
       return (
-        bookmarkItem.item.review.map((categoryName: string) => (
-          <div className="bookmark-item-category">
+        bookmarkItem.item.review.map((categoryName: string, index) => (
+          <div className="bookmark-item-category" key={index}>
             {categoryName} {media}
           </div>
         ))
@@ -74,11 +74,12 @@ const Bookmark: React.SFC<BookmarkItemProps> = ({ bookmarkItem, onRemove }) => {
 };
 
 const BookmarkList: React.SFC<Props> = ({ bookmarkItems, onRemove, onRemoveAll }) => {
-  const bookmarkItemList = bookmarkItems.map(bookmarkItem => 
+  const bookmarkItemList = bookmarkItems.map((bookmarkItem, index) => 
     bookmarkItem ? (
       <Bookmark
         bookmarkItem={bookmarkItem}
         onRemove={onRemove}
+        key={index}
       />
     ) : null);
 
