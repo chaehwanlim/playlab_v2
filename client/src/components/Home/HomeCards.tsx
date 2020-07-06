@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import StarIcon from '@material-ui/icons/StarRounded';
 import AddIcon from '@material-ui/icons/AddRounded';
 import ViewCarousel from '@material-ui/icons/ViewCarousel';
+import { Link } from 'react-router-dom';
 
 const HomeCards: React.FC = () => {
   const menus = [{
@@ -20,10 +21,6 @@ const HomeCards: React.FC = () => {
     icon: <ViewCarousel className="menu-icon"/>
   }];
 
-  const menuClick = (index: number) => {
-    location.assign(menus[index].location);
-  }
-
   return (
     <Container maxWidth="sm">
       <Grid container
@@ -36,10 +33,12 @@ const HomeCards: React.FC = () => {
         {
           menus.map((menu, index) => (
             <Grid item xs={12} md={4}>
-              <div className="menu-card" onClick={() => menuClick(index)} key={index}>
-                {menu.icon}
-                {menu.name}
-              </div>
+              <Link to={menu.location} style={{ textDecoration: 'none' }}>
+                <div className="menu-card" key={index}>
+                  {menu.icon}
+                  {menu.name}
+                </div>
+              </Link>
             </Grid>
           ))
         }
