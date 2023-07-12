@@ -1,15 +1,8 @@
 <h1>PlayLab</h1>
 
-> Link: http://ec2-3-229-211-53.compute-1.amazonaws.com/ <br/>
-
 > A new version of Playlab with TypeScript, Webpack, Babel. <br/>
 > 영화나 음악, 책을 접하고 느낀 내 감정을 다른 사람과 공유할 수 있는 웹 서비스입니다. <br/>
 > 2019년 2학년 2학기 데이터베이스설계 수업의 팀 프로젝트 아이디어를 실제로 구현했습니다.
-
-<h2> 공개 테스트 계정 </h2>
-
-* 아이디 | michael
-* 패스워드 | qwer1234
 
 <img src="https://user-images.githubusercontent.com/60354103/85314861-0c071780-b4f5-11ea-921c-f877cb9e76d5.png" alt="preview1">
 <img src="https://user-images.githubusercontent.com/60354103/85314865-0dd0db00-b4f5-11ea-9e00-a38a74471dc3.png" alt="preview2">
@@ -35,5 +28,5 @@
 <h2> 상태 </h2>
 
 * 기능 테스트 완료(정상 작동)
-
+* 현재 서버는 내린 상태입니다
 
